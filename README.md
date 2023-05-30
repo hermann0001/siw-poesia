@@ -1,3 +1,4 @@
-SIW POESIA 
+# SIW POESIA 
 Progetto Sistemi Informativi su Web
-Partecipanti: Hermann Tamilia, Irene Lontano, Luca Sparapani
+## Partecipanti: 
+*Hermann Tamilia, Irene Lontano, Luca Sparapani*
