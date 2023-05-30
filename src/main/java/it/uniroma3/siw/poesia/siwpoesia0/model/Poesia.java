@@ -11,6 +11,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(uniqueConstraints=@UniqueConstraint(columnNames= {"titolo", "autore_id"}))
@@ -22,19 +26,24 @@ public class Poesia {
 	private Long id;
 	
 	@Column(nullable = false, length = 2000)
+	@NotBlank
+	@Size(max=2000)
 	private String testo;
 	
 	@Column(nullable = false)
+	@NotBlank
 	private String titolo;
 	
 	
 	private String url_foto;
 	
 	@Column(nullable = false)
+	@PastOrPresent
 	private LocalDate data_pubblicazione;
 	
 	//associazioni
 	@ManyToOne
+	@NotNull
 	private Autore autore;
 	//private List<Tag> tags;
 	//private List<Commento> commenti
