@@ -17,7 +17,7 @@ public class AutoreValidator implements Validator{
 	@Override
 	public void validate(Object o, Errors errors) {
 		Autore autore = (Autore)o;
-		if(autore.getUsername() != null && autoreRepository.existsByNome(autore.getUsername())) {
+		if(autore.getUsername() != null && autoreRepository.existsByUsername(autore.getUsername())) {
 			errors.reject("autore.duplicate");
 		}
 	}

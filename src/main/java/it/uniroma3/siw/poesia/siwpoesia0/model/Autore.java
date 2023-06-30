@@ -25,7 +25,7 @@ public class Autore {
 	
 	private String email;
 
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="autore")
 	private List<Commento> commenti;
 	
 	private String descrizione;

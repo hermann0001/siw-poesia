@@ -8,7 +8,7 @@ import it.uniroma3.siw.poesia.siwpoesia0.model.Autore;
 
 public interface AutoreRepository extends CrudRepository<Autore, Long>{
 	
-	public List<Autore> findByNome(String nome);
-	public boolean existsByNome(String nome);
+	public List<Autore> findByUsername(String username);
+	public boolean existsByUsername(String username);
 
 }
