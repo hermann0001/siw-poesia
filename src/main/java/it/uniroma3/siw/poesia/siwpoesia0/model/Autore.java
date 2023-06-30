@@ -21,8 +21,12 @@ public class Autore {
 	//attributi
 	@Column(nullable = false, unique = true)
 	@NotBlank
-	private String nome;
+	private String username;
 	
+	private String email;
+
+	@OneToMany(mappedBy="user")
+	private List<Commento> commenti;
 	
 	private String descrizione;
 	
@@ -39,17 +43,50 @@ public class Autore {
 	}
 	
 	public Autore(String nome, String descrizione, String url_foto) {
-		this.nome = nome;
+		this.username = nome;
 		this.descrizione = descrizione;
 		this.url_foto = url_foto;
 	}
 
-	public String getNome() {
-		return nome;
+	
+	public Long getId() {
+		return id;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public List<Commento> getCommenti() {
+		return commenti;
+	}
+
+	public void setCommenti(List<Commento> commenti) {
+		this.commenti = commenti;
+	}
+
+	public List<Poesia> getPoesie() {
+		return poesie;
+	}
+
+	public void setPoesie(List<Poesia> poesie) {
+		this.poesie = poesie;
 	}
 
 	public String getDescrizione() {
@@ -76,7 +113,7 @@ public class Autore {
 	//hash code e equals su NOME che deve essere unico
 	@Override
 	public int hashCode() {
-		return Objects.hash(nome);
+		return Objects.hash(username);
 	}
 
 	@Override
@@ -88,7 +125,7 @@ public class Autore {
 		if (getClass() != obj.getClass())
 			return false;
 		Autore other = (Autore) obj;
-		return Objects.equals(nome, other.nome);
+		return Objects.equals(username, other.username);
 	}
 	
 	

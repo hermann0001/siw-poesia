@@ -1,6 +1,7 @@
 package it.uniroma3.siw.poesia.siwpoesia0.model;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -9,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
@@ -34,7 +36,6 @@ public class Poesia {
 	@NotBlank
 	private String titolo;
 	
-	
 	private String url_foto;
 	
 	@Column(nullable = false)
@@ -45,8 +46,11 @@ public class Poesia {
 	@ManyToOne
 	@NotNull
 	private Autore autore;
+	
 	//private List<Tag> tags;
-	//private List<Commento> commenti
+	
+	@OneToMany
+	private List<Commento> commenti;
 	
 	public Poesia() {
 	}
