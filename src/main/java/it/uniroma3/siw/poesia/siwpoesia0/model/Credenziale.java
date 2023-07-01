@@ -37,12 +37,12 @@ public class Credenziale {
 		this.id = id;
 	}
 
-	public Autore getUser() {
+	public Autore getAutore() {
 		return autore;
 	}
 
-	public void setUser(Autore user) {
-		this.autore = user;
+	public void setAutore(Autore autore) {
+		this.autore = autore;
 	}
 	
 	public void setUsername(String username) {

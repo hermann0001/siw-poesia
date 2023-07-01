@@ -36,7 +36,7 @@ public class Poesia {
 	@NotBlank
 	private String titolo;
 	
-	private String url_foto;
+	private String foto;
 	
 	@Column(nullable = false)
 	@PastOrPresent
@@ -55,10 +55,10 @@ public class Poesia {
 	public Poesia() {
 	}
 	
-	public Poesia(String testo, String titolo, String url_foto, LocalDate data_pubblicazione) {
+	public Poesia(String testo, String titolo, String foto, LocalDate data_pubblicazione) {
 		this.testo = testo;
 		this.titolo = titolo;
-		this.url_foto = url_foto;
+		this.foto = foto;
 		this.data_pubblicazione = data_pubblicazione;
 	}
 
@@ -78,12 +78,12 @@ public class Poesia {
 		this.titolo = titolo;
 	}
 
-	public String getUrl_foto() {
-		return url_foto;
+	public String getFoto() {
+		return foto;
 	}
 
-	public void setUrl_foto(String url_foto) {
-		this.url_foto = url_foto;
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
 	public LocalDate getData_pubblicazione() {
@@ -121,7 +121,7 @@ public class Poesia {
 
 	@Override
 	public String toString() {
-		return "Poesia [id=" + id + ", testo=" + testo + ", titolo=" + titolo + ", url_foto=" + url_foto
+		return "Poesia [id=" + id + ", testo=" + testo + ", titolo=" + titolo + ", url_foto=" + foto
 				+ ", data_pubblicazione=" + data_pubblicazione + ", autore=" + autore + "]";
 	}
 }
