@@ -35,6 +35,24 @@ public class Commento {
 	@ManyToOne
 	private Poesia poesia;
 
+	
+	
+	public Autore getAutore() {
+		return autore;
+	}
+
+	public void setAutore(Autore autore) {
+		this.autore = autore;
+	}
+
+	public Poesia getPoesia() {
+		return poesia;
+	}
+
+	public void setPoesia(Poesia poesia) {
+		this.poesia = poesia;
+	}
+
 	public Long getId() {
 		return id;
 	}
