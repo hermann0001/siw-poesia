@@ -2,6 +2,10 @@ package it.uniroma3.siw.poesia.siwpoesia0.controller;
 
 import java.io.IOException;
 
+import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.AutoreValidator;
+import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.PoesiaValidator;
+import it.uniroma3.siw.poesia.siwpoesia0.service.PoesiaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
