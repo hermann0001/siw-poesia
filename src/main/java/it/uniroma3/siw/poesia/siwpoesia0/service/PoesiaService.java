@@ -1,18 +1,32 @@
 package it.uniroma3.siw.poesia.siwpoesia0.service;
 
-import it.uniroma3.siw.poesia.siwpoesia0.model.Poesia;
-import org.springframework.stereotype.Service;
+import java.io.IOException;
+import java.util.Base64;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
-@Service
+import it.uniroma3.siw.poesia.siwpoesia0.model.Poesia;
+import it.uniroma3.siw.poesia.siwpoesia0.repository.PoesiaRepository;
+
 public class PoesiaService {
 	
-	public void new_pesia() {
-		
+	@Autowired
+	PoesiaRepository poesiaRepository;
+	
+	public void newPoesia(Poesia poesia, MultipartFile immagine, Model model) {
+		try {
+			String base64Image= Base64.getEncoder().encodeToString(immagine.getBytes());
+			poesia.setFoto(base64Image);
+			this.savePoesia(poesia);
+		} catch(IOException e ) {}
 	}
 
-    public void newPoesia(Poesia poesia, MultipartFile[] file, Model model) {
-        //TODO: implementare
-    }
+	private Poesia savePoesia(Poesia poesia) {
+		return this.poesiaRepository.save(poesia);
+		
+	}
+	
+
 }

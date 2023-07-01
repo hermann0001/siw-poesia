@@ -7,44 +7,55 @@ import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.PoesiaValidator;
 import it.uniroma3.siw.poesia.siwpoesia0.service.PoesiaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.poesia.siwpoesia0.model.Credenziale;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Poesia;
 import it.uniroma3.siw.poesia.siwpoesia0.repository.PoesiaRepository;
+import it.uniroma3.siw.poesia.siwpoesia0.service.CredenzialeService;
+import it.uniroma3.siw.poesia.siwpoesia0.service.PoesiaService;
+import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.PoesiaValidator;
+import jakarta.validation.Valid;
 
 @Controller
 public class PoesiaController {
-	@Autowired
+	
+	@Autowired 
 	PoesiaRepository poesiaRepository;
+	
 	@Autowired
-	private PoesiaValidator poesiaValidator;
+	PoesiaValidator poesiaValidator;
+	
 	@Autowired
-	private PoesiaService poesiaService;
+	PoesiaService poesiaService;
+	
+	@Autowired
+	CredenzialeService credenzialeService;
 
-	@GetMapping(value = "/")
-	public String index(Model model) {
-		return "index.html";
-	}
-
-	@GetMapping(value="/admin/formNewPoesia") 
+	@GetMapping(value="/autore/formNewPoesia") 
 	public String formNewPoesia(Model model) { 
 		model.addAttribute("poesia", new Poesia());
 		return "admin/formNewPoesia.html";
 	}
 	
-	@PostMapping("/admin/poesia") 
-	public String newPoesia(@Valid @ModelAttribute("poesia") Poesia poesia, BindingResult bindingResult, Model model, @RequestParam("file") MultipartFile[] file) throws IOException {
+	@PostMapping("/autore/poesia") 
+	public String newPoesia(@Valid @ModelAttribute("poesia") Poesia poesia, BindingResult bindingResult, Model model, MultipartFile file) throws IOException { 
 		this.poesiaValidator.validate(poesia, bindingResult);
+		UserDetails userDetails =  (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credenziale credentials = credenzialeService.getCredentials(userDetails.getUsername());
+
 		if (!bindingResult.hasErrors()) { 
 			this.poesiaService.newPoesia(poesia, file, model);
-			model.addAttribute("posia", poesia); 
+			model.addAttribute("poesia", poesia); 
+			poesia.setAutore(credentials.getAutore());
 			return "poesia.html";
 		} else { 
 			return "admin/formNewPoesia.html";
