@@ -1,4 +1,4 @@
-package it.uniroma3.siw.authentication;
+package it.uniroma3.siw.poesia.siwpoesia0.authentication;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

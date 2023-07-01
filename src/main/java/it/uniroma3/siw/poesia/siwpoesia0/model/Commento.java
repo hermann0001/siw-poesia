@@ -31,6 +31,9 @@ public class Commento {
 	private Autore autore;
 	
 	private LocalDate data;
+	
+	@ManyToOne
+	private Poesia poesia;
 
 	public Long getId() {
 		return id;

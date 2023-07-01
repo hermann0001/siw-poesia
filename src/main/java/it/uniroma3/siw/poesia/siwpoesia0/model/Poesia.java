@@ -49,7 +49,7 @@ public class Poesia {
 	
 	//private List<Tag> tags;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "poesia")
 	private List<Commento> commenti;
 	
 	public Poesia() {

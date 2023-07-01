@@ -4,12 +4,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.poesia.siwpoesia0.model.Credenziale;
 import it.uniroma3.siw.poesia.siwpoesia0.repository.CredenzialeRepository;
 
-
+@Service
 public class CredenzialeService {
 	@Autowired
 	protected PasswordEncoder passwordEncoder;
@@ -34,5 +35,9 @@ public class CredenzialeService {
 		credentials.setRuolo(Credenziale.DEFAULT_RUOLO);
 		credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
 		return this.credenzialeRepository.save(credentials);
+	}
+	
+	public boolean alreadyExists(Credenziale credentials) {
+		return credentials!=null && this.credenzialeRepository.existsByUsername(credentials.getUsername());
 	}
 }
