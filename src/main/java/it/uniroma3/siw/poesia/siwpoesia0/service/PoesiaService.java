@@ -7,6 +7,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class PoesiaService {
+	
+	public void new_pesia() {
+		
+	}
 
     public void newPoesia(Poesia poesia, MultipartFile[] file, Model model) {
         //TODO: implementare
