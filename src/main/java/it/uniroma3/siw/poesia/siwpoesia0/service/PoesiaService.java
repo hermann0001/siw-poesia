@@ -9,5 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class PoesiaService {
 
     public void newPoesia(Poesia poesia, MultipartFile[] file, Model model) {
+        //TODO: implementare
     }
 }
