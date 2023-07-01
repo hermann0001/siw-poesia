@@ -2,9 +2,14 @@ package it.uniroma3.siw.poesia.siwpoesia0.controller;
 
 import java.io.IOException;
 
+import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.AutoreValidator;
+import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.PoesiaValidator;
+import it.uniroma3.siw.poesia.siwpoesia0.service.PoesiaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,8 +21,13 @@ import it.uniroma3.siw.poesia.siwpoesia0.repository.PoesiaRepository;
 
 @Controller
 public class PoesiaController {
-	@Autowired PoesiaRepository poesiaRepository;
-	
+	@Autowired
+	PoesiaRepository poesiaRepository;
+	@Autowired
+	private PoesiaValidator poesiaValidator;
+	@Autowired
+	private PoesiaService poesiaService;
+
 	@GetMapping(value = "/")
 	public String index(Model model) {
 		return "index.html";
@@ -30,10 +40,10 @@ public class PoesiaController {
 	}
 	
 	@PostMapping("/admin/poesia") 
-	public String newMovie(@Valid @ModelAttribute("poesia") Poesia poesia, BindingResult bindingResult, Model model, @RequestParam("file") MultipartFile[] file) throws IOException { 
+	public String newPoesia(@Valid @ModelAttribute("poesia") Poesia poesia, BindingResult bindingResult, Model model, @RequestParam("file") MultipartFile[] file) throws IOException {
 		this.poesiaValidator.validate(poesia, bindingResult);
 		if (!bindingResult.hasErrors()) { 
-			this.posiaService.newPoesia(poesia, file, model);
+			this.poesiaService.newPoesia(poesia, file, model);
 			model.addAttribute("posia", poesia); 
 			return "poesia.html";
 		} else { 
