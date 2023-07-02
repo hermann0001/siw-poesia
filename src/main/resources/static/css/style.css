@@ -17,7 +17,7 @@ reset css
 html, body{
     background-image: url("../images/sampietrino.jpg");
     font-family: 'Ubuntu', sans-serif;
-    background-repeat: repeat-y;
+    background-repeat: repeat;
 }
 
 body{
@@ -156,7 +156,7 @@ body .page-content{
 }
 
 .page-content .list-group-item a{
-    font-size: 30px;
+    font-size: 26px;
     font-weight: 500;
 }
 
@@ -165,6 +165,18 @@ body .page-content{
     border: none;
     background-color: #202124;
     border-radius: 23px;
+}
+
+.card-body h5{
+    font-size: 36px;
+}
+
+.page-content p em span{
+    color: #e9571c;
+}
+
+.page-content .side-bar{
+    border-left: 3px solid #151619;
 }
 
 footer p{

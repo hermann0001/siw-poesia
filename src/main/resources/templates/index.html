@@ -22,7 +22,7 @@
 <header class="header-area">
 	<div class="container">
 		<div class="row align-items-center flex-row">
-			<div class="col-12">
+			<div class="col-lg-12">
 				<nav class="main-nav">
 					<!-- LOGO -->
 					<a href="/" class="logo">
@@ -35,13 +35,13 @@
 							<a href="/">Home</a>
 						</li>
 						<li>
-							<a href="https://www.amazon.it/Metroromantici-Poeti-Trullo/dp/8894105911/ref=sr_1_1?keywords=metroromantici&qid=1688291634&sprefix=metroroma%2Caps%2C94&sr=8-1">Il nostro Libro</a>
+							<a href="/libro">Il nostro Libro</a>
 						</li>
 						<li>
 							<a href="/chi-siamo">Chi siamo</a>
 						</li>
 						<li>
-							<a href="/metroromanticismo">Street Poetry</a>
+							<a href="/street-poetry">Street Poetry</a>
 						</li>
 						<li>
 							<a href="/contattaci">Contattaci</a>
@@ -68,7 +68,7 @@
 			<div class="page-content">
 				<div class="row">
 					<!-- MAIN CONTENT -->
-					<div class="col-lg-8">
+					<div class="col-md-8">
 						<!-- slideshow degli eventi -->
 						<div id="events-carousel" class="carousel slide latest-events" data-bs-ride="carousel">
 							<h5>Gli ultimi <em>eventi</em></h5>
@@ -93,29 +93,29 @@
 						<!-- cards delle poesie TODO: DA AUTOMATIZZARE PER OGNI POESIA E USANDO LE IMMAGINI GIUSTE -->
 						<div class="latest-poesie mt-5">
 							<h5>Le ultime <em>poesie</em></h5>
-							<div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
-							
-								<div th:if="${ultimePoesie.isEmpty()}" style="color:white">Non ci sono Poesie </div>
-									<li th:each="poesia : ${ultimePoesie}">
-										<div class="col">
-											<div class="card h-100">
-												<img th:src="@{'https://picsum.photos/200/200'}">
-												<div class="card-body">
-													<h5 class="card-title" th:text="${poesia.titolo}">Card title</h5>
-												</div>
-											</div>
+							<div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:if="${!ultimePoesie.isEmpty()}">
+								<div class="col" th:each="poesia : ${ultimePoesie}">
+									<div class="card h-100">
+										<img th:src="@{'https://picsum.photos/200/200'}" class="card-img-top" alt="poesia-img">
+										<div class="card-body">
+											<h5 class="card-title" th:text="${poesia.titolo}">Card title</h5>
+											<p class="card-text text-truncate" th:text="${poesia.testo}">This is a short card.</p>
 										</div>
-									</li>
-								</div>	
-									
+									</div>
+								</div>
+							</div>
+							<div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:unless="${!ultimePoesie.isEmpty()}">
+								<div class="col">
+									<h3 class="text-md-center">Non ci sono poesie...</h3>
+								</div>
 							</div>
 						</div>
-
+					</div>
 					<!-- SIDE BAR -->
-					<div class="col-lg-4">
+					<div class="col-md-4 side-bar">
 						<!-- Socials -->
 						<div class="row">
-							<div class="col-12 d-flex justify-content-center">
+							<div class="col-md-12 d-flex justify-content-center">
 								<a href="https://www.facebook.com/ipoetidertrullo/"><i class="fa-brands fa-facebook px-3"></i></a>
 								<a href="https://twitter.com/PoetiderTrullo"><i class="fa-brands fa-twitter px-3"></i></a>
 								<a href="https://instagram.com/poetidertrullo"><i class="fa-brands fa-instagram px-3"></i></a>
@@ -132,7 +132,7 @@
 						</div>
 						<!-- I POETI -->
 						<div class="row my-4">
-							<div class="col-12">
+							<div class="col-md-12">
 								<h4><em>I POETI DER TRULLO</em></h4>
 								<ul class="list-group list-group-flush mt-2">
 									<li class="list-group-item">
@@ -173,6 +173,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 
 <!-- FOOTER -->
 <footer>
