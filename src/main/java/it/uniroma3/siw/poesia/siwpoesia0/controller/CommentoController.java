@@ -37,6 +37,7 @@ public class CommentoController {
 		model.addAttribute("commento",new Commento());
 		return "registered/commentoToAddToPoesia.html";
 	}
+	
 	@PostMapping("registered/createCommentoToPoesia/{idPoesia}")
 	public String newReviewToMovie(@Valid @ModelAttribute("review") Commento commento, BindingResult bindingResult, @PathVariable("idPoesia") Long idPoesia , Model model) {
 		this.reviewValidator.validate(commento, bindingResult);
@@ -58,6 +59,7 @@ public class CommentoController {
 			return "registered/commentoToAddToPoesia.html";
 		}
 	}
+	
 	@GetMapping("registered/formConfirmDeleteCommento/{idCommento}")
 	public String formConfirmDeleteReview(@PathVariable ("idCommento") Long idCommento, Model model) {
 		Commento commento=this.reviewService.findReviewById(idCommento);
@@ -66,6 +68,7 @@ public class CommentoController {
 		model.addAttribute("commento", commento);
 		return "registered/formConfirmDeleteCommento.html";
 	}
+	
 	@GetMapping("/admin/deleteCommento/{idCommento}")
 	public String deleteReview(@PathVariable ("idCommento") Long idCommento, Model model) {
 		Commento commento=this.reviewService.findReviewById(idCommento);
@@ -78,6 +81,7 @@ public class CommentoController {
 		model.addAttribute("poesia",poesia);
 		return "generic/poesia.html";
 	}
+	
 	@GetMapping("/registered/deleteCommentoRegistered/{idCommento}")
 	public String deleteReviewRegistered(@PathVariable ("idCommento") Long idCommento, Model model) {
 		Commento review=this.reviewService.findReviewById(idCommento);

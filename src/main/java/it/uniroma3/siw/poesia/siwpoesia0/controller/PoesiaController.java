@@ -41,6 +41,11 @@ public class PoesiaController {
 	
 	@Autowired
 	CredenzialeService credenzialeService;
+	
+	@GetMapping("/contattaci")
+	public String contatti(Model model) {
+		return "contatti.html";
+	}
 
 	@GetMapping(value="/autore/formNewPoesia") 
 	public String formNewPoesia(Model model) { 

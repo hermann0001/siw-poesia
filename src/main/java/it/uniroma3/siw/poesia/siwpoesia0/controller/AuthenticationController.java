@@ -17,6 +17,7 @@ import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.CredenzialeValidat
 import it.uniroma3.siw.poesia.siwpoesia0.model.Autore;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Credenziale;
 import it.uniroma3.siw.poesia.siwpoesia0.service.CredenzialeService;
+import it.uniroma3.siw.poesia.siwpoesia0.service.PoesiaService;
 import jakarta.validation.Valid;
 
 
@@ -25,6 +26,9 @@ public class AuthenticationController {
 
 	@Autowired
 	private CredenzialeService credenzialeService;
+	
+	@Autowired
+	private PoesiaService poesiaService;
 	
 	@Autowired
 	private CredenzialeValidator credenzialeValidator;
@@ -44,6 +48,7 @@ public class AuthenticationController {
 	@GetMapping(value = "/")
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("ultimePoesie", this.poesiaService.getUltimePoesie());
 		if (authentication instanceof AnonymousAuthenticationToken) {
 			return "index.html";
 		} else {
@@ -79,11 +84,20 @@ public class AuthenticationController {
         if(!userBindingResult.hasErrors() && ! credentialsBindingResult.hasErrors()) {
             credentials.setAutore(autore);
             credenzialeService.saveCredentials(credentials);
-            model.addAttribute("user", autore);
+            model.addAttribute("autore", autore);
             return "registrationSuccessful";
         }
         return "registerUser";
 		
+	}
+	
+	@GetMapping("/autore/profile") 
+	public String profilo(Model model) {
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credenziale credentials = credenzialeService.getCredentials(userDetails.getUsername());
+		
+		model.addAttribute("credentials", credentials);
+		return "autore/profilo.html";
 	}
 	
 }

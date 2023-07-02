@@ -14,5 +14,6 @@ public interface AutoreRepository extends CrudRepository<Autore, Long>{
 	public boolean existsByUsername(String username);
 	public List<Autore> findAllByCommentiIsContaining(Commento commento);
 	public List<Autore> findAllByPoesieIsContaining(Poesia poesia);
+	
 
 }

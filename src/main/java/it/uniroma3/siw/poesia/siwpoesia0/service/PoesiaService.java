@@ -124,4 +124,10 @@ public class PoesiaService {
 	}
 	
 
+	@Transactional
+	public List<Poesia> getUltimePoesie() {
+		return this.poesiaRepository.findPrimeQuattroPoesie();
+	}
+	
+	
 }

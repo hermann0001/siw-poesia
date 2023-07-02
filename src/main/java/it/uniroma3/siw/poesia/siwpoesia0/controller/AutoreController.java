@@ -22,79 +22,93 @@ import jakarta.validation.Valid;
 @Controller
 public class AutoreController {
 	
-	@Autowired AutoreService artistService;
-	@Autowired AutoreValidator artistValidator;
-	@Autowired PoesiaService movieService;
+	@Autowired AutoreService autoreService;
+	@Autowired AutoreValidator autoreValidator;
+	@Autowired PoesiaService poesiaService;
 	
-	@GetMapping("/generic/autori/{id}")
+	@GetMapping("/autori/{id}")
 	public String getAutore(@PathVariable("id") Long id, Model model) {
-		Autore autore=this.artistService.findAutoreById(id);
+		Autore autore=this.autoreService.findAutoreById(id);
 		if(autore==null)
 			return "autoreError.html";
 		model.addAttribute("autore" , autore);
-		return "generic/autore.html";
+		return "autore.html";
 	}
-	@GetMapping("/admin/formNewAutore")
+	
+	@GetMapping("/autore/formNewAutore")
 	public String formNewAutore(Model model) {
 		model.addAttribute("autore", new Autore());
 		return "/admin/formNewAutore.html";
 	}
-	@PostMapping("/admin/autore")
+	
+	@PostMapping("/autore/autore")
 	public String newAutore(@Valid @ModelAttribute("autore") Autore autore, BindingResult bindingResult,
 			MultipartFile image, Model model) {
-		this.artistValidator.validate(autore, bindingResult);
+		this.autoreValidator.validate(autore, bindingResult);
 		if(!bindingResult.hasErrors()) {
-			this.artistService.createArtist(autore, image);
+			this.autoreService.createArtist(autore, image);
 			model.addAttribute("artist", autore);
-			return "generic/autore.html";
+			return "autore.html";
 		}
 		else {
-			return "admin/formNewArtist.html";
+			return "autore/formNewArtist.html";
 		}
 	}
-	@GetMapping("/admin/formUpdateAutore/{idAutore}")
+	
+	@GetMapping("/autore/formUpdateAutore/{idAutore}")
 	public String formUpdateArtist(@PathVariable("idArtist") Long idAutore, Model model) {
-		Autore autore=this.artistService.findAutoreById(idAutore);
+		Autore autore=this.autoreService.findAutoreById(idAutore);
 		if(autore==null)
-			return "generic/autoreError.html";
+			return "autoreError.html";
 		model.addAttribute("autore",autore);
-		return "admin/formUpdateAutore.html";
+		return "autore/formUpdateAutore.html";
 	}
-	@GetMapping("/admin/formUpdateAutoreData/{idAutore}")
+	
+	@GetMapping("/autore/formUpdateAutoreData/{idAutore}")
 	public String formUpdateArtistData(@PathVariable("idAutore") Long idAutore, Model model) {
-		Autore autore=this.artistService.findAutoreById(idAutore);
+		Autore autore=this.autoreService.findAutoreById(idAutore);
 		if(autore==null)
-			return "generic/autoreError.html";
+			return "autoreError.html";
 		model.addAttribute("autore",autore);
-		return "admin/formUpdateAutoreData.html";
+		return "autore/formUpdateAutoreData.html";
 	}
-	@PostMapping("/admin/updateAutoretData/{idAutore}")
+	
+	@PostMapping("/autore/updateAutoretData/{idAutore}")
 	public String updateArtistData(@PathVariable("idAutore") Long idAutore, 
 			@Valid @ModelAttribute("autore") Autore newAutore, BindingResult bindingResult,
 			MultipartFile image, Model model) {
-		this.artistValidator.validate(newAutore(newAutore, bindingResult, image, model), bindingResult);
+		this.autoreValidator.validate(newAutore(newAutore, bindingResult, image, model), bindingResult);
 		if(!bindingResult.hasErrors()) {
-			model.addAttribute("artist", this.artistService.update(idAutore, newAutore, image));
-			return "admin/formUpdateArtist.html";
+			model.addAttribute("artist", this.autoreService.update(idAutore, newAutore, image));
+			return "autore/formUpdateArtist.html";
 		}
 		else {
-			return "admin/formUpdateArtistData.html";
+			return "autore/formUpdateArtistData.html";
 		}
 	}
-	@GetMapping("/generic/autori")
+	
+	@GetMapping("/autori")
 	public String showAutori(Model model) {
-		model.addAttribute("autori", this.artistService.findAllAutori());
-		return "generic/artists.html";
+		model.addAttribute("autori", this.autoreService.findAllAutori());
+		return "autori.html";
 	}
+	
+	@GetMapping("/poeti")
+	public String showPoeti(Model model) {
+		model.addAttribute("poeti", this.autoreService.findAllPoeti());
+		return "poeti.html";
+	}
+	
+	
 	@GetMapping("/admin/manageAutore")
 	public String managaArtist(Model model) {
-		model.addAttribute("autori", this.artistService.findAllAutori());
+		model.addAttribute("autori", this.autoreService.findAllAutori());
 		return "admin/manageAutore.html";
 	}
 	
 	@GetMapping("/admin/formConfirmDeleteAutore/{idAutore}")
 	public String formConfirmDeleteArtist(@PathVariable ("idAutore") Long idAutore, Model model) {
-		Autore autore=this.artistService.findAutoreById(idAutore);
+		Autore autore=this.autoreService.findAutoreById(idAutore);
 		if(autore==null)
 			return "generic/autoreError.html";
 		model.addAttribute("autore", autore);
@@ -103,13 +117,13 @@ public class AutoreController {
 	@Transactional
 	@GetMapping("/admin/deleteAutore/{idAutore}")
 	public String deleteArtist(@PathVariable ("idAutore") Long idAutore, Model model) {
-		Autore autore=this.artistService.findAutoreById(idAutore);
+		Autore autore=this.autoreService.findAutoreById(idAutore);
 		if(autore==null)
 			return "generic/artistError.html";
 		else {
-			this.movieService.removeAutoreAssociationFromAllPoesie(idAutore);
-			this.artistService.delete(idAutore);
-			model.addAttribute("artists", this.artistService.findAllAutori());
+			this.poesiaService.removeAutoreAssociationFromAllPoesie(idAutore);
+			this.autoreService.delete(idAutore);
+			model.addAttribute("artists", this.autoreService.findAllAutori());
 			return "admin/manageArtist.html";
 		}
 	}

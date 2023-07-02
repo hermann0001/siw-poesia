@@ -21,6 +21,8 @@ import it.uniroma3.siw.poesia.siwpoesia0.repository.CommentoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
+import static it.uniroma3.siw.poesia.siwpoesia0.model.Credenziale.POETA_RUOLO;
+
 @Service
 public class AutoreService {
 	@Autowired private AutoreRepository autoreRepository;
@@ -58,6 +60,14 @@ public class AutoreService {
 
 	public Iterable<Autore> findAllAutori(){
 		return this.autoreRepository.findAll();
+	}
+	
+	public Iterable<Autore> findAllPoeti() {
+		Iterable<Autore> autori = this.autoreRepository.findAll();
+		Iterable<Autore> poeti;
+		for(Autore a : autori) {
+			if(a.ge)
+		}
 	}
 	
 	public Autore findAutoreById(Long idAutore) {
