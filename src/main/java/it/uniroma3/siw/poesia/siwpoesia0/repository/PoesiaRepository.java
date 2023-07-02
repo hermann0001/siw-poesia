@@ -17,7 +17,7 @@ public interface PoesiaRepository extends CrudRepository<Poesia, Long>{
 	public List<Poesia> findAllByCommentiIsContaining(Commento commento);
 	
 	
-	@Query(value="select top(4) from poesia order by data_pubblicazione", nativeQuery=true)
+	@Query(value="select * from poesia order by data_pubblicazione limit 4", nativeQuery=true)
 	public List<Poesia> findPrimeQuattroPoesie();
 
 }
