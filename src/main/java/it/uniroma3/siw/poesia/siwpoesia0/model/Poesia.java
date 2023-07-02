@@ -28,9 +28,8 @@ public class Poesia {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(nullable = false, length = 2000)
+	@Column(nullable = false, columnDefinition = "TEXT")
 	@NotBlank
-	@Size(max=2000)
 	private String testo;
 	
 	@Column(nullable = false)
