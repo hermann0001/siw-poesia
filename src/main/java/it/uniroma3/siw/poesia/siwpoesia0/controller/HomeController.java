@@ -7,15 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-    @GetMapping("/contattaci")
+    @GetMapping(value="/contattaci")
     public String contatti(Model model) {
         return "contatti.html";
     }
 
-    @GetMapping("/chi-siamo")
+    @GetMapping(value="/chi-siamo")
     public String chiSiamo(Model model) {
         return "poeti";
     }
 
+    @GetMapping(value="/libro")
+    public String libro(Model model){ return "libro"; }
 
 }

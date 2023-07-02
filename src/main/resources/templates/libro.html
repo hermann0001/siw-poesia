@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/ico" href="/favicon.ico">
+  <!-- Including Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+  <title>SiwPoesia - Homepage</title>
+
+  <!-- Bootstrap CSS Files -->
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <!-- Custom CSS Files -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <!-- embedding FontAwesome Kit script -->
+  <script src="https://kit.fontawesome.com/132524fe8d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- HEADER / NAV BAR -->
+  <header class="header-area" th:replace="~{fragments/fragments.html :: header}"></header>
+
+  <!-- Content -->
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-content">
+          <div class="row">
+            <!-- MAIN CONTENT -->
+            <div class="col-md-9">
+              <div class="row">
+                <div class="col-6 ratio-1x1">
+                  <img src="/images/libro.jpg" alt="libro"/>
+                </div>
+                <div class="col-6">
+                  <h4 class="text-md-center text-capitalize mb-3"><em>METROROMANTICI</em></h4>
+                  <h6 class="mb-3">
+                    Inumi Laconico, Er Quercia, Er Bestia, Er Farco, Marta der Terzo Lotto e Sara G.: siamo un coro che canta l’amore e la rabbia, l’esperienza e la meraviglia, la provenienza e il viaggio. Le vertigini di un sentimento sul cornicione dell’ultimo piano. Lo scorrere, per le strade romane, di un fiume di versi diretto verso il Tevere, il mare, l’oceano. Siamo un coro che soffia e diffonde, da un piccolo pezzo di mondo chiamato Trullo, quartiere e al tempo stesso luogo della mente, il vento poetico del Metroromanticismo.<br/>
+                    Metroromantici è il nostro primo libro, una raccolta delle nostre poesie, molte scritte in romano, ma anche dei nostri racconti e delle nostre riflessioni. È il nostro viaggio fino ad oggi.<br/>
+                  </h6>
+                  <h4 class="text-md-center text-capitalize my-3"><em>NUOVA EDIZIONE 2019</em></h4>
+                  <h6>
+                    Dopo aver venduto 10.000 copie Metroromantici torna nelle librerie nella primavera del 2019 in una nuova veste e in una edizione aggiornata, ampliata, comprensiva di numerosi nuovi testi scritti dal 2015 ad oggi.
+                  </h6>
+                </div>
+              </div>
+            </div>
+            <!-- SIDE BAR -->
+            <div th:replace="~{fragments/fragments.html :: sidebar}"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer th:replace="~{fragments/fragments.html :: footer}"></footer>
+
+  <!-- Boostrap JS Files -->
+  <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

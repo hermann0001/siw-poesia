@@ -80,12 +80,16 @@ p{
 body .page-content{
     margin-top: 110px;
     background-color: #202124;
-    padding: 60px;
+    padding: 45px;
     border-radius: 23px;
 }
 
 .page-content a{
     font-size: 40px;
+    font-weight: 700;
+}
+.page-content .side-bar a{
+    font-size: 30px;
     font-weight: 700;
 }
 
@@ -98,18 +102,20 @@ body .page-content{
     padding: 60px;
     background-color: #151619;
 }
-.page-content h4,
-.page-content h5{
+.page-content h4{
     font-size: 40px;
     color: #fff;
     font-weight: 700;
 }
 
-.page-content h4 em,
-.page-content h5 em{
+.page-content h4 em{
     font-style: normal;
     color: #e9571c;
     text-transform: uppercase;
+}
+
+.page-content .side-bar h4{
+    font-size: 34px;
 }
 
 .page-content .latest-events img{
@@ -127,7 +133,7 @@ body .page-content{
 
 .page-content .search-bar #search input{
     background-color: #fff;
-    height: 50px;
+    height: 40px;
     border-radius: 23px;
     border: none;
     color: #666;
@@ -139,7 +145,7 @@ body .page-content{
     position: absolute;
     color: #151619;
     left: 20px;
-    top: 16px;
+    top: 11px;
     width: 18px;
     height: 18px;
     font-size: 18px;

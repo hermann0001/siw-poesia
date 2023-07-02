@@ -19,19 +19,19 @@
 </head>
 <body>
 	<!-- HEADER / NAV BAR -->
-	<header class="header-area" th:replace="~{fragments/head-foot.html :: header}"></header>
+	<header class="header-area" th:replace="~{fragments/fragments.html :: header}"></header>
 
 	<!-- Content -->
-	<div class="container mt-5">
+	<div class="container-md mt-5">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="page-content">
 					<div class="row">
 						<!-- MAIN CONTENT -->
-						<div class="col-md-8">
+						<div class="col-md-9">
 							<!-- slideshow degli eventi -->
 							<div id="events-carousel" class="carousel slide latest-events" data-bs-ride="carousel">
-								<h5>Gli ultimi <em>eventi</em></h5>
+								<h4>Gli ultimi <em>eventi</em></h4>
 
 								<a href="https://www.facebook.com/ipoetidertrullo/events">
 									<div class="carousel-inner mt-2">
@@ -50,12 +50,13 @@
 									</div>
 								</a>
 							</div>
-							<!-- cards delle poesie TODO: DA AUTOMATIZZARE PER OGNI POESIA E USANDO LE IMMAGINI GIUSTE -->
+							<!-- cards delle poesie-->
 							<div class="latest-poesie mt-5">
-								<h5>Le ultime <em>poesie</em></h5>
+								<h4>Le ultime <em>poesie</em></h4>
 								<div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:if="${!ultimePoesie.isEmpty()}">
 									<div class="col" th:each="poesia : ${ultimePoesie}">
 										<div class="card h-100">
+											<!-- TODO:IMMAGINI -->
 											<img th:src="@{'https://picsum.photos/200/200'}" class="card-img-top" alt="poesia-img">
 											<div class="card-body">
 												<h5 class="card-title" th:text="${poesia.titolo}">Card title</h5>
@@ -72,63 +73,7 @@
 							</div>
 						</div>
 						<!-- SIDE BAR -->
-						<div class="col-md-4 side-bar">
-							<!-- Socials -->
-							<div class="row">
-								<div class="col-md-12 d-flex justify-content-center">
-									<a href="https://www.facebook.com/ipoetidertrullo/"><i class="fa-brands fa-facebook px-3"></i></a>
-									<a href="https://twitter.com/PoetiderTrullo"><i class="fa-brands fa-twitter px-3"></i></a>
-									<a href="https://instagram.com/poetidertrullo"><i class="fa-brands fa-instagram px-3"></i></a>
-								</div>
-							</div>
-							<!-- SEARCH BAR -->
-							<div class="row my-4">
-								<div class="col-12 d-flex justify-content-center search-bar">
-									<form id="search" action="#">
-										<input type="text" placeholder="Cosa cerchi?" id="searchText">
-										<i class="fa-solid fa-magnifying-glass"></i>
-									</form>
-								</div>
-							</div>
-							<!-- I POETI -->
-							<div class="row my-4">
-								<div class="col-md-12">
-									<h4><em>I POETI DER TRULLO</em></h4>
-									<ul class="list-group list-group-flush mt-2">
-										<li class="list-group-item">
-											<a href="/autori/bestia">Er Bestia</a>
-										</li>
-										<li class="list-group-item">
-											<a href="/autori/quercia">Er Quercia</a>
-										</li>
-										<li class="list-group-item">
-											<a href="/autori/marta">Marta der Terzo Lotto</a>
-										</li>
-										<li class="list-group-item">
-											<a href="/autori/sara">Sara G.</a>
-										</li>
-										<li class="list-group-item">
-											<a href="/autori/farco">Er Farco</a>
-										</li>
-										<li class="list-group-item">
-											<a href="/autori/inumi">Inumi Laconico</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-							<!-- COMMENTI RECENTI -->
-							<div class="row my-4">
-								<div class="col-12">
-									<h5>I <em>commenti</em> PIÙ RECENTI</h5>
-									<!-- TODO: DA AUTOMATIZZARE PER OGNI COMMENTO (th:each) -->
-									<ul class="list-group list-group-flush mt-2">
-										<li class="list-group-item">
-											<a href="#"> <!--th:href="@{'/commenti/' +${commento.id}}" -->Commento</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
+						<div th:replace="~{fragments/fragments.html :: sidebar}"></div>
 					</div>
 				</div>
 			</div>
@@ -136,8 +81,9 @@
 	</div>
 
 	<!-- FOOTER -->
-	<footer th:replace="~{fragments/head-foot.html :: footer}"></footer>
+	<footer th:replace="~{fragments/fragments.html :: footer}"></footer>
 
 	<!-- Boostrap JS Files -->
 	<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+</html>

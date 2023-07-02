@@ -18,7 +18,7 @@
 </head>
 <body>
 <!-- HEADER / NAV BAR -->
-<header class="header-area" th:replace="~{fragments/head-foot.html :: header}"></header>
+<header class="header-area" th:replace="~{fragments/fragments.html :: header}"></header>
 <!-- Content -->
 <div class="container mt-5">
 	<div class="row">
@@ -53,72 +53,16 @@
 								<a th:href="@{/register}" th:text="Registrati">Registrati</a>
 							</div>
 						
-						</div>	
+						</div>
 					<!-- SIDE BAR -->
-					<div class="col-lg-4">
-						<!-- Socials -->
-						<div class="row">
-							<div class="col-12 d-flex justify-content-center">
-								<a href="https://www.facebook.com/ipoetidertrullo/"><i class="fa-brands fa-facebook px-3"></i></a>
-								<a href="https://twitter.com/PoetiderTrullo"><i class="fa-brands fa-twitter px-3"></i></a>
-								<a href="https://instagram.com/poetidertrullo"><i class="fa-brands fa-instagram px-3"></i></a>
-							</div>
-						</div>
-						<!-- SEARCH BAR -->
-						<div class="row my-4">
-							<div class="col-12 d-flex justify-content-center search-bar">
-								<form id="search" action="#">
-									<input type="text" placeholder="Cosa cerchi?" id="searchText">
-									<i class="fa-solid fa-magnifying-glass"></i>
-								</form>
-							</div>
-						</div>
-						<!-- I POETI -->
-						<div class="row my-4">
-							<div class="col-12">
-								<h4><em>I POETI DER TRULLO</em></h4>
-								<ul class="list-group list-group-flush mt-2">
-									<li class="list-group-item">
-										<a href="/autori/bestia">Er Bestia</a>
-									</li>
-									<li class="list-group-item">
-										<a href="/autori/quercia">Er Quercia</a>
-									</li>
-									<li class="list-group-item">
-										<a href="/autori/marta">Marta der Terzo Lotto</a>
-									</li>
-									<li class="list-group-item">
-										<a href="/autori/sara">Sara G.</a>
-									</li>
-									<li class="list-group-item">
-										<a href="/autori/farco">Er Farco</a>
-									</li>
-									<li class="list-group-item">
-										<a href="/autori/inumi">Inumi Laconico</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<!-- COMMENTI RECENTI -->
-						<div class="row my-4">
-							<div class="col-12">
-								<h5>I <em>commenti</em> PIÙ RECENTI</h5>
-								<!-- TODO: DA AUTOMATIZZARE PER OGNI COMMENTO (th:each) -->
-								<ul class="list-group list-group-flush mt-2">
-									<li class="list-group-item">
-										<a href="#"> <!--th:href="@{'/commenti/' +${commento.id}}" -->Commento</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
+					<div th:replace="~{fragments/fragments.html :: sidebar}"></div>
 				</div>
 			</div>
 		</div>
 	</div> <!-- TODO: OCCHIO A QUALCHE DIV CHIUSA MALE -->
 
 <!-- FOOTER -->
-<footer th:replace="~{fragments/head-foot.html :: footer}"></footer>
+<footer th:replace="~{fragments/fragments.html :: footer}"></footer>
 
 <!-- Boostrap JS Files -->
 <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
