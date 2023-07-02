@@ -18,7 +18,7 @@
 </head>
 <body>
 <!-- HEADER / NAV BAR -->
-<header class="header-area" th:replace="fragments/head-foot.html :: header"></header>
+<header class="header-area" th:replace="~{fragments/head-foot.html :: header}"></header>
 <!-- Content -->
 <div class="container mt-5">
 	<div class="row">
@@ -118,7 +118,7 @@
 	</div> <!-- TODO: OCCHIO A QUALCHE DIV CHIUSA MALE -->
 
 <!-- FOOTER -->
-<footer th:replace="fragments/head-foot.html :: footer"></footer>
+<footer th:replace="~{fragments/head-foot.html :: footer}"></footer>
 
 <!-- Boostrap JS Files -->
 <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
