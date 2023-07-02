@@ -72,9 +72,10 @@ public class PoesiaController {
 		model.addAttribute("movies", this.poesiaService.findAllPoesia());
 		return "admin/managePoesie.html";
 	}
+	
 	@Transactional
-	@GetMapping("/admin/formUpdatePoesia/{id}")
-	public String formUpdateMovie(@PathVariable("id") Long id, Model model) {
+	@GetMapping("/autore/formUpdatePoesia/{id}")
+	public String formUpdatePoesia(@PathVariable("id") Long id, Model model) {
 		Poesia poesia= this.poesiaService.findPoesiaById(id);
 		if(poesia!=null) {
 			model.addAttribute("poesia",poesia);
@@ -84,96 +85,116 @@ public class PoesiaController {
 		}
 		return "/admin/formUpdatePoesia.html";
 	}
+	
+	/*SERVE???*/
+	
 	@Transactional
-	@GetMapping("/admin/addAutoreToPoesia/{id}")
-	public String addDirector(@PathVariable("id") Long id, Model model) {
+	@GetMapping("/autore/addAutoreToPoesia/{id}")
+	public String addAutore(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("autori",this.artistService.findAllAutori());
 		Poesia poesia= this.poesiaService.findPoesiaById(id);
-		if(poesia == null)
-			return "generic/poesiaError.html";
-		model.addAttribute("poesia",poesia);
-		return "/admin/autoreToAdd.html";
+		if(poesia != null) {
+			model.addAttribute("poesia",poesia);
+		} else {
+			return "poesiaError.html";   
+		}
+		return "/autore/autoreToAdd.html";
 	}
+	
+	
+	/*PURE QUESTO NON SO SE SERVE*/
+	
 	@Transactional
-	@GetMapping("/admin/setAutoreToMovie/{idAutore}/{idPoesia}")
-	public String setDirectorToMovie(@PathVariable("idAutore") Long idAutore, @PathVariable("idPoesia") Long idPoesia, Model model){
+	@GetMapping("/autore/setAutoreToPoesia/{idAutore}/{idPoesia}")
+	public String setAutoreToPoesia(@PathVariable("idAutore") Long idAutore, @PathVariable("idPoesia") Long idPoesia, Model model){
 		Poesia poesia=this.poesiaService.saveAutoreToPoesia(idPoesia, idAutore);
 		if(poesia!=null) {
 			model.addAttribute("poesia", poesia);
 			model.addAttribute("autore", poesia.getAutore());
-			return "/admin/formUpdatePoesia.html";
+			return "/autore/formUpdatePoesia.html";
 		}
 		else
-			return "generic/poesiaError.html";
-		}
+			return "poesiaError.html";
+	}
 	
 	
-	@GetMapping("/admin/formConfirmDeletePoesia/{idPoesia}")
+	@GetMapping("/autore/formConfirmDeletePoesia/{idPoesia}")
 	public String formConfirmDeletePoesia(@PathVariable("idPoesia") Long idPoesia, Model model) {
 		Poesia poesia=this.poesiaService.findPoesiaById(idPoesia);
 		if(poesia==null)
 			return "generic/poesiaError.html";
 		else {
 			model.addAttribute("poesia", poesia);
-			return "admin/formConfirmDeletePoesia.html";
+			return "autore/formConfirmDeletePoesia.html";
 		}
 	}
+	
+	
 	@Transactional
 	@GetMapping("/admin/deletePoesia/{idPoesia}")
-	public String deleteMovie(@PathVariable("idPoesia") Long idPoesia, Model model) {
+	public String deletePoesia(@PathVariable("idPoesia") Long idPoesia, Model model) {
 		Poesia poesia=this.poesiaService.findPoesiaById(idPoesia);
-		if(poesia==null)
-			return "generic/poesiaError.html";
-		this.artistService.removeMovieAssociationFromAllActor(poesia);
-		this.poesiaService.removeAutoreAssociationFromPoesia(idPoesia);
-		this.reviewService.removePoesiaAssociationFromCommento(poesia);
-		this.poesiaService.delete(idPoesia);
-		model.addAttribute("poesie", this.poesiaService.findAllPoesia());
-		return "admin/managePoesie.html";
+		
+		if(poesia!=null) {    
+			this.artistService.removeMovieAssociationFromAllActor(poesia);
+			this.poesiaService.removeAutoreAssociationFromPoesia(idPoesia);
+			this.reviewService.removePoesiaAssociationFromCommento(poesia);
+			this.poesiaService.delete(idPoesia);
+			model.addAttribute("poesie", this.poesiaService.findAllPoesia());
+			return "autore/managePoesie.html";
+		} else 
+			return "poesiaError.html";
 	}	
 	
-	@GetMapping("/admin/formUpdatePoesiaData/{idPoesia}")
-	public String formUpdateMovieData(@PathVariable("idPoesia") Long idPoesia, Model model) {
+	/*SERVE???*/
+	
+	@GetMapping("/autore/formUpdatePoesiaData/{idPoesia}")
+	public String formUpdatePoesiaData(@PathVariable("idPoesia") Long idPoesia, Model model) {
 		Poesia poesia=this.poesiaService.findPoesiaById(idPoesia);
 		if(poesia==null)
 			return "generic/poesiaError.html";
 		model.addAttribute("poesia",poesia);
-		return "admin/formUpdatePesiaData.html";
+		return "autore/formUpdatePoesiaData.html";
 	}
+	
+	
 	@PostMapping("/admin/updatePoesiaData/{idPoesia}")
-		public String updateMovieData(@PathVariable("idPoesia") Long idPoesia, 
+		public String updatePoesiaData(@PathVariable("idPoesia") Long idPoesia, 
 				@Valid @ModelAttribute("poesia") Poesia newPoesia, BindingResult bindingResult,
 				MultipartFile image, Model model) {
 		this.poesiaValidator.validate(newPoesia, bindingResult);
+		
 		if(!bindingResult.hasErrors()) {
 			model.addAttribute("poesia", this.poesiaService.update(idPoesia, newPoesia, image));
-			return "/admin/formUpdatePoesia.html";
-		}
-		else {
+			return "/autore/formUpdatePoesia.html";
+		} else {
 			model.addAttribute("poesia", this.poesiaService.findPoesiaById(idPoesia));
-		}
-			return "/admin/formUpdatePoesiaData.html";
-		}
+			}
+		return "/autore/formUpdatePoesiaData.html";
+	}
 	
 	
-	@GetMapping("/generic/poesie/{id}")
+	@GetMapping("/poesie/{id}")
 	public String getPoesia(@PathVariable("id") Long id, Model model) {
 		Poesia poesia=this.poesiaService.findPoesiaById(id);
 		if(poesia==null)
-			return "generic/poesiaError.html";
+			return "poesiaError.html";
 		else {
 			model.addAttribute("poesia", poesia);
-			return "generic/poesia.html";
+			return "poesia.html";
 		}
 	}
-	@GetMapping("/generic/poesie")
+	
+	@GetMapping("/poesie")
 	public String showPoesie(Model model) {
 		model.addAttribute("poesie", this.poesiaService.findAllPoesia());
 		return "generic/poesie.html";
 	}
-	@PostMapping("/generic/searchPoesie")
+	
+	@PostMapping("/searchPoesie")
 	public String searchPoesie(Model model, @RequestParam String titolo) {
 		model.addAttribute("poesie", this.poesiaService.findByTitolo(titolo));
-		return "generic/poesie.html";
+		return "poesie.html";
 	}
+	
 }

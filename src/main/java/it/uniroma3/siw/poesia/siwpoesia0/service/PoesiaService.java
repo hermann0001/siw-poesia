@@ -77,15 +77,18 @@ public class PoesiaService {
 		return poesia.getTitolo()!=null && poesia.getData_pubblicazione()!=null
 				&& poesiaRepository.existsByTestoAndAutore(poesia.getTesto(), poesia.getAutore());
 	}
+	
 	public void removeAutoreAssociationFromPoesia(Long idMPoesia) {
 		Poesia poesia=this.poesiaRepository.findById(idMPoesia).get();
 		poesia.setAutore(null);
 		this.poesiaRepository.save(poesia);
 	}
+	
 	public void delete(Long idMPoesia) {
 		Poesia poesia= this.poesiaRepository.findById(idMPoesia).get();
 		this.poesiaRepository.delete(poesia);
 	}
+	
 	@Transactional 
 	public void removeAutoreAssociationFromAllPoesie(Long idaAutore) {
 		Autore autore= this.autoreRepository.findById(idaAutore).get();
@@ -109,6 +112,7 @@ public class PoesiaService {
 		poesia.setTitolo(newPoesia.getTitolo());
 		poesia.setTesto(newPoesia.getTesto());
 		poesia.setData_pubblicazione(newPoesia.getData_pubblicazione());
+		
 		if(!image.isEmpty()) {			
 			try {
 				String base64Image = Base64.getEncoder().encodeToString(image.getBytes());
