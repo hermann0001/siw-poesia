@@ -62,14 +62,6 @@ public class AutoreService {
 		return this.autoreRepository.findAll();
 	}
 	
-	public Iterable<Autore> findAllPoeti() {
-		Iterable<Autore> autori = this.autoreRepository.findAll();
-		Iterable<Autore> poeti;
-		for(Autore a : autori) {
-			if(a.ge)
-		}
-	}
-	
 	public Autore findAutoreById(Long idAutore) {
 		return this.autoreRepository.findById(idAutore).orElse(null);
 	}

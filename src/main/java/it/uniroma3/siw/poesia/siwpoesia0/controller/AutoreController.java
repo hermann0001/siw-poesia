@@ -28,17 +28,15 @@ public class AutoreController {
 	
 	@GetMapping("/autori/{id}")
 	public String getAutore(@PathVariable("id") Long id, Model model) {
-		Autore autore=this.autoreService.findAutoreById(id);
-		if(autore==null)
-			return "autoreError.html";
+		Autore autore = this.autoreService.findAutoreById(id);
 		model.addAttribute("autore" , autore);
-		return "autore.html";
+		return "/autore/autore";
 	}
 	
-	@GetMapping("/autore/formNewAutore")
+	@GetMapping("/admin/formNewAutore")
 	public String formNewAutore(Model model) {
 		model.addAttribute("autore", new Autore());
-		return "/admin/formNewAutore.html";
+		return "/admin/formNewAutore";
 	}
 	
 	@PostMapping("/autore/autore")
@@ -47,28 +45,25 @@ public class AutoreController {
 		this.autoreValidator.validate(autore, bindingResult);
 		if(!bindingResult.hasErrors()) {
 			this.autoreService.createArtist(autore, image);
-			model.addAttribute("artist", autore);
-			return "autore.html";
+			model.addAttribute("autore", autore);
+			return "autore/autore";
 		}
 		else {
-			return "autore/formNewArtist.html";
+			return "admin/formNewAutore";
 		}
 	}
 	
 	@GetMapping("/autore/formUpdateAutore/{idAutore}")
-	public String formUpdateArtist(@PathVariable("idArtist") Long idAutore, Model model) {
+	public String formUpdateAutore(@PathVariable("idAutore") Long idAutore, Model model) {
 		Autore autore=this.autoreService.findAutoreById(idAutore);
-		if(autore==null)
-			return "autoreError.html";
 		model.addAttribute("autore",autore);
-		return "autore/formUpdateAutore.html";
+		return "admin/formUpdateAutore";
 	}
-	
+
+	//TODO: A COSA SERVE QUESTO?
 	@GetMapping("/autore/formUpdateAutoreData/{idAutore}")
 	public String formUpdateArtistData(@PathVariable("idAutore") Long idAutore, Model model) {
 		Autore autore=this.autoreService.findAutoreById(idAutore);
-		if(autore==null)
-			return "autoreError.html";
 		model.addAttribute("autore",autore);
 		return "autore/formUpdateAutoreData.html";
 	}
@@ -90,18 +85,17 @@ public class AutoreController {
 	@GetMapping("/autori")
 	public String showAutori(Model model) {
 		model.addAttribute("autori", this.autoreService.findAllAutori());
-		return "autori.html";
+		return "/autore/autori";
 	}
 	
-	@GetMapping("/poeti")
-	public String showPoeti(Model model) {
-		model.addAttribute("poeti", this.autoreService.findAllPoeti());
-		return "poeti.html";
+	@GetMapping("/chi-siamo")
+	public String chiSiamo(Model model) {
+		return "poeti";
 	}
 	
 	
 	@GetMapping("/admin/manageAutore")
-	public String managaArtist(Model model) {
+	public String manageAutore(Model model) {
 		model.addAttribute("autori", this.autoreService.findAllAutori());
 		return "admin/manageAutore.html";
 	}
@@ -114,6 +108,8 @@ public class AutoreController {
 		model.addAttribute("autore", autore);
 		return "/admin/formConfirmDeleteAutore.html";
 	}
+
+	//TODO: ME PUZZA...
 	@Transactional
 	@GetMapping("/admin/deleteAutore/{idAutore}")
 	public String deleteArtist(@PathVariable ("idAutore") Long idAutore, Model model) {
@@ -127,5 +123,4 @@ public class AutoreController {
 			return "admin/manageArtist.html";
 		}
 	}
-
 }

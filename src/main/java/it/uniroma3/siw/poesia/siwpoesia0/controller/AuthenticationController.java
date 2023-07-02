@@ -42,7 +42,7 @@ public class AuthenticationController {
 	
 	@GetMapping(value = "/login")
 	public String ShowLoginForm(Model model) {
-		return "formLogin.html";
+		return "formLogin";
 	}
 	
 	@GetMapping(value = "/")
@@ -50,15 +50,15 @@ public class AuthenticationController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("ultimePoesie", this.poesiaService.getUltimePoesie());
 		if (authentication instanceof AnonymousAuthenticationToken) {
-			return "index.html";
+			return "index";
 		} else {
 			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Credenziale credentials = credenzialeService.getCredentials(userDetails.getUsername());
 			if (credentials.getRuolo().equals(Credenziale.POETA_RUOLO)) {
-				return "admin/indexAdmin.html";
+				return "admin/indexAdmin";
 			}
 		}
-		return "index.html";
+		return "index";
 	}
 	
 	@GetMapping(value = "/success")
@@ -67,9 +67,9 @@ public class AuthenticationController {
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     	Credenziale credentials = credenzialeService.getCredentials(userDetails.getUsername());
     	if (credentials.getRuolo().equals(Credenziale.POETA_RUOLO)) {
-            return "admin/indexAdmin.html";
+            return "admin/indexAdmin";
         }
-        return "index.html";
+        return "index";
 	}
 	
 	@PostMapping(value = {"/register"})
@@ -87,7 +87,7 @@ public class AuthenticationController {
             model.addAttribute("autore", autore);
             return "registrationSuccessful";
         }
-        return "registerUser";
+        return "formRegisterUser";
 		
 	}
 	
@@ -97,7 +97,7 @@ public class AuthenticationController {
 		Credenziale credentials = credenzialeService.getCredentials(userDetails.getUsername());
 		
 		model.addAttribute("credentials", credentials);
-		return "autore/profilo.html";
+		return "profilo";
 	}
 	
 }

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/ico" href="/favicon.ico">
+  <!-- Including Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+  <title>SiwPoesia - Homepage</title>
+
+  <!-- Bootstrap CSS Files -->
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <!-- Custom CSS Files -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <!-- embedding FontAwesome Kit script -->
+  <script src="https://kit.fontawesome.com/132524fe8d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<!-- HEADER / NAV BAR -->
+<header class="header-area">
+  <div class="container">
+    <div class="row align-items-center flex-row">
+      <div class="col-12">
+        <nav class="main-nav">
+          <!-- LOGO -->
+          <a href="/" class="logo">
+            <img src="/images/logo3.jpg" alt="logo"/>
+          </a>
+
+          <!-- menu bar -->
+          <ul class="nav">
+            <li>
+              <a href="/">Home</a>
+            </li>
+            <li>
+              <a href="https://www.amazon.it/Metroromantici-Poeti-Trullo/dp/8894105911/ref=sr_1_1?keywords=metroromantici&qid=1688291634&sprefix=metroroma%2Caps%2C94&sr=8-1">Il nostro Libro</a>
+            </li>
+            <li>
+              <a href="/poeti">Chi siamo</a>
+            </li>
+            <li>
+              <a href="/metroromanticismo">Street Poetry</a>
+            </li>
+            <li>
+              <a href="/contattaci">Contattaci</a>
+            </li>
+            <li th:if="${user == null}">
+              <a href="/login">
+                Login <i class="fa-solid fa-user"></i>
+              </a>
+            </li>
+            <li th:unless="${user == null}">
+              <a href="/autore/profile">Profilo</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Content -->
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="page-content">
+        <div class="row">
+          <div class="col-lg-8">
+            <h2>CHI SIAMO</h2>
+            <img class="mt-4" src="/images/logo4.jpg" alt="logo">
+
+
+          </div>
+
+          <div class="col-lg-4">
+            <!-- Socials -->
+            <div class="row">
+              <div class="col-12 d-flex justify-content-center">
+                <a href="https://www.facebook.com/ipoetidertrullo/"><i class="fa-brands fa-facebook px-3"></i></a>
+                <a href="https://twitter.com/PoetiderTrullo"><i class="fa-brands fa-twitter px-3"></i></a>
+                <a href="https://instagram.com/poetidertrullo"><i class="fa-brands fa-instagram px-3"></i></a>
+              </div>
+            </div>
+            <!-- SEARCH BAR -->
+            <div class="row my-4">
+              <div class="col-12 d-flex justify-content-center search-bar">
+                <form id="search" action="#">
+                  <input type="text" placeholder="Cosa cerchi?" id="searchText">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </form>
+              </div>
+            </div>
+            <!-- I POETI -->
+            <div class="row my-4">
+              <div class="col-12">
+                <h4><em>I POETI DER TRULLO</em></h4>
+                <ul class="list-group list-group-flush mt-2">
+                  <li class="list-group-item">
+                    <a href="/autori/bestia">Er Bestia</a>
+                  </li>
+                  <li class="list-group-item">
+                    <a href="/autori/quercia">Er Quercia</a>
+                  </li>
+                  <li class="list-group-item">
+                    <a href="/autori/marta">Marta der Terzo Lotto</a>
+                  </li>
+                  <li class="list-group-item">
+                    <a href="/autori/sara">Sara G.</a>
+                  </li>
+                  <li class="list-group-item">
+                    <a href="/autori/farco">Er Farco</a>
+                  </li>
+                  <li class="list-group-item">
+                    <a href="/autori/inumi">Inumi Laconico</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- COMMENTI RECENTI -->
+            <div class="row my-4">
+              <div class="col-12">
+                <h5>I <em>commenti</em> PIÙ RECENTI</h5>
+                <!-- TODO: DA AUTOMATIZZARE PER OGNI COMMENTO (th:each) -->
+                <ul class="list-group list-group-flush mt-2">
+                  <li class="list-group-item">
+                    <a href="#"> <!--th:href="@{'/commenti/' +${commento.id}}" -->Commento</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container p-4">
+    <div class="row">
+      <div class="col-lg-12">
+        <p>
+          Copyright © 2020 Poeti der Trullo | Tutti i diritti sono riservati
+          <a href="https://www.facebook.com/ipoetidertrullo/"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://www.instagram.com/poetidertrullo/"><i class="fa-brands fa-instagram"></i></a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- Boostrap JS Files -->
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
