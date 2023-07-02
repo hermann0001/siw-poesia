@@ -73,21 +73,21 @@ public class AuthenticationController {
 	}
 	
 	@PostMapping(value = {"/register"})
-	public String registerUser(@Valid @ModelAttribute("user") Autore autore,
+	public String registerUser(@Valid @ModelAttribute("autore") Autore autore,
 			BindingResult userBindingResult, @Valid
-            @ModelAttribute("credentials") Credenziale credentials,
+            @ModelAttribute("credenziali") Credenziale credenziali,
             BindingResult credentialsBindingResult,
             Model model) {
 		
-		this.credenzialeValidator.validate(credentials, credentialsBindingResult); 
+		this.credenzialeValidator.validate(credenziali, credentialsBindingResult); 
 		// se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
         if(!userBindingResult.hasErrors() && ! credentialsBindingResult.hasErrors()) {
-            credentials.setAutore(autore);
-            credenzialeService.saveCredentials(credentials);
+        	credenziali.setAutore(autore);
+            credenzialeService.saveCredentials(credenziali);
             model.addAttribute("autore", autore);
             return "registrationSuccessful";
         }
-        return "formRegisterUser";
+        return "formRegisterAutore";
 		
 	}
 	
