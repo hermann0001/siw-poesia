@@ -1,10 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" type="image/ico" href="/favicon.ico">
+	<!-- Including Google Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+	<title>SiwPoesia - Homepage</title>
+
+	<!-- Bootstrap CSS Files -->
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	<!-- Custom CSS Files -->
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/header.css">
+	<!-- embedding FontAwesome Kit script -->
+	<script src="https://kit.fontawesome.com/132524fe8d.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<!-- HEADER / NAV BAR -->
+<header class="header-area" th:replace="~{fragments/fragments.html :: header}"></header>
+<!-- Content -->
+<div class="container mt-5">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="page-content">
+				<div class="row">
+					<!-- MAIN CONTENT -->
+					<div class="col-lg-8">
+						<!-- slideshow degli eventi -->
+						<div id="events-carousel" class="carousel slide latest-events" data-bs-ride="carousel">
+						
+							<h5>Registrazione</h5>
+							<form th:action="@{/register}" method="POST">
+								<div>
+									<h1>Username: </h1>
+									<span>
+										<input type="text" placeholder="username" required th:field="${credenziali.username}" />
+									</span>
+									<span th:if="${#fields.hasErrors('credenziali.username')}" th:errors="${credenziali.username}"
+										th:style="'color:red'">
+									</span>
+								</div>
+								<div>
+									<h1>Password: </h1>
+									<span><input type="password" placeholder="password" required th:field="${credenziali.password}" />
+									</span>
+									<span th:if="${#fields.hasErrors('credenziali.password')}" th:errors="${credenziali.password}"
+										th:style="'color:red'">
+									</span>
+								</div>
+								<div>
+									<h1>Email: </h1>
+									<span><input type="text" placeholder="email" required th:field="${autore.email}" /></span>
+									<span th:if="${#fields.hasErrors('autore.email')}" th:errors="${autore.email}" th:style="'color:red'">
+									</span>
+								</div>
+								//l'immagine???
+								<div>
+									<button type="submit">Registra</button>
+								</div>
+							</form>
+						
+						</div>
+					<!-- SIDE BAR -->
+					<div th:replace="~{fragments/fragments.html :: sidebar}"></div>
+				</div>
+			</div>
+		</div>
+	</div> <!-- TODO: OCCHIO A QUALCHE DIV CHIUSA MALE -->
+
+<!-- FOOTER -->
+<footer th:replace="~{fragments/fragments.html :: footer}"></footer>
+
+<!-- Boostrap JS Files -->
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
-</html>
+						
