@@ -4,12 +4,13 @@ package it.uniroma3.siw.poesia.siwpoesia0.service;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import it.uniroma3.siw.poesia.siwpoesia0.model.Autore;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Commento;
@@ -55,7 +56,7 @@ public class AutoreService {
 	}
 	/*--------------------------------------------------------------------------------------------*/
 
-	public Iterable<Autore> findAllArtist(){
+	public Iterable<Autore> findAllAutori(){
 		return this.autoreRepository.findAll();
 	}
 	
@@ -94,5 +95,14 @@ public class AutoreService {
 		}
 		this.autoreRepository.save(autore);
 		return autore;
+	}
+	
+	@Transactional
+	public void removeMovieAssociationFromAllActor(Poesia poesia) {
+		List<Autore> autore=this.autoreRepository.findAllByPoesieIsContaining(poesia);
+		for(Autore actor:autore) {
+			actor.getPoesie().remove(poesia);
+			this.autoreRepository.save(actor);
+		}
 	}
 }

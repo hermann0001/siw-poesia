@@ -77,7 +77,7 @@ public class PoesiaService {
 		return poesia.getTitolo()!=null && poesia.getData_pubblicazione()!=null
 				&& poesiaRepository.existsByTestoAndAutore(poesia.getTesto(), poesia.getAutore());
 	}
-	public void removeAutoreAssociationFromAllPoesia(Long idMPoesia) {
+	public void removeAutoreAssociationFromPoesia(Long idMPoesia) {
 		Poesia poesia=this.poesiaRepository.findById(idMPoesia).get();
 		poesia.setAutore(null);
 		this.poesiaRepository.save(poesia);
