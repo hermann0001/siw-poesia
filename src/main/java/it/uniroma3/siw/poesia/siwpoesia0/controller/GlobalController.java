@@ -5,7 +5,9 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import it.uniroma3.siw.poesia.siwpoesia0.model.Credenziale;
@@ -41,7 +43,4 @@ public class GlobalController {
         }
         return credenziali;
 	}
-	
-	
-	
 }

@@ -1,6 +1,5 @@
 package it.uniroma3.siw.poesia.siwpoesia0.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,13 +17,15 @@ import it.uniroma3.siw.poesia.siwpoesia0.service.AutoreService;
 import it.uniroma3.siw.poesia.siwpoesia0.service.PoesiaService;
 import jakarta.validation.Valid;
 
-
 @Controller
 public class AutoreController {
 	
-	@Autowired AutoreService autoreService;
-	@Autowired AutoreValidator autoreValidator;
-	@Autowired PoesiaService poesiaService;
+	@Autowired
+	AutoreService autoreService;
+	@Autowired
+	AutoreValidator autoreValidator;
+	@Autowired
+	PoesiaService poesiaService;
 	
 	@GetMapping("/autori/{id}")
 	public String getAutore(@PathVariable("id") Long id, Model model) {
@@ -87,12 +88,6 @@ public class AutoreController {
 		model.addAttribute("autori", this.autoreService.findAllAutori());
 		return "/autore/autori";
 	}
-	
-	@GetMapping("/chi-siamo")
-	public String chiSiamo(Model model) {
-		return "poeti";
-	}
-	
 	
 	@GetMapping("/admin/manageAutore")
 	public String manageAutore(Model model) {

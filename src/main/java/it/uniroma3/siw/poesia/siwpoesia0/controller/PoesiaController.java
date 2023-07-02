@@ -32,20 +32,16 @@ public class PoesiaController {
 	
 	@Autowired 
 	PoesiaRepository poesiaRepository;
-	
 	@Autowired
 	PoesiaValidator poesiaValidator;
-	
 	@Autowired
 	PoesiaService poesiaService;
-	
 	@Autowired
 	CredenzialeService credenzialeService;
-	
-	@GetMapping("/contattaci")
-	public String contatti(Model model) {
-		return "contatti.html";
-	}
+	@Autowired
+	AutoreService artistService;
+	@Autowired
+	CommentoService reviewService;
 
 	@GetMapping(value="/autore/formNewPoesia") 
 	public String formNewPoesia(Model model) { 
@@ -68,9 +64,6 @@ public class PoesiaController {
 			return "admin/formNewPoesia.html";
 		}
 	}
-	
-	@Autowired AutoreService artistService;
-	@Autowired CommentoService reviewService;
 	
 	@GetMapping("/admin/managePoesie")
 	public String managePoesie(Model model) {
