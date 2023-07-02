@@ -93,42 +93,21 @@
 						<div class="latest-poesie mt-5">
 							<h5>Le ultime <em>poesie</em></h5>
 							<div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
-								<div class="col">
-									<div class="card h-100">
-										<img src="https://picsum.photos/200/200" class="card-img-top" alt="...">
-										<div class="card-body">
-											<h5 class="card-title">Card title</h5>
-											<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+							
+								<div th:if="${ultimePoesie.isEmpty()}" style="color:white">Non ci sono Poesie </div>
+									<li th:each="poesia : ${ultimePoesie}">
+										<div class="col">
+											<div class="card h-100">
+												<img th:src="@{'data:image;base64,' + ${poesia.foto}}">
+												<div class="card-body">
+													<h5 class="card-title" th:text="${poesia.titolo}">Card title</h5>
+													<p class="card-text" th:text="${poesia.testo}">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+												</div>
+											</div>
 										</div>
-									</div>
-								</div>
-								<div class="col">
-									<div class="card h-100">
-										<img src="https://picsum.photos/200/200" class="card-img-top" alt="...">
-										<div class="card-body">
-											<h5 class="card-title">Card title</h5>
-											<p class="card-text">This is a short card.</p>
-										</div>
-									</div>
-								</div>
-								<div class="col">
-									<div class="card h-100">
-										<img src="https://picsum.photos/200/200" class="card-img-top" alt="...">
-										<div class="card-body">
-											<h5 class="card-title">Card title</h5>
-											<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-										</div>
-									</div>
-								</div>
-								<div class="col">
-									<div class="card h-100">
-										<img src="https://picsum.photos/200/200" class="card-img-top" alt="...">
-										<div class="card-body">
-											<h5 class="card-title">Card title</h5>
-											<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-										</div>
-									</div>
-								</div>
+									</li>
+								</div>	
+									
 							</div>
 						</div>
 					</div>
