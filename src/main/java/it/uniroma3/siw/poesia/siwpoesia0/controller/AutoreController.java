@@ -112,7 +112,7 @@ public class AutoreController {
 	//TODO: ME PUZZA...
 	@Transactional
 	@GetMapping("/admin/deleteAutore/{idAutore}")
-	public String deleteArtist(@PathVariable ("idAutore") Long idAutore, Model model) {
+	public String deleteAutore(@PathVariable ("idAutore") Long idAutore, Model model) {
 		Autore autore=this.autoreService.findAutoreById(idAutore);
 		if(autore==null)
 			return "generic/artistError.html";

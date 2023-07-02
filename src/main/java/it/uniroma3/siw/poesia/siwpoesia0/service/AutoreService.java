@@ -87,7 +87,6 @@ public class AutoreService {
 	public Autore update(Long idAutore, Autore newAutore, MultipartFile image) {
 		Autore autore= this.autoreRepository.findById(idAutore).get();
 		autore.setUsername(newAutore.getUsername());
-		autore.setDescrizione(newAutore.getDescrizione());
 		autore.setEmail(newAutore.getEmail());
 		if(!image.isEmpty()) {
 			try {

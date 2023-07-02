@@ -25,26 +25,23 @@ public class Autore {
 	
 	private String email;
 
-	@OneToMany(mappedBy="autore")
-	private List<Commento> commenti;
-	
-	private String descrizione;
-	
-	
+
 	private String url_foto;
 	
 	//associazioni
 	@OneToMany(mappedBy = "autore")
 	private List<Poesia> poesie;
+
+	@OneToMany(mappedBy="autore")
+	private List<Commento> commenti;
 	//Poeta ?
 	//Utente ?
 	
 	public Autore() {
 	}
 	
-	public Autore(String nome, String descrizione, String url_foto) {
+	public Autore(String nome, String url_foto) {
 		this.username = nome;
-		this.descrizione = descrizione;
 		this.url_foto = url_foto;
 	}
 
@@ -87,14 +84,6 @@ public class Autore {
 
 	public void setPoesie(List<Poesia> poesie) {
 		this.poesie = poesie;
-	}
-
-	public String getDescrizione() {
-		return descrizione;
-	}
-
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
 	}
 
 	public String getUrl_foto() {
