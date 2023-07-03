@@ -1,6 +1,7 @@
 package it.uniroma3.siw.poesia.siwpoesia0.controller;
 
 
+import it.uniroma3.siw.poesia.siwpoesia0.service.AutoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,7 +27,8 @@ public class AuthenticationController {
 
 	@Autowired
 	private CredenzialeService credenzialeService;
-	
+	@Autowired
+	private AutoreService autoreService;
 	@Autowired
 	private PoesiaService poesiaService;
 	
@@ -74,14 +76,15 @@ public class AuthenticationController {
 	
 	@PostMapping(value = {"/register"})
 	public String registerUser(@Valid @ModelAttribute("autore") Autore autore,
-			BindingResult userBindingResult, @Valid
-            @ModelAttribute("credenziali") Credenziale credenziali,
+			BindingResult autoreBindingResult, @Valid @ModelAttribute("credenziali") Credenziale credenziali,
             BindingResult credentialsBindingResult,
             Model model) {
 		
-		this.credenzialeValidator.validate(credenziali, credentialsBindingResult); 
-		// se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
-        if(!userBindingResult.hasErrors() && ! credentialsBindingResult.hasErrors()) {
+		this.credenzialeValidator.validate(credenziali, credentialsBindingResult);
+		System.out.println(credenziali);
+		// se autore e  credenziali hanno entrambi contenuti validi, memorizza Autore e Credenziale nel DB
+        if(!autoreBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
+			autoreService.saveAutore(autore);
         	credenziali.setAutore(autore);
             credenzialeService.saveCredentials(credenziali);
             model.addAttribute("autore", autore);

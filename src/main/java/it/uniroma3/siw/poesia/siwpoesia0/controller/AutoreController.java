@@ -68,8 +68,9 @@ public class AutoreController {
 		model.addAttribute("autore",autore);
 		return "autore/formUpdateAutoreData.html";
 	}
-	
-	@PostMapping("/autore/updateAutoretData/{idAutore}")
+
+	//TODO: BOH?
+	/*@PostMapping("/autore/updateAutoretData/{idAutore}")
 	public String updateArtistData(@PathVariable("idAutore") Long idAutore, 
 			@Valid @ModelAttribute("autore") Autore newAutore, BindingResult bindingResult,
 			MultipartFile image, Model model) {
@@ -81,7 +82,7 @@ public class AutoreController {
 		else {
 			return "autore/formUpdateArtistData.html";
 		}
-	}
+	}*/
 	
 	@GetMapping("/autori")
 	public String showAutori(Model model) {

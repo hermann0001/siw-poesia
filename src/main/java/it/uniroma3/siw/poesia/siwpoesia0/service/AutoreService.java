@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 
+import it.uniroma3.siw.poesia.siwpoesia0.repository.AutoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,12 +17,9 @@ import it.uniroma3.siw.poesia.siwpoesia0.model.Autore;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Commento;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Credenziale;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Poesia;
-import it.uniroma3.siw.poesia.siwpoesia0.repository.AutoreRepository;
 import it.uniroma3.siw.poesia.siwpoesia0.repository.CommentoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-
-import static it.uniroma3.siw.poesia.siwpoesia0.model.Credenziale.POETA_RUOLO;
 
 @Service
 public class AutoreService {
@@ -37,7 +35,7 @@ public class AutoreService {
 	
 	public void addCommento(Autore user, Commento commento) {
 		user.getCommenti().add(commento);
-		this.autoreRepository.save(user);		
+		this.autoreRepository.save(user);
 	}
 	public Autore getCurrentUser() {
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -72,7 +70,7 @@ public class AutoreService {
 	}
 
 	public void saveArtist(@Valid Autore autore) {
-		this.autoreRepository.save(autore);		
+		this.autoreRepository.save(autore);
 	}
 	
 	@Transactional
@@ -83,8 +81,8 @@ public class AutoreService {
 			this.saveArtist(autore);
 			} catch(IOException e) {}
 	}
-
-	public Autore update(Long idAutore, Autore newAutore, MultipartFile image) {
+	//TODO: BOH?
+	/*public Autore update(Long idAutore, Autore newAutore, MultipartFile image) {
 		Autore autore= this.autoreRepository.findById(idAutore).get();
 		autore.setUsername(newAutore.getUsername());
 		autore.setEmail(newAutore.getEmail());
@@ -96,7 +94,7 @@ public class AutoreService {
 		}
 		this.autoreRepository.save(autore);
 		return autore;
-	}
+	}*/
 	
 	@Transactional
 	public void removeMovieAssociationFromAllActor(Poesia poesia) {
@@ -105,5 +103,9 @@ public class AutoreService {
 			actor.getPoesie().remove(poesia);
 			this.autoreRepository.save(actor);
 		}
+	}
+
+	public boolean alreadyExists(Autore autore){
+		return autore.getEmail() != null && this.autoreRepository.existsByEmail(autore.getEmail());
 	}
 }
