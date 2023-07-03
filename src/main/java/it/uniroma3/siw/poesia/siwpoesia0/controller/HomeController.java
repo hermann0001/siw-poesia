@@ -22,6 +22,10 @@ public class HomeController {
     	return "libro"; 
     }
     
+    @GetMapping(value="/autore/bestia")
+    public String poetaBestia(Model model) {
+    	return "autore/bestia";
+    }
     
 
 }
