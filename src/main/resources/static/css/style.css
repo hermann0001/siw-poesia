@@ -166,6 +166,10 @@ body .page-content{
     font-weight: 500;
 }
 
+.page-content .logo-rounded{
+    border-radius: 30px;
+}
+
 
 .card {
     border: none;

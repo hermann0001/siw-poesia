@@ -1,10 +1,12 @@
 package it.uniroma3.siw.poesia.siwpoesia0.model;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Autore {
@@ -13,10 +15,12 @@ public class Autore {
 	private Long id;
 	
 	//attributi
+	@NotBlank
 	private String nome;
+	@NotBlank
 	private String cognome;
 	@Column(nullable = false, unique = true)
-	@NotBlank
+	@NotNull
 	private String email;
 
 	private String url_foto;
@@ -36,6 +40,8 @@ public class Autore {
 		this.cognome = cognome;
 		this.email = email;
 		this.url_foto = url_foto;
+		this.commenti = new LinkedList<>();
+		this.poesie = new LinkedList<>();
 	}
 
 	public Long getId() {

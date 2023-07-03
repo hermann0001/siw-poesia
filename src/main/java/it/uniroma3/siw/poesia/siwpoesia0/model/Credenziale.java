@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Credenziale {
@@ -18,7 +19,9 @@ public class Credenziale {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+	@NotNull
 	private String username;
+	@NotNull
 	private String password;
 	private String ruolo;
 

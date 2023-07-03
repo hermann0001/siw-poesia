@@ -79,9 +79,8 @@ public class AuthenticationController {
 			BindingResult autoreBindingResult, @Valid @ModelAttribute("credenziali") Credenziale credenziali,
             BindingResult credentialsBindingResult,
             Model model) {
-		
+
 		this.credenzialeValidator.validate(credenziali, credentialsBindingResult);
-		System.out.println(credenziali);
 		// se autore e  credenziali hanno entrambi contenuti validi, memorizza Autore e Credenziale nel DB
         if(!autoreBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
 			autoreService.saveAutore(autore);
