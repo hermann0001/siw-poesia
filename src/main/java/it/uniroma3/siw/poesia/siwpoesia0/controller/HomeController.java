@@ -18,6 +18,10 @@ public class HomeController {
     }
 
     @GetMapping(value="/libro")
-    public String libro(Model model){ return "libro"; }
+    public String libro(Model model){ 
+    	return "libro"; 
+    }
+    
+    
 
 }
