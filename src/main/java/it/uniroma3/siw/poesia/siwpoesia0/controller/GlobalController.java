@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import it.uniroma3.siw.poesia.siwpoesia0.model.Credenziale;
+import it.uniroma3.siw.poesia.siwpoesia0.model.Credentials;
 import it.uniroma3.siw.poesia.siwpoesia0.service.CredenzialeService;
 
 
@@ -36,7 +36,7 @@ public class GlobalController {
 	}
 
 	@ModelAttribute("credentials")
-	public Credenziale getCredentials(){
+	public Credentials getCredentials(){
 		try{
 			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			return credentialsService.getCredentials(userDetails.getUsername());

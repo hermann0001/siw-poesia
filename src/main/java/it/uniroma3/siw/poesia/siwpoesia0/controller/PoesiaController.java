@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import it.uniroma3.siw.poesia.siwpoesia0.model.Credenziale;
+import it.uniroma3.siw.poesia.siwpoesia0.model.Credentials;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Poesia;
 import it.uniroma3.siw.poesia.siwpoesia0.repository.PoesiaRepository;
 import it.uniroma3.siw.poesia.siwpoesia0.service.AutoreService;
@@ -53,7 +53,7 @@ public class PoesiaController {
 	public String newPoesia(@Valid @ModelAttribute("poesia") Poesia poesia, BindingResult bindingResult, Model model, MultipartFile file) throws IOException { 
 		this.poesiaValidator.validate(poesia, bindingResult);
 		UserDetails userDetails =  (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Credenziale credentials = credenzialeService.getCredentials(userDetails.getUsername());
+		Credentials credentials = credenzialeService.getCredentials(userDetails.getUsername());
 
 		if (!bindingResult.hasErrors()) { 
 			this.poesiaService.newPoesia(poesia, file, model);
