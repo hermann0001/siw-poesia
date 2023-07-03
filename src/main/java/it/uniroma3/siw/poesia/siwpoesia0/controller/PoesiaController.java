@@ -24,18 +24,17 @@ import it.uniroma3.siw.poesia.siwpoesia0.repository.PoesiaRepository;
 import it.uniroma3.siw.poesia.siwpoesia0.service.AutoreService;
 import it.uniroma3.siw.poesia.siwpoesia0.service.CommentoService;
 import it.uniroma3.siw.poesia.siwpoesia0.service.CredenzialeService;
-import it.uniroma3.siw.poesia.siwpoesia0.service.PoesiaService;
 import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.PoesiaValidator;
 
 @Controller
 public class PoesiaController {
 	
-	@Autowired 
+	@Autowired
 	PoesiaRepository poesiaRepository;
 	@Autowired
 	PoesiaValidator poesiaValidator;
 	@Autowired
-	PoesiaService poesiaService;
+	it.uniroma3.siw.poesia.siwpoesia0.service.PoesiaService poesiaService;
 	@Autowired
 	CredenzialeService credenzialeService;
 	@Autowired
@@ -46,29 +45,32 @@ public class PoesiaController {
 	@GetMapping(value="/autore/formNewPoesia") 
 	public String formNewPoesia(Model model) { 
 		model.addAttribute("poesia", new Poesia());
-		return "admin/formNewPoesia.html";
+		return "autore/formNewPoesia.html";
 	}
 	
-	@PostMapping("/autore/poesia") 
-	public String newPoesia(@Valid @ModelAttribute("poesia") Poesia poesia, BindingResult bindingResult, Model model, MultipartFile file) throws IOException { 
-		this.poesiaValidator.validate(poesia, bindingResult);
+	@PostMapping("/autore/poesia")
+	public String newPoesia(@Valid @ModelAttribute("poesia") Poesia poesia, BindingResult bindingResult, Model model, MultipartFile file) throws IOException {
 		UserDetails userDetails =  (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Credentials credentials = credenzialeService.getCredentials(userDetails.getUsername());
+		poesia.setAutore(credentials.getAutore());
+		this.poesiaValidator.validate(poesia, bindingResult);
 
-		if (!bindingResult.hasErrors()) { 
-			this.poesiaService.newPoesia(poesia, file, model);
-			model.addAttribute("poesia", poesia); 
-			poesia.setAutore(credentials.getAutore());
-			return "poesia.html";
+		System.out.println(bindingResult.getAllErrors().toString());
+
+		if (!bindingResult.hasErrors()) {
+			System.out.println(poesia);
+			this.poesiaService.savePoesia(poesia);
+			model.addAttribute("poesia", poesia);
+			return "redirect:/poesia/"+poesia.getId();
 		} else { 
-			return "admin/formNewPoesia.html";
+			return "autore/formNewPoesia.html";
 		}
 	}
 	
-	@GetMapping("/admin/managePoesie")
+	@GetMapping("/autore/managePoesie")
 	public String managePoesie(Model model) {
 		model.addAttribute("movies", this.poesiaService.findAllPoesia());
-		return "admin/managePoesie.html";
+		return "autore/managePoesie.html";
 	}
 	
 	@Transactional
@@ -81,7 +83,7 @@ public class PoesiaController {
 		else {
 			return "poesiaError.html";
 		}
-		return "/admin/formUpdatePoesia.html";
+		return "/autore/formUpdatePoesia.html";
 	}
 	
 	/*SERVE???*/
@@ -172,7 +174,7 @@ public class PoesiaController {
 	}
 	
 	
-	@GetMapping("/poesie/{id}")
+	@GetMapping("/poesia/{id}")
 	public String getPoesia(@PathVariable("id") Long id, Model model) {
 		Poesia poesia=this.poesiaService.findPoesiaById(id);
 		if(poesia==null)
