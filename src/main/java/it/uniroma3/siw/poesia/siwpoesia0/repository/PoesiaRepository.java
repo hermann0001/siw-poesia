@@ -13,7 +13,7 @@ public interface PoesiaRepository extends CrudRepository<Poesia, Long>{
 	
 	public List<Poesia> findByTitolo(String titolo);
 	public boolean existsByTestoAndAutore(String Testo, Autore autore);
-	public List<Poesia> findAllByAutore(Autore autore);
+	public List<Poesia> findAllByAutoreOrderByDataPubblicazioneDesc(Autore autore);
 	public List<Poesia> findAllByCommentiIsContaining(Commento commento);
 	
 	

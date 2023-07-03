@@ -16,7 +16,6 @@ import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -41,7 +40,7 @@ public class Poesia {
 	@Column(nullable = false)
 	@PastOrPresent
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate data_pubblicazione;
+	private LocalDate dataPubblicazione;
 	
 	//associazioni
 	@ManyToOne
@@ -56,11 +55,11 @@ public class Poesia {
 	public Poesia() {
 	}
 	
-	public Poesia(String testo, String titolo, String foto, LocalDate data_pubblicazione) {
+	public Poesia(String testo, String titolo, String foto, LocalDate dataPubblicazione) {
 		this.testo = testo;
 		this.titolo = titolo;
 		this.foto = foto;
-		this.data_pubblicazione = data_pubblicazione;
+		this.dataPubblicazione = dataPubblicazione;
 	}
 
 	
@@ -105,12 +104,12 @@ public class Poesia {
 		this.foto = foto;
 	}
 
-	public LocalDate getData_pubblicazione() {
-		return data_pubblicazione;
+	public LocalDate getDataPubblicazione() {
+		return dataPubblicazione;
 	}
 
-	public void setData_pubblicazione(LocalDate data_pubblicazione) {
-		this.data_pubblicazione = data_pubblicazione;
+	public void setDataPubblicazione(LocalDate data_pubblicazione) {
+		this.dataPubblicazione = data_pubblicazione;
 	}
 	
 	public void setAutore(Autore autore) {
@@ -141,6 +140,6 @@ public class Poesia {
 	@Override
 	public String toString() {
 		return "Poesia [id=" + id + ", testo=" + testo + ", titolo=" + titolo + ", url_foto=" + foto
-				+ ", data_pubblicazione=" + data_pubblicazione + ", autore=" + autore + "]";
+				+ ", data_pubblicazione=" + dataPubblicazione + ", autore=" + autore + "]";
 	}
 }

@@ -74,7 +74,7 @@ public class PoesiaService {
 	}
 
 	public boolean alreadyExists(Poesia poesia) {
-		return poesia.getTitolo()!=null && poesia.getData_pubblicazione()!=null
+		return poesia.getTitolo()!=null && poesia.getDataPubblicazione()!=null
 				&& poesiaRepository.existsByTestoAndAutore(poesia.getTesto(), poesia.getAutore());
 	}
 	
@@ -92,7 +92,7 @@ public class PoesiaService {
 	@Transactional 
 	public void removeAutoreAssociationFromAllPoesie(Long idaAutore) {
 		Autore autore= this.autoreRepository.findById(idaAutore).get();
-		List<Poesia> poesie=this.poesiaRepository.findAllByAutore(autore);
+		List<Poesia> poesie=this.poesiaRepository.findAllByAutoreOrderByDataPubblicazioneDesc(autore);
 		for(Poesia poesia :poesie) {
 			poesia.setAutore(null);;
 			this.poesiaRepository.save(poesia);
@@ -111,7 +111,7 @@ public class PoesiaService {
 		Poesia poesia = this.poesiaRepository.findById(idPoesia).get();
 		poesia.setTitolo(newPoesia.getTitolo());
 		poesia.setTesto(newPoesia.getTesto());
-		poesia.setData_pubblicazione(newPoesia.getData_pubblicazione());
+		poesia.setDataPubblicazione(newPoesia.getDataPubblicazione());
 		
 		if(!image.isEmpty()) {			
 			try {
@@ -127,6 +127,11 @@ public class PoesiaService {
 	@Transactional
 	public List<Poesia> getUltimePoesie() {
 		return this.poesiaRepository.findPrimeQuattroPoesie();
+	}
+
+	@Transactional
+	public List<Poesia> getUltimePoesieDiAutore(Autore autore){
+		return this.poesiaRepository.findAllByAutoreOrderByDataPubblicazioneDesc(autore);
 	}
 	
 	

@@ -1,10 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/ico" href="/favicon.ico">
+    <!-- Including Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+    <title>Profilo</title>
+
+    <!-- Bootstrap CSS Files -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <!-- Custom CSS Files -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <!-- embedding FontAwesome Kit script -->
+    <script src="https://kit.fontawesome.com/132524fe8d.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <!-- HEADER / NAV BAR -->
+    <header th:replace="~{fragments/fragments.html :: header-profile}"></header>
 
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <div class="row">
+            <div class="page-content">
+                <!-- profile card-->
+                <div class="col-md-4">
+                    <div class="ratio-1x1">
+                        <img src="https://picsum.photos/200/300" class="rounded-circle" alt="pro-pic"> <!-- TODO: sostituire con foto utente -->
+                    </div>
+                    <p class="text-uppercase fs-2 text-md-center" th:text="${user.nome} + ' ' + ${user.cognome}"></p><br>
+                    <p class="fs-5 text-start mt-2" th:text="${user.email}"></p><br>
+                    <p class="fs-5 text-start mt-2" th:text="${credentials.username}"></p><br>
+                </div>
+                <!-- ultime poesie pubblicate modificabili -->
+                <div class="col-md-8">
+                    <div th:replace="~{fragments/fragments.html :: cards-poesie}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer th:replace="~{fragments/fragments.html :: footer}"></footer>
+    <!-- Boostrap JS Files -->
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
