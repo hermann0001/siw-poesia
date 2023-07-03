@@ -1,70 +1,61 @@
+<!DOCTYPE html>
 <html lang="it">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="icon" type="image/ico" href="/favicon.ico">
-	<!-- Including Google Fonts -->
-	<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/ico" href="/favicon.ico">
+    <!-- Including Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
-	<title>SiwPoesia - Homepage</title>
+    <title>SiwPoesia - Homepage</title>
 
-	<!-- Bootstrap CSS Files -->
-	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-	<!-- Custom CSS Files -->
-	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/header.css">
-	<!-- embedding FontAwesome Kit script -->
-	<script src="https://kit.fontawesome.com/132524fe8d.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS Files -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <!-- Custom CSS Files -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/form.css">
+    <!-- embedding FontAwesome Kit script -->
+    <script src="https://kit.fontawesome.com/132524fe8d.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<!-- HEADER / NAV BAR -->
-<header class="header-area" th:replace="~{fragments/fragments.html :: header}"></header>
 <!-- Content -->
-<div class="container mt-5">
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="page-content">
-				<div class="row">
-					<!-- MAIN CONTENT -->
-					<div class="col-lg-8">
-						<!-- slideshow degli eventi -->
-						<div id="events-carousel" class="carousel slide latest-events" data-bs-ride="carousel">
-							<h5>Effetua il <em>login</em></h5>
-							
-							<form th:action="@{/login}" method="POST">
-								<div>
-									<h1>Username: </h1>
-									<span><input name="username" type="text" required /></span>
-								</div>
-								<div>
-									<h1>Password: </h1>
-									<span><input name="password" type="password" required /></span>
-								</div>
-								<div>
-									<span th:if="${param.error != null}">Username o password errati</span>
-								</div>
-								<div>
-									<span><button type="submit">Login</button></span>
-								</div>
-							</form>
-						
-							<div>
-								<h1>Non hai un account? </h1>
-								<a th:href="@{/register}" th:text="Registrati">Registrati</a>
-							</div>
-						
-						</div>
-					<!-- SIDE BAR -->
-					<div th:replace="~{fragments/fragments.html :: sidebar}"></div>
-				</div>
-			</div>
-		</div>
-	</div> <!-- TODO: OCCHIO A QUALCHE DIV CHIUSA MALE -->
+<div class="container-md p-4">
+    <div class="form">
+        <div class="row gx-4 align-items-center">
+            <div class="col-md-6 p-3">
+                <a href="/"><img src="/images/logo.png" alt=""/></a>
+            </div>
+            <div class="col-md-6 p-3 border-left">
+                <h5>Effetua il <em>login</em></h5>
+                <form th:action="@{/login}" method="POST">
+                    <label class="form-label">Username</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
+                        <input name="username" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <label class="form-label">Password</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon2"><i class="fa-solid fa-key"></i></span>
+                        <input name="password" type="password" class="form-control" aria-label="Password" aria-describedby="basic-addon2">
+                    </div>
+                    <span class="form-text validation" th:if="${param.error != null}">Username o password errati</span>
+
+                    <div class="main-button py-3">
+                        <button type="submit">Login</button>
+                    </div>
+                    <div>
+                        <span class="form-text">Se non sei ancora registrato <a href="/register">Registrati</a>!</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- FOOTER -->
 <footer th:replace="~{fragments/fragments.html :: footer}"></footer>
-
 <!-- Boostrap JS Files -->
 <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
+</html>

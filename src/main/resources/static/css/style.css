@@ -185,6 +185,27 @@ body .page-content{
     border-left: 3px solid #151619;
 }
 
+.main-button a, .main-button button{
+    font-size: 18px;
+    color: #fff;
+    background-color: #e9571c;
+    padding: 12px 30px;
+    display: inline-block;
+    border-radius: 25px;
+    font-weight: 400;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.main-button a:hover, button:hover {
+    background-color: #fff;
+    color: #e9571c;
+}
+
 footer p{
     text-align:center;
     padding: 30px 0;
