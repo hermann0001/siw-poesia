@@ -51,26 +51,7 @@
 								</a>
 							</div>
 							<!-- cards delle poesie-->
-							<div class="latest-poesie mt-5">
-								<h4>Le ultime <em>poesie</em></h4>
-								<div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:if="${!ultimePoesie.isEmpty()}">
-									<div class="col" th:each="poesia : ${ultimePoesie}">
-										<div class="card h-100">
-											<!-- TODO:IMMAGINI -->
-											<img th:src="@{'https://picsum.photos/200/200'}" class="card-img-top" alt="poesia-img">
-											<div class="card-body">
-												<h5 class="card-title" th:text="${poesia.titolo}">Card title</h5>
-												<p class="card-text text-truncate" th:text="${poesia.testo}">This is a short card.</p>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:unless="${!ultimePoesie.isEmpty()}">
-									<div class="col">
-										<h3 class="text-md-center">Non ci sono poesie...</h3>
-									</div>
-								</div>
-							</div>
+							<div th:replace="~{fragments/fragments.html :: cards-poesie}"
 						</div>
 						<!-- SIDE BAR -->
 						<div th:replace="~{fragments/fragments.html :: sidebar}"></div>
