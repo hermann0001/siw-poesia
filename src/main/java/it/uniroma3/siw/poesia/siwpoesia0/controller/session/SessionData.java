@@ -1,6 +1,6 @@
 package it.uniroma3.siw.poesia.siwpoesia0.controller.session;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Autore;
-import it.uniroma3.siw.poesia.siwpoesia0.model.Credenziale;
+import it.uniroma3.siw.poesia.siwpoesia0.model.Credentials;
 import it.uniroma3.siw.poesia.siwpoesia0.service.AutoreService;
 import it.uniroma3.siw.poesia.siwpoesia0.service.CredenzialeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +15,13 @@ import org.springframework.stereotype.Component;
 public class SessionData {
 
     private Autore autore;
-    private Credenziale credentials;
+    private Credentials credentials;
     @Autowired
     private CredenzialeService credentialsService;
     @Autowired
     private AutoreService autoreService;
 
-    public Credenziale getLoggedCredentials(){
+    public Credentials getLoggedCredentials(){
         this.update();
 
         return this.credentials;

@@ -14,8 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import static it.uniroma3.siw.poesia.siwpoesia0.model.Credenziale.POETA_RUOLO;
-import static it.uniroma3.siw.poesia.siwpoesia0.model.Credenziale.AUTORE_RUOLO;
+import static it.uniroma3.siw.poesia.siwpoesia0.model.Credentials.POETA_RUOLO;
+import static it.uniroma3.siw.poesia.siwpoesia0.model.Credentials.AUTORE_RUOLO;
 
 
 import javax.sql.DataSource;

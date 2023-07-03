@@ -10,7 +10,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class Credenziale {
+public class Credentials {
 	public static final String DEFAULT_RUOLO = "DEFAULT";
 	public static final String POETA_RUOLO = "POETA";
 	public static final String AUTORE_RUOLO = "AUTORE";
@@ -23,7 +23,7 @@ public class Credenziale {
 	private String username;
 	@NotNull
 	private String password;
-	private String ruolo;
+	private String role;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Autore autore;
@@ -60,19 +60,19 @@ public class Credenziale {
 		this.password = password;
 	}
 	
-	public String getRuolo() {
-		return ruolo;
+	public String getRole() {
+		return role;
 	}
 	
-	public void setRuolo(String ruolo) {
-		this.ruolo = ruolo;
+	public void setRole(String ruolo) {
+		this.role = ruolo;
 	}
 	
 	public boolean isPoeta() {
-		return this.ruolo.equals(POETA_RUOLO);
+		return this.role.equals(POETA_RUOLO);
 	}
 	
 	public boolean isAutore() {
-		return this.ruolo.equals(AUTORE_RUOLO);
+		return this.role.equals(AUTORE_RUOLO);
 	}
 }

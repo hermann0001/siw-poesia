@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.poesia.siwpoesia0.model.Autore;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Commento;
-import it.uniroma3.siw.poesia.siwpoesia0.model.Credenziale;
+import it.uniroma3.siw.poesia.siwpoesia0.model.Credentials;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Poesia;
 import it.uniroma3.siw.poesia.siwpoesia0.repository.CommentoRepository;
 import jakarta.transaction.Transactional;
@@ -39,7 +39,7 @@ public class AutoreService {
 	}
 	public Autore getCurrentUser() {
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	Credenziale credentials = credenzialeService.getCredentials(userDetails.getUsername());
+    	Credentials credentials = credenzialeService.getCredentials(userDetails.getUsername());
 		return credentials.getAutore();
 	}
 	

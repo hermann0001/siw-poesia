@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import it.uniroma3.siw.poesia.siwpoesia0.model.Credenziale;
+import it.uniroma3.siw.poesia.siwpoesia0.model.Credentials;
 import it.uniroma3.siw.poesia.siwpoesia0.repository.CredenzialeRepository;
 
 @Service
@@ -19,25 +19,25 @@ public class CredenzialeService {
 	protected CredenzialeRepository credenzialeRepository;
 	
 	@Transactional
-	public Credenziale getCredentials(Long id) {
-		Optional<Credenziale> result = this.credenzialeRepository.findById(id);
+	public Credentials getCredentials(Long id) {
+		Optional<Credentials> result = this.credenzialeRepository.findById(id);
 		return result.orElse(null);
 	}
 	
 	@Transactional
-	public Credenziale getCredentials(String username) {
-		Optional<Credenziale> result = this.credenzialeRepository.findByUsername(username);
+	public Credentials getCredentials(String username) {
+		Optional<Credentials> result = this.credenzialeRepository.findByUsername(username);
 		return result.orElse(null);
 	}
 	
 	@Transactional
-	public Credenziale saveCredentials(Credenziale credentials) {
-		credentials.setRuolo(Credenziale.AUTORE_RUOLO);
+	public Credentials saveCredentials(Credentials credentials) {
+		credentials.setRole(Credentials.AUTORE_RUOLO);
 		credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
 		return this.credenzialeRepository.save(credentials);
 	}
 	
-	public boolean alreadyExists(Credenziale credentials) {
+	public boolean alreadyExists(Credentials credentials) {
 		return credentials!=null && this.credenzialeRepository.existsByUsername(credentials.getUsername());
 	}
 }

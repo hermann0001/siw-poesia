@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.CredenzialeValidator;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Autore;
-import it.uniroma3.siw.poesia.siwpoesia0.model.Credenziale;
+import it.uniroma3.siw.poesia.siwpoesia0.model.Credentials;
 import it.uniroma3.siw.poesia.siwpoesia0.service.CredenzialeService;
 import it.uniroma3.siw.poesia.siwpoesia0.service.PoesiaService;
 import jakarta.validation.Valid;
@@ -38,7 +38,7 @@ public class AuthenticationController {
 	@GetMapping(value = "/register")
 	public String ShowRegisterForm (Model model) {
 		model.addAttribute("autore", new Autore());
-		model.addAttribute("credenziali", new Credenziale());
+		model.addAttribute("credenziali", new Credentials());
 		return "formRegisterUser";
 	}
 	
@@ -55,8 +55,8 @@ public class AuthenticationController {
 			return "index";
 		} else {
 			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			Credenziale credentials = credenzialeService.getCredentials(userDetails.getUsername());
-			if (credentials.getRuolo().equals(Credenziale.POETA_RUOLO)) {
+			Credentials credentials = credenzialeService.getCredentials(userDetails.getUsername());
+			if (credentials.getRole().equals(Credentials.POETA_RUOLO)) {
 				return "admin/indexAdmin";
 			}
 		}
@@ -67,8 +67,8 @@ public class AuthenticationController {
 	public String defaultAfterLogin(Model model) {
 		
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	Credenziale credentials = credenzialeService.getCredentials(userDetails.getUsername());
-    	if (credentials.getRuolo().equals(Credenziale.POETA_RUOLO)) {
+    	Credentials credentials = credenzialeService.getCredentials(userDetails.getUsername());
+    	if (credentials.getRole().equals(Credentials.POETA_RUOLO)) {
             return "admin/indexAdmin";
         }
         return "index";
@@ -76,7 +76,7 @@ public class AuthenticationController {
 	
 	@PostMapping(value = {"/register"})
 	public String registerUser(@Valid @ModelAttribute("autore") Autore autore,
-			BindingResult autoreBindingResult, @Valid @ModelAttribute("credenziali") Credenziale credenziali,
+			BindingResult autoreBindingResult, @Valid @ModelAttribute("credenziali") Credentials credenziali,
             BindingResult credentialsBindingResult,
             Model model) {
 
@@ -96,7 +96,7 @@ public class AuthenticationController {
 	@GetMapping("/autore/profile") 
 	public String profilo(Model model) {
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Credenziale credentials = credenzialeService.getCredentials(userDetails.getUsername());
+		Credentials credentials = credenzialeService.getCredentials(userDetails.getUsername());
 		
 		model.addAttribute("credentials", credentials);
 		return "profilo";
