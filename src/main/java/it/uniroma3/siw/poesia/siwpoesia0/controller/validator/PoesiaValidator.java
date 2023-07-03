@@ -1,5 +1,6 @@
 package it.uniroma3.siw.poesia.siwpoesia0.controller.validator;
 
+import it.uniroma3.siw.poesia.siwpoesia0.service.PoesiaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -12,13 +13,12 @@ import it.uniroma3.siw.poesia.siwpoesia0.repository.PoesiaRepository;
 public class PoesiaValidator implements Validator{
 	
 	@Autowired
-	private PoesiaRepository poesiaRepository;
+	private PoesiaService poesiaService;
 	
 	@Override
 	public void validate(Object o, Errors errors) {
 		Poesia poesia = (Poesia)o;
-		if(poesia.getTesto() != null && poesia.getAutore()!= null
-			&& poesiaRepository.existsByTestoAndAutore(poesia.getTesto(), poesia.getAutore())) {
+		if(this.poesiaService.alreadyExists(poesia)) {
 				errors.reject("poesia.duplicate");
 			}
 	}

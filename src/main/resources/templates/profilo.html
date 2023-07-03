@@ -30,9 +30,12 @@
                     <div class="ratio-1x1">
                         <img src="https://picsum.photos/150/200" class="rounded-1" alt="pro-pic"> <!-- TODO: sostituire con foto utente -->
                     </div>
-                    <p class="text-uppercase fs-2 text-md-center" th:text="${user.nome} + ' ' + ${user.cognome}"></p>
-                    <p class="fs-5 text-start mt-2" th:text="${user.email}"></p>
-                    <p class="fs-5 text-start mt-2" th:text="${credentials.username}"></p>
+                    <p class="text-uppercase fs-2 text-md-center" th:text="${user.nome} + ' ' + ${user.cognome}"></p><br>
+                    <p class="fs-5 text-start mt-2" th:text="${user.email}"></p><br>
+                    <p class="fs-5 text-start mt-2" th:text="${credentials.username}"></p><br>
+                    <div class="main-button py-3">
+                        <a href="/autore/formNewPoesia">Aggiungi poesia</a>
+                    </div>
                 </div>
                 <!-- ultime poesie pubblicate modificabili -->
                 <div class="col-md-7">
@@ -41,6 +44,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- FOOTER -->
     <footer th:replace="~{fragments/fragments.html :: footer}"></footer>

@@ -44,7 +44,6 @@ public class Poesia {
 	
 	//associazioni
 	@ManyToOne
-	@NotNull
 	private Autore autore;
 	
 	//private List<Tag> tags;

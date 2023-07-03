@@ -5,7 +5,7 @@ import java.util.Base64;
 import java.util.List;
 
 
-
+import it.uniroma3.siw.poesia.siwpoesia0.repository.PoesiaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -16,7 +16,6 @@ import it.uniroma3.siw.poesia.siwpoesia0.model.Autore;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Commento;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Poesia;
 import it.uniroma3.siw.poesia.siwpoesia0.repository.AutoreRepository;
-import it.uniroma3.siw.poesia.siwpoesia0.repository.PoesiaRepository;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -35,7 +34,7 @@ public class PoesiaService {
 		} catch(IOException e ) {}
 	}
 
-	private Poesia savePoesia(Poesia poesia) {
+	public Poesia savePoesia(Poesia poesia) {
 		return this.poesiaRepository.save(poesia);
 		
 	}
@@ -104,11 +103,6 @@ public class PoesiaService {
 		poesia.getCommenti().add(commento);
 		this.savePoesia(poesia);
 	}
-
-	public boolean alreadyExists(Poesia poesia) {
-		return poesia.getTitolo()!=null && poesia.getDataPubblicazione()!=null
-				&& poesiaRepository.existsByTestoAndAutore(poesia.getTesto(), poesia.getAutore());
-	}
 	
 	public void removeAutoreAssociationFromPoesia(Long idMPoesia) {
 		Poesia poesia=this.poesiaRepository.findById(idMPoesia).get();
@@ -165,6 +159,10 @@ public class PoesiaService {
 	public List<Poesia> getUltimePoesieDiAutore(Autore autore){
 		return this.poesiaRepository.findAllByAutoreOrderByDataPubblicazioneDesc(autore);
 	}
-	
+
+
+	public boolean alreadyExists(Poesia poesia) {
+		return poesia.getAutore()!=null && poesia.getTitolo()!=null && this.poesiaRepository.existsByTitoloAndAutore(poesia.getTitolo(), poesia.getAutore());
+	}
 	
 }
