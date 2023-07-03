@@ -32,7 +32,7 @@ public class CredenzialeService {
 	
 	@Transactional
 	public Credenziale saveCredentials(Credenziale credentials) {
-		credentials.setRuolo(Credenziale.DEFAULT_RUOLO);
+		credentials.setRuolo(Credenziale.AUTORE_RUOLO);
 		credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
 		return this.credenzialeRepository.save(credentials);
 	}
