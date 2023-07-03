@@ -108,7 +108,8 @@ body .page-content{
     font-weight: 700;
 }
 
-.page-content h4 em{
+.page-content h4 em,
+.page-content h5 em{
     font-style: normal;
     color: #e9571c;
     text-transform: uppercase;
