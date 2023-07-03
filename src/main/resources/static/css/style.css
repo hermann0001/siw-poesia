@@ -97,7 +97,8 @@ body .page-content{
     color: #e9571c;
 }
 .page-content .latest-events,
-.page-content .latest-poesie{
+.page-content .latest-poesie,
+.page-content .profile{
     border-radius: 23px;
     padding: 60px;
     background-color: #151619;
@@ -107,9 +108,21 @@ body .page-content{
     color: #fff;
     font-weight: 700;
 }
+.page-content h5{
+    font-size: 34px;
+    color: #fff;
+    font-weight: 700;
+}
+.page-content h6{
+    font-size: 28px;
+    color: #fff;
+    font-weight: 500;
+}
 
+.page-content .username,
 .page-content h4 em,
-.page-content h5 em{
+.page-content h5 em,
+.page-content h6 em{
     font-style: normal;
     color: #e9571c;
     text-transform: uppercase;
