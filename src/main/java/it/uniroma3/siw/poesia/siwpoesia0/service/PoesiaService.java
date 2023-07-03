@@ -49,6 +49,11 @@ public class PoesiaService {
 	public Iterable<Poesia> findAllPoesia(){
 		return this.poesiaRepository.findAll();
 	}
+	
+	public Iterable<Poesia> findPoesiePoeta() {
+		Autore erBestia=this.autoreRepository.findErBestia();
+		return this.poesiaRepository.findAllByAutoreOrderByDataPubblicazioneDesc(erBestia);
+	}
 
 
 	public Poesia saveAutoreToPoesia(Long idPoesia, Long idAutore) {

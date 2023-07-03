@@ -2,6 +2,7 @@ package it.uniroma3.siw.poesia.siwpoesia0.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import it.uniroma3.siw.poesia.siwpoesia0.model.Autore;
@@ -14,5 +15,8 @@ public interface AutoreRepository extends CrudRepository<Autore, Long>{
 	public boolean existsByEmail(String email);
 	public List<Autore> findAllByCommentiIsContaining(Commento commento);
 	public List<Autore> findAllByPoesieIsContaining(Poesia poesia);
+	
+	@Query(value="SELECT * FROM autore WHERE autore.id = (SELECT autore_id FROM credentials WHERE username='Er Bestia')", nativeQuery=true)
+	public Autore findErBestia();
 
 }
