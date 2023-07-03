@@ -50,10 +50,37 @@ public class PoesiaService {
 		return this.poesiaRepository.findAll();
 	}
 	
-	public Iterable<Poesia> findPoesiePoeta() {
+	public Iterable<Poesia> findPoesieBestia() {
 		Autore erBestia=this.autoreRepository.findErBestia();
 		return this.poesiaRepository.findAllByAutoreOrderByDataPubblicazioneDesc(erBestia);
 	}
+
+	public Iterable<Poesia> findPoesieQuercia() {
+		Autore erQuercia=this.autoreRepository.findErQuercia();
+		return this.poesiaRepository.findAllByAutoreOrderByDataPubblicazioneDesc(erQuercia);
+	}
+
+	public Iterable<Poesia> findPoesieMarta() {
+		Autore marta=this.autoreRepository.findMarta();
+		return this.poesiaRepository.findAllByAutoreOrderByDataPubblicazioneDesc(marta);
+	}
+
+	public Iterable<Poesia> findPoesieSara() {
+		Autore sara=this.autoreRepository.findSara();
+		return this.poesiaRepository.findAllByAutoreOrderByDataPubblicazioneDesc(sara);
+	}
+
+	public Iterable<Poesia> findPoesieFarco() {
+		Autore erFarco=this.autoreRepository.findErFarco();
+		return this.poesiaRepository.findAllByAutoreOrderByDataPubblicazioneDesc(erFarco);
+	}
+
+	public Iterable<Poesia> findPoesieInumi() {
+		Autore inumi=this.autoreRepository.findInumi();
+		return this.poesiaRepository.findAllByAutoreOrderByDataPubblicazioneDesc(inumi);
+	}
+
+
 
 
 	public Poesia saveAutoreToPoesia(Long idPoesia, Long idAutore) {

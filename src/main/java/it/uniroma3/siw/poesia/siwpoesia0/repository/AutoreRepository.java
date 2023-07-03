@@ -19,4 +19,19 @@ public interface AutoreRepository extends CrudRepository<Autore, Long>{
 	@Query(value="SELECT * FROM autore WHERE autore.id = (SELECT autore_id FROM credentials WHERE username='Er Bestia')", nativeQuery=true)
 	public Autore findErBestia();
 
+	@Query(value="SELECT * FROM autore WHERE autore.id = (SELECT autore_id FROM credentials WHERE username='Er Quercia')", nativeQuery=true)
+	public Autore findErQuercia();
+
+	@Query(value="SELECT * FROM autore WHERE autore.id = (SELECT autore_id FROM credentials WHERE username='Marta der Terzo Lotto')", nativeQuery=true)
+	public Autore findMarta();
+
+	@Query(value="SELECT * FROM autore WHERE autore.id = (SELECT autore_id FROM credentials WHERE username='Sara G.')", nativeQuery=true)
+	public Autore findSara();
+
+	@Query(value="SELECT * FROM autore WHERE autore.id = (SELECT autore_id FROM credentials WHERE username='Er Farco')", nativeQuery=true)
+	public Autore findErFarco();
+
+	@Query(value="SELECT * FROM autore WHERE autore.id = (SELECT autore_id FROM credentials WHERE username='Inumi Laconico')", nativeQuery=true)
+	public Autore findInumi();
+
 }
