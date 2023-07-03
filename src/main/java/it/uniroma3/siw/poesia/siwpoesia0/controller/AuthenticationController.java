@@ -57,7 +57,7 @@ public class AuthenticationController {
 			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Credentials credentials = credenzialeService.getCredentials(userDetails.getUsername());
 			if (credentials.getRole().equals(Credentials.POETA_RUOLO)) {
-				return "admin/indexAdmin";
+				return "poeta/indexAdmin";
 			}
 		}
 		return "index";
@@ -68,8 +68,9 @@ public class AuthenticationController {
 		
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     	Credentials credentials = credenzialeService.getCredentials(userDetails.getUsername());
+    	model.addAttribute("ultimePoesie", this.poesiaService.getUltimePoesie());
     	if (credentials.getRole().equals(Credentials.POETA_RUOLO)) {
-            return "admin/indexAdmin";
+            return "poeta/indexAdmin";
         }
         return "index";
 	}
