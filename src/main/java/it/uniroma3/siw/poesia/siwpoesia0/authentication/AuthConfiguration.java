@@ -54,14 +54,20 @@ import javax.sql.DataSource;
                 .authorizeHttpRequests()
 //                .requestMatchers("/**").permitAll()
                 // chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
-                .requestMatchers(HttpMethod.GET,"/","/index","/register","/css/**", "/images/**", "favicon.ico", "/bootstrap/**", "/chi-siamo", "/street-poetry", "/contattaci", "/login", "/libro", "/fragments/**").permitAll()
+                .requestMatchers(HttpMethod.GET,"/","/index","/register","/css/**", "/images/**", "favicon.ico", "/bootstrap/**", "/fragments/**").permitAll()
+                //chiunque(autenticato o no) può accedere alle pagine della navbar
+                .requestMatchers(HttpMethod.GET,"/libro", "/chi-siamo", "/street-poetry", "/contattaci", "/login").permitAll()
+                //chiunque (autenticato o no può accedere alle pagine degli autori
+                .requestMatchers(HttpMethod.GET, "/autori", "/autori/*").permitAll()
+                //chiunque (autenticato o no può leggere le poesie
+                .requestMatchers(HttpMethod.GET, "/poesie", "/poesia/*").permitAll()
         		// chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
                 .requestMatchers(HttpMethod.POST,"/register", "/login").permitAll()
                 .requestMatchers(HttpMethod.GET,"/poeta/**").hasAnyAuthority(POETA_RUOLO)
                 .requestMatchers(HttpMethod.POST,"/poeta/**").hasAnyAuthority(POETA_RUOLO)
         		
-                .requestMatchers(HttpMethod.GET,"/autore/**").hasAnyAuthority(AUTORE_RUOLO,POETA_RUOLO)
-                .requestMatchers(HttpMethod.POST,"/autore/**").hasAnyAuthority(AUTORE_RUOLO,POETA_RUOLO)
+                .requestMatchers(HttpMethod.GET,"/autore/formNewPoesia").hasAnyAuthority(AUTORE_RUOLO,POETA_RUOLO)
+                .requestMatchers(HttpMethod.POST,"/autore/poesia").hasAnyAuthority(AUTORE_RUOLO,POETA_RUOLO)
                 
                 // tutti gli utenti autenticati possono accere alle pagine rimanenti 
                 .anyRequest().authenticated()
