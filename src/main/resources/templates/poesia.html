@@ -31,11 +31,11 @@
                     <div class="col-md-9">
                         <div class="row">
                             <div class="col-6 ratio-1x1">
-                                <img src="/images/libro.jpg" alt="libro"/>
+                                <img src="/images/libro.jpg" alt="libro"/> <!-- TODO: bisogna trovare una soluzione -->
                             </div>
                             <div class="col-6">
                                 <h4 class="text-md-center text-capitalize mb-3"><em th:text="${poesia.titolo}">TITOLO</em></h4>
-                                <h6 class="mb-3" th:text="${poesia.testo}">Testo</h6>
+                                <h6 class="mb-3 fs-5 fst-italic" style="white-space: pre-line" th:text="${poesia.testo}">Testo</h6> <!-- quello stile serve per formattare il carattere \n in html-->
                             </div>
                         </div>
                     </div>

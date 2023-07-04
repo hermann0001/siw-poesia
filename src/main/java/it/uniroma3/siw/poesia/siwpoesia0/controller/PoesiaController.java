@@ -177,12 +177,9 @@ public class PoesiaController {
 	@GetMapping("/poesia/{id}")
 	public String getPoesia(@PathVariable("id") Long id, Model model) {
 		Poesia poesia=this.poesiaService.findPoesiaById(id);
-		if(poesia==null)
-			return "poesiaError.html";
-		else {
-			model.addAttribute("poesia", poesia);
-			return "poesia.html";
-		}
+		System.out.println(poesia.getTesto());
+		model.addAttribute("poesia", poesia);
+		return "poesia";
 	}
 	
 	@GetMapping("/poesie")
