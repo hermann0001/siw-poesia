@@ -116,10 +116,10 @@
     <div class="col-md-12">
       <h4><em>I POETI DER TRULLO</em></h4>
       <ul class="list-group list-group-flush mt-2">
-        <li class="list-group-item">
-          <a href="/autore/bestia">Er Bestia</a>
+        <li class="list-group-item" th:each="poeta : ${poetidertrullo}">
+          <a th:href="@{'/autori/' + ${poeta.autore.id}}" th:text="${poeta.username}">Er Bestia</a>
         </li>
-        <li class="list-group-item">
+        <!--<li class="list-group-item">
           <a href="/autore/quercia">Er Quercia</a>
         </li>
         <li class="list-group-item">
@@ -133,7 +133,7 @@
         </li>
         <li class="list-group-item">
           <a href="/autore/inumi">Inumi Laconico</a>
-        </li>
+        </li>-->
       </ul>
     </div>
   </div>
@@ -144,7 +144,7 @@
       <!-- TODO: DA AUTOMATIZZARE PER OGNI COMMENTO (th:each) -->
       <ul class="list-group list-group-flush mt-2">
         <li class="list-group-item">
-          <a href="#"> <!--th:href="@{'/commenti/' +${commento.id}}" -->Commento</a>
+          <!--<a href="#"> th:href="@{'/commenti/' +${commento.id}}" Commento</a>-->
         </li>
       </ul>
     </div>

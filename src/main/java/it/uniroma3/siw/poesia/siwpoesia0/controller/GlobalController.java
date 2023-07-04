@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Credentials;
 import it.uniroma3.siw.poesia.siwpoesia0.service.CredenzialeService;
 
+import java.util.List;
 
 
-/*Annotazione usata in Spring MVC per definire un controller 
+/*Annotazione usata in Spring MVC per definire un controller
  * che viene applicato su tutti gli altri controller*/
 @ControllerAdvice
 public class GlobalController {
@@ -33,6 +34,11 @@ public class GlobalController {
 		catch (ClassCastException e){
 			return null;
 		}
+	}
+
+	@ModelAttribute("poetidertrullo")
+	public List<Credentials> getPoetiDerTrullo(){
+		return this.credentialsService.findAllPoetiDerTrullo();
 	}
 
 	@ModelAttribute("credentials")

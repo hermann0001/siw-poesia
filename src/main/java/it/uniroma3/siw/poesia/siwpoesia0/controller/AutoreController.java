@@ -1,5 +1,7 @@
 package it.uniroma3.siw.poesia.siwpoesia0.controller;
 
+import it.uniroma3.siw.poesia.siwpoesia0.model.Credentials;
+import it.uniroma3.siw.poesia.siwpoesia0.service.CredenzialeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,8 @@ import it.uniroma3.siw.poesia.siwpoesia0.service.AutoreService;
 import it.uniroma3.siw.poesia.siwpoesia0.service.PoesiaService;
 import jakarta.validation.Valid;
 
+import java.util.List;
+
 @Controller
 public class AutoreController {
 	
@@ -26,11 +30,16 @@ public class AutoreController {
 	AutoreValidator autoreValidator;
 	@Autowired
 	PoesiaService poesiaService;
+	@Autowired
+	CredenzialeService credentialsService;
 	
 	@GetMapping("/autori/{id}")
 	public String getAutore(@PathVariable("id") Long id, Model model) {
 		Autore autore = this.autoreService.findAutoreById(id);
+		String username = this.credentialsService.getUsername(id);
 		model.addAttribute("autore" , autore);
+		model.addAttribute("username", username);
+		model.addAttribute("ultimePoesie", this.poesiaService.getUltimePoesieDiAutore(autore));
 		return "/autore/autore";
 	}
 	
@@ -53,21 +62,21 @@ public class AutoreController {
 			return "admin/formNewAutore";
 		}
 	}
-	
+/*
 	@GetMapping("/autore/formUpdateAutore/{idAutore}")
 	public String formUpdateAutore(@PathVariable("idAutore") Long idAutore, Model model) {
 		Autore autore=this.autoreService.findAutoreById(idAutore);
 		model.addAttribute("autore",autore);
 		return "admin/formUpdateAutore";
-	}
-
-	//TODO: A COSA SERVE QUESTO?
+	}*/
+/*
+	TODO: A COSA SERVE QUESTO?
 	@GetMapping("/autore/formUpdateAutoreData/{idAutore}")
 	public String formUpdateArtistData(@PathVariable("idAutore") Long idAutore, Model model) {
 		Autore autore=this.autoreService.findAutoreById(idAutore);
 		model.addAttribute("autore",autore);
 		return "autore/formUpdateAutoreData.html";
-	}
+	}*/
 
 	//TODO: BOH?
 	/*@PostMapping("/autore/updateAutoretData/{idAutore}")
