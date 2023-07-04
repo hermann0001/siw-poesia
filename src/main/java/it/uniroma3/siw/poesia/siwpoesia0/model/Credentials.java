@@ -14,7 +14,6 @@ public class Credentials {
 	public static final String DEFAULT_RUOLO = "DEFAULT";
 	public static final String POETA_RUOLO = "POETA";
 	public static final String AUTORE_RUOLO = "AUTORE";
-
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)

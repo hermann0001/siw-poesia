@@ -21,7 +21,7 @@ import jakarta.validation.Valid;
 
 @Controller
 public class CommentoController {
-	
+	/*
 	@Autowired CommentoService reviewService;
 	@Autowired CommentoValidator reviewValidator;
 	@Autowired PoesiaService movieService;
@@ -93,6 +93,6 @@ public class CommentoController {
 		this.reviewService.delete(idCommento);
 		model.addAttribute("poesia",poesia);
 		return "generic/poesia.html";
-	}
+	}*/
 
 }

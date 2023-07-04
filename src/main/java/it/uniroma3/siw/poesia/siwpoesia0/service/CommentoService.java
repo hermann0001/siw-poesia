@@ -15,8 +15,9 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class CommentoService {
-	
-@Autowired private CommentoRepository reviewRepository;
+	/*
+	@Autowired
+	private CommentoRepository reviewRepository;
 	
 	public Commento findReviewById(Long id) {
 		return this.reviewRepository.findById(id).orElse(null);
@@ -50,5 +51,5 @@ public class CommentoService {
 		this.reviewRepository.delete(commento);
 		
 	}
-
+*/
 }

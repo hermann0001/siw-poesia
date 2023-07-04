@@ -130,7 +130,7 @@ public class PoesiaController {
 	}
 	
 	
-	@Transactional
+	/*@Transactional
 	@GetMapping("/admin/deletePoesia/{idPoesia}")
 	public String deletePoesia(@PathVariable("idPoesia") Long idPoesia, Model model) {
 		Poesia poesia=this.poesiaService.findPoesiaById(idPoesia);
@@ -144,7 +144,7 @@ public class PoesiaController {
 			return "autore/managePoesie.html";
 		} else 
 			return "poesiaError.html";
-	}	
+	}	*/
 	
 	/*SERVE???*/
 	
