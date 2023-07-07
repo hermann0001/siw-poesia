@@ -41,6 +41,8 @@ public class PoesiaController {
 	AutoreService artistService;
 	@Autowired
 	CommentoService reviewService;
+	@Autowired
+	GlobalController globalController;
 
 	@GetMapping(value="/autore/formNewPoesia") 
 	public String formNewPoesia(Model model) { 
@@ -72,8 +74,7 @@ public class PoesiaController {
 		model.addAttribute("movies", this.poesiaService.findAllPoesia());
 		return "autore/managePoesie.html";
 	}
-	
-	@Transactional
+
 	@GetMapping("/autore/formUpdatePoesia/{id}")
 	public String formUpdatePoesia(@PathVariable("id") Long id, Model model) {
 		Poesia poesia= this.poesiaService.findPoesiaById(id);
@@ -85,7 +86,23 @@ public class PoesiaController {
 		}
 		return "/autore/formUpdatePoesia.html";
 	}
-	
+
+	@PostMapping ("/autore/updatePoesia/{id}")
+	public String updatePoesia(@PathVariable("id") Long id,
+							   @Valid @ModelAttribute("poesia") Poesia poesia, BindingResult bindingResult, Model model){
+		if(!bindingResult.hasErrors()) {
+			this.poesiaService.updatePoesia(id, poesia);
+		}
+		return "poesia.html";
+	}
+
+	@GetMapping("/autore/deletePoesia/{idPoesia}")
+	public String deletePoesia(@PathVariable("idPoesia") Long idP, Model model) {
+		this.poesiaService.deletePoesia(idP);
+		return "profilo.html";
+	}
+
+
 	/*SERVE???*/
 	
 	@Transactional
@@ -117,7 +134,7 @@ public class PoesiaController {
 			return "poesiaError.html";
 	}
 	
-	
+	/*SERVE???*/
 	@GetMapping("/autore/formConfirmDeletePoesia/{idPoesia}")
 	public String formConfirmDeletePoesia(@PathVariable("idPoesia") Long idPoesia, Model model) {
 		Poesia poesia=this.poesiaService.findPoesiaById(idPoesia);
@@ -129,7 +146,8 @@ public class PoesiaController {
 		}
 	}
 	
-	
+
+
 	/*@Transactional
 	@GetMapping("/admin/deletePoesia/{idPoesia}")
 	public String deletePoesia(@PathVariable("idPoesia") Long idPoesia, Model model) {
@@ -179,6 +197,9 @@ public class PoesiaController {
 		Poesia poesia=this.poesiaService.findPoesiaById(id);
 		System.out.println(poesia.getTesto());
 		model.addAttribute("poesia", poesia);
+		if(globalController.getCredentials()!=null) {
+			model.addAttribute("credentials", globalController.getCredentials());
+		}
 		return "poesia";
 	}
 	
