@@ -58,9 +58,9 @@ import javax.sql.DataSource;
                 //chiunque(autenticato o no) può accedere alle pagine della navbar
                 .requestMatchers(HttpMethod.GET,"/libro", "/chi-siamo", "/street-poetry", "/contattaci", "/login").permitAll()
                 //chiunque (autenticato o no può accedere alle pagine degli autori
-                .requestMatchers(HttpMethod.GET, "/autori", "/autori/*").permitAll()
+                .requestMatchers(HttpMethod.GET, "/autori", "/autori/**").permitAll()
                 //chiunque (autenticato o no può leggere le poesie
-                .requestMatchers(HttpMethod.GET, "/poesie", "/poesia/*").permitAll()
+                .requestMatchers(HttpMethod.GET, "/poesie", "/poesia/**").permitAll()
         		// chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
                 .requestMatchers(HttpMethod.POST,"/register", "/login").permitAll()
                 .requestMatchers(HttpMethod.GET,"/poeta/**").hasAnyAuthority(POETA_RUOLO)

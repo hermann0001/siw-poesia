@@ -44,4 +44,8 @@ public class CredenzialeService {
 	public List<Credentials> findAllPoetiDerTrullo() {
 		return this.credenzialeRepository.findAllByRole(Credentials.POETA_RUOLO);
 	}
+
+	public Credentials findCredentials(Long id) {
+		return this.credenzialeRepository.findById(id).orElse(null);
+	}
 }
