@@ -38,7 +38,7 @@ public class CredenzialeService {
 
 	@Transactional
     public String getUsername(Long id) {
-		return this.credenzialeRepository.findById(id).orElse(null).getUsername();
+		return this.credenzialeRepository.findById(id).orElse(null).getUsername();   //mi torna null
 	}
 
 	public List<Credentials> findAllPoetiDerTrullo() {

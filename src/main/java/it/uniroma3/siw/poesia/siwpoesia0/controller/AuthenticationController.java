@@ -53,13 +53,16 @@ public class AuthenticationController {
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("ultimePoesie", this.poesiaService.getUltimePoesie());
-		if (authentication instanceof AnonymousAuthenticationToken) {
+
+		/*per ora non ho trovato nulla di particolare da mettere nella home dei poeti*/
+
+		/*if (authentication instanceof AnonymousAuthenticationToken) {
 			return "index";
 		} else {
 			if (this.sessionData.getLoggedCredentials().getRole().equals(Credentials.POETA_RUOLO)) {
 				return "poeta/indexAdmin";
 			}
-		}
+		}*/
 		return "index";
 	}
 

@@ -36,7 +36,7 @@ public class AutoreController {
 	@GetMapping("/autori/{id}")
 	public String getAutore(@PathVariable("id") Long id, Model model) {
 		Autore autore = this.autoreService.findAutoreById(id);
-		String username = this.credentialsService.getUsername(id);
+		String username = this.credentialsService.getUsername(id);   //mi torna null
 		model.addAttribute("autore" , autore);
 		model.addAttribute("username", username);
 		model.addAttribute("ultimePoesie", this.poesiaService.getUltimePoesieDiAutore(autore));
