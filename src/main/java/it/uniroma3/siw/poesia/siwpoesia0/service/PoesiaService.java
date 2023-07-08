@@ -38,6 +38,8 @@ public class PoesiaService {
 		return this.poesiaRepository.save(poesia);
 		
 	}
+	
+
 
 	public Poesia findPoesiaById(Long id) {
 		return this.poesiaRepository.findById(id).orElse(null);
@@ -74,33 +76,10 @@ public class PoesiaService {
 		poesia.setAutore(null);
 		this.poesiaRepository.save(poesia);
 	}
-
-	@Transactional
-	public void updatePoesia(Long id, Poesia newPoesia) {
-		Poesia oldPoesia=this.poesiaRepository.findById(id).get();
-		if(oldPoesia!=null) {
-			oldPoesia.setTitolo(newPoesia.getTitolo());
-			oldPoesia.setTesto(newPoesia.getTesto());
-			oldPoesia.setDataPubblicazione(newPoesia.getDataPubblicazione());
-			poesiaRepository.save(oldPoesia);
-		}
-	}
-
-
-
-
-	@Transactional
-	public void deletePoesia(Long id) {
-		Poesia poesia= this.poesiaRepository.findById(id).get();
-		if(poesia!=null) {
-			poesia.getAutore().getPoesie().remove(poesia);
-			autoreRepository.save(poesia.getAutore());
-
-			for(Commento commento : poesia.getCommenti()) {
-				commento.getAutore().getCommenti().remove(commento);
-			}
-			poesiaRepository.delete(poesia);
-		}
+	
+	public void delete(Long idMPoesia) {
+		Poesia poesia= this.poesiaRepository.findById(idMPoesia).get();
+		this.poesiaRepository.delete(poesia);
 	}
 	
 	@Transactional 
