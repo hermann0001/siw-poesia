@@ -57,10 +57,10 @@ import javax.sql.DataSource;
                 .requestMatchers(HttpMethod.GET,"/","/index","/register","/css/**", "/images/**", "favicon.ico", "/bootstrap/**", "/fragments/**").permitAll()
                 //chiunque(autenticato o no) può accedere alle pagine della navbar
                 .requestMatchers(HttpMethod.GET,"/libro", "/chi-siamo", "/street-poetry", "/contattaci", "/login").permitAll()
-                //chiunque (autenticato o no può accedere alle pagine degli autori
+                //chiunque (autenticato o no) può accedere alle pagine degli autori
                 .requestMatchers(HttpMethod.GET, "/autori", "/autori/**").permitAll()
-                //chiunque (autenticato o no può leggere le poesie
-                .requestMatchers(HttpMethod.GET, "/poesie", "/poesia/**").permitAll()
+                //chiunque (autenticato o no) può leggere le poesie
+                .requestMatchers(HttpMethod.GET, "/poesia").permitAll()
         		// chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
                 .requestMatchers(HttpMethod.POST,"/register", "/login").permitAll()
                 .requestMatchers(HttpMethod.GET,"/poeta/**").hasAnyAuthority(POETA_RUOLO)

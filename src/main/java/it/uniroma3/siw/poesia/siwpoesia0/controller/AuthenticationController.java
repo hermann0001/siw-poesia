@@ -68,7 +68,7 @@ public class AuthenticationController {
 
 	@GetMapping(value = "/profilo")
 	public String defaultAfterLogin(Model model) {
-		model.addAttribute("ultimePoesie", this.poesiaService.getUltimePoesieDiAutore(sessionData.getLoggedUser()));
+		model.addAttribute("poesie", this.poesiaService.getUltimePoesieDiAutore(sessionData.getLoggedUser()));
 
 		return "profilo";
 	}

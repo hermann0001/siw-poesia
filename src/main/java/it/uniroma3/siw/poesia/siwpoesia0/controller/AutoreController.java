@@ -40,7 +40,7 @@ public class AutoreController {
 		Autore autore = credentials.getAutore();
 		model.addAttribute("autore" , autore);
 		model.addAttribute("username", username);
-		model.addAttribute("ultimePoesie", this.poesiaService.getUltimePoesieDiAutore(autore));
+		model.addAttribute("poesie", this.poesiaService.getUltimePoesieDiAutore(autore));
 		return "/autore/autore";
 	}
 	

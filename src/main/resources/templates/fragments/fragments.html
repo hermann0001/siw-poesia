@@ -151,8 +151,8 @@
   </div>
 </div>
 
-<!-- cards delle poesie-->
-<div class="latest-poesie mt-5" th:fragment="cards-poesie">
+<!-- cards delle ultime poesie pubblicate-->
+<div class="latest-poesie mt-5" th:fragment="cards-poesie-home">
   <h4>Le ultime <em>poesie</em></h4>
   <div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:if="${!ultimePoesie.isEmpty()}">
     <div class="col" th:each="poesia : ${ultimePoesie}">
@@ -169,6 +169,31 @@
     </div>
   </div>
   <div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:unless="${!ultimePoesie.isEmpty()}">
+    <div class="col">
+      <h3 class="text-md-center">Non ci sono poesie...</h3>
+    </div>
+  </div>
+</div>
+
+
+<!-- cards delle poesie del poeta-->
+<div class="latest-poesie mt-5" th:fragment="cards-poesie">
+  <h4><em>Poesie: </em></h4>
+  <div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:if="${!poesie.isEmpty()}">
+    <div class="col" th:each="poesia : ${poesie}">
+      <a th:href="@{'/poesia/' + ${poesia.id}}" >
+        <div class="card h-100">
+          <!-- TODO:IMMAGINI -->
+          <img th:src="@{'https://picsum.photos/200/200'}" class="card-img-top" alt="poesia-img">
+          <div class="card-body">
+            <h5 class="card-title" th:text="${poesia.titolo}">Card title</h5>
+            <p class="card-text text-truncate" th:text="${poesia.testo}">This is a short card.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:unless="${!poesie.isEmpty()}">
     <div class="col">
       <h3 class="text-md-center">Non ci sono poesie...</h3>
     </div>
