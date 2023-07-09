@@ -3,6 +3,7 @@ package it.uniroma3.siw.poesia.siwpoesia0.controller;
 
 import it.uniroma3.siw.poesia.siwpoesia0.controller.session.SessionData;
 import it.uniroma3.siw.poesia.siwpoesia0.service.AutoreService;
+import it.uniroma3.siw.poesia.siwpoesia0.service.CommentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -37,6 +38,9 @@ public class AuthenticationController {
 	@Autowired
 	private CredenzialeValidator credenzialeValidator;
 
+	@Autowired
+	private CommentoService commentoService;
+
 	@GetMapping(value = "/register")
 	public String ShowRegisterForm(Model model) {
 		model.addAttribute("autore", new Autore());
@@ -53,6 +57,7 @@ public class AuthenticationController {
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("ultimePoesie", this.poesiaService.getUltimePoesie());
+		model.addAttribute("ultimiCommenti", this.commentoService.getUltimiCommenti());
 
 		/*per ora non ho trovato nulla di particolare da mettere nella home dei poeti*/
 

@@ -41,10 +41,32 @@
                                     <div class="main-button py-3 text-center"><a th:href="@{'/autore/deletePoesia'+'/' + ${poesia.id}}">Elimina</a></div>
 					            </span>
 
+                                <!--AGGIUNGI COMMENTO-->
+                                <span th:if="${credentials != null}"></span>
+                                    <div class="main-button py-3 text-center"><a th:href="@{'/autore/formNewCommento'+'/' + ${poesia.id} +'/'+ ${credentials.autore.id}}">Aggiungi Commento</a></div>
+
+
                             </div>
                             <div class="col-6">
                                 <h4 class="text-md-center text-capitalize mb-3"><em th:text="${poesia.titolo}">TITOLO</em></h4>
                                 <h6 class="mb-3 fs-5 fst-italic" style="white-space: pre-line" th:text="${poesia.testo}">Testo</h6> <!-- quello stile serve per formattare il carattere \n in html-->
+
+                                <!--PER I COMMENTI-->
+                                <h4><em style="font-size: 25px">Commenti: </em></h4>
+                                <h6 th:if="${poesia.getCommenti().isEmpty()}">Ancora non ci sono commenti per questa poesia!</h6>
+
+                                <div class="col" th:each="commento : ${poesia.getCommenti()}">
+                                    <div th:text="${commento.testo}">Testo</div>
+                                    <p th:text="${commento.autore}"></p>
+                                    <span th:if="${credentials!=null && credentials.isPoeta()}">
+                                        <a th:href="@{'/deleteCommento'+'/' + ${commento.id} + '/' + ${poesia.id}}">Elimina Commento</a>
+                                    </span>
+                                    <span th:unless="${credentials!=null && credentials.isPoeta()}">
+                                        <div th:if="${commento.autore.equals(userDetails)}">
+                                            <a th:href="@{'/deleteCommento'+'/' + ${commento.id} + '/' + ${poesia.id}}">Elimina Commento</a>
+                                        </div>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>

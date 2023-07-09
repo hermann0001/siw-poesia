@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/ico" href="/favicon.ico">
+    <!-- Including Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+    <title>Form New Commento</title>
+
+    <!-- Bootstrap CSS Files -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <!-- Custom CSS Files -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/form.css">
+    <!-- embedding FontAwesome Kit script -->
+    <script src="https://kit.fontawesome.com/132524fe8d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<!-- Content -->
+<div class="container-md p-4">
+    <div class="form">
+        <div class="row gx-4 align-items-center">
+            <div class="col-md-6 p-3">
+                <a href="/"><img src="/images/logo.png" alt=""/></a>
+            </div>
+            <div class="col-md-6 p-3 border-left">
+                <h5>Inserisci un nuovo<em>commento</em></h5>
+                <form th:action="@{'/addCommento/'+ ${poesia.id}+ '/' + ${credentials.user.id}}" method="POST" th:object="${commento}" enctype="multipart/form-data">
+                    <label class="form-label">Testo</label>
+                    <div class="input-group mb-3">
+                        <textarea name="text" type="text" th:field="*{text}" class="form-control" aria-label="text" aria-describedby="basic-addon2" rows="10"></textarea>
+                    </div>
+                    <label class="form-label">Voto</label>
+                    <div class="input-group mb-3">
+                        <input name="miPiace" type="int" th:field="*{miPiace}" multiple class="form-control" aria-label="miPiace" aria-describedby="basic-addon3">
+                    </div>
+                    <label class="form-label">Data di pubblicazione</label>
+                    <div class="input-group mb-3">
+                        <input name="data" type="date" th:field="*{data}" class="form-control" aria-label="data" aria-describedby="basic-addon4">
+                    </div>
+
+                    <span class="form-text validation" th:if="${param.error != null}">Campi sbagliati</span>
+
+                    <div class="main-button py-3">
+                        <button type="submit">Invia Commento</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer th:replace="~{fragments/fragments.html :: footer}"></footer>
+<!-- Boostrap JS Files -->
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -67,6 +67,7 @@ import javax.sql.DataSource;
                 .requestMatchers(HttpMethod.POST,"/poeta/**").hasAnyAuthority(POETA_RUOLO)
         		
                 .requestMatchers(HttpMethod.GET,"/autore/formNewPoesia").hasAnyAuthority(AUTORE_RUOLO,POETA_RUOLO)
+
                 .requestMatchers(HttpMethod.POST,"/autore/poesia").hasAnyAuthority(AUTORE_RUOLO,POETA_RUOLO)
                 
                 // tutti gli utenti autenticati possono accere alle pagine rimanenti 

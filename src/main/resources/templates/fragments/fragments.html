@@ -142,11 +142,19 @@
     <div class="col-12">
       <h4>I <em>commenti</em> PIÙ RECENTI</h4>
       <!-- TODO: DA AUTOMATIZZARE PER OGNI COMMENTO (th:each) -->
-      <ul class="list-group list-group-flush mt-2">
-        <li class="list-group-item">
-          <!--<a href="#"> th:href="@{'/commenti/' +${commento.id}}" Commento</a>-->
+      <ul class="list-group list-group-flush mt-2" th:if="${!ultimiCommenti.isEmpty()}">
+        <li class="list-group-item" th:each="commento : ${ultimiCommenti}">
+          <a th:href="@{'/poesia/' +${commento.poesia.id}}"> Commento</a>
+          <p th:text="${commento.text}">Testo commento</p>
         </li>
       </ul>
+
+      <div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:unless="${!ultimiCommenti.isEmpty()}">
+        <div class="col">
+          <h3 class="text-justify">Non ci sono commenti...</h3>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

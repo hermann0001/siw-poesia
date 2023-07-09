@@ -1,16 +1,33 @@
 package it.uniroma3.siw.poesia.siwpoesia0.controller.validator;
 
+import it.uniroma3.siw.poesia.siwpoesia0.model.Commento;
+import it.uniroma3.siw.poesia.siwpoesia0.repository.CommentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import it.uniroma3.siw.poesia.siwpoesia0.model.Poesia;
-import it.uniroma3.siw.poesia.siwpoesia0.service.AutoreService;
 
 @Component
 public class CommentoValidator implements Validator{
-	
+
+	@Autowired
+	private CommentoRepository commentoRepository;
+
+	@Override
+	public void validate(Object o, Errors errors) {
+		Commento commento = (Commento) o;
+		if(commento.getPoesia() != null && commento.getAutore()!= null
+				&& commentoRepository.existsByAutoreAndPoesia(commento.getAutore(), commento.getPoesia())) {
+			errors.reject("recensione.duplicate");
+		}
+	}
+
+	@Override
+	public boolean supports(Class<?> aClass) {
+		return Commento.class.equals(aClass);
+	}
+	/*
 @Autowired AutoreService autoreService;
 	
 	@Override
@@ -24,5 +41,5 @@ public class CommentoValidator implements Validator{
 		if(this.autoreService.multipleCommentofPeasiaBySameUser(poesia))
 			errors.reject("review.duplicate");		
 	}
-
+*/
 }
