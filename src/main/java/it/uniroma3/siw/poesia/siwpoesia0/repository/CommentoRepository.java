@@ -8,7 +8,9 @@ import org.springframework.data.repository.CrudRepository;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Autore;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Commento;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Poesia;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CommentoRepository extends CrudRepository<Commento, Long>{
 	public boolean existsByPoesiaAndText(Poesia poesia, String text);
 	public List<Commento> findAllByPoesia(Poesia poesia);

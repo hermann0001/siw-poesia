@@ -30,12 +30,16 @@
                     <!-- MAIN CONTENT -->
                     <div class="col-md-9">
                         <div class="row">
-                            <div class="col-6 ratio-1x1">
-                                <div>
-                                    <img src="/images/libro.jpg" alt="libro"/> <!-- TODO: bisogna trovare una soluzione -->
+                            <div class="col-6 ratio-1x1">       <!-- TODO: Magari frammentiamo questa parte? -->
+                                <div th:if="${poesia.foto}">
+                                     <img src="" th:src="@{'/files/' + ${poesia.foto.id}}" alt="posia_img"/>
+                                </div>
+                                <div th:unless="${poesia.foto}">
+                                    <img src="/images/libro.jpg" alt="libro"/>
                                 </div>
 
                                 <!--ciao hermann qui cerco di aggiungere i bottoni per modificare ed eliminare la poesia, spero di non fare pasticci :) -->
+                                <!-- ciao nene mi piacciono un sacco questi bottoni!<3... però perché hai usato span? :? -->
                                 <span th:if="${credentials.isPoeta() || poesia.autore.id==credentials.autore.id}">
 						            <div class="main-button py-3 text-center"><a th:href="@{'/autore/formUpdatePoesia'+'/' + ${poesia.id}}">Modifica</a></div>
                                     <div class="main-button py-3 text-center"><a th:href="@{'/autore/deletePoesia'+'/' + ${poesia.id}}">Elimina</a></div>
@@ -43,8 +47,9 @@
 
                                 <!--AGGIUNGI COMMENTO-->
                                 <span th:if="${credentials != null}"></span>
-                                    <div class="main-button py-3 text-center"><a th:href="@{'/autore/formNewCommento'+'/' + ${poesia.id} +'/'+ ${credentials.autore.id}}">Aggiungi Commento</a></div>
-
+                                    <div class="main-button py-3 text-center">
+                                        <a th:href="@{'/autore/formNewCommento'+'/' + ${poesia.id} +'/'+ ${credentials.autore.id}}">Aggiungi Commento</a>
+                                    </div>
 
                             </div>
                             <div class="col-6">

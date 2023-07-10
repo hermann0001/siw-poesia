@@ -1,33 +1,28 @@
 package it.uniroma3.siw.poesia.siwpoesia0.model;
 
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Objects;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
-
+import jakarta.persistence.*;
 
 @Entity
 public class Immagine {
-	
-	@Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
-	@NotBlank
-	private String name;
+    private Long id;
 
-    @Lob
-    @NotNull
+    @Lob @Basic(fetch=FetchType.LAZY)
     private byte[] data;
+    private String nome;
+    private String tipo;
 
+    public Immagine(){
+
+    }
+
+    public Immagine(String name,String type, byte[] data){
+        this.data = data;
+        this.tipo = type;
+        this.nome = name;
+    }
 
     public Long getId() {
         return id;
@@ -37,15 +32,6 @@ public class Immagine {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
     public byte[] getData() {
         return data;
     }
@@ -54,30 +40,19 @@ public class Immagine {
         this.data = data;
     }
 
-    public String getImgData() {
-        return Base64.getMimeEncoder().encodeToString(data);
+    public String getNome() {
+        return nome;
     }
-    
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + Arrays.hashCode(data);
-		result = prime * result + Objects.hash(id, name);
-		return result;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Immagine other = (Immagine) obj;
-		return Arrays.equals(data, other.data) && Objects.equals(id, other.id) && Objects.equals(name, other.name);
-	}
-    
-    
+    public void setNome(String name) {
+        this.nome = name;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String type) {
+        this.tipo = type;
+    }
 }

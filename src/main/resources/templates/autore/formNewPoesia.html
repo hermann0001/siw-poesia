@@ -28,23 +28,27 @@
             <div class="col-md-6 p-3 border-left">
                 <h5>Inserisci una nuova<em>poesia</em></h5>
                 <form th:action="@{/autore/poesia}" method="POST" th:object="${poesia}" enctype="multipart/form-data">
-                    <label class="form-label">Titolo</label>
                     <div class="input-group mb-3">
-                        <input name="titolo" type="text" th:field="*{titolo}" class="form-control" aria-label="titolo" aria-describedby="basic-addon1">
+                        <label class="form-label" for="formTitolo">Titolo</label>
+                        <input id="formTitolo" type="text" th:field="*{titolo}" class="form-control">
+                        <p class="mt-1 form-text valid" th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}"></p>
                     </div>
-                    <label class="form-label">Testo</label>
                     <div class="input-group mb-3">
-                        <textarea name="testo" type="text" th:field="*{testo}" class="form-control" aria-label="testo" aria-describedby="basic-addon2" rows="10"></textarea>
+                        <label class="form-label" for="formTesto">Testo</label>
+                        <textarea id="formTesto" type="text" th:field="*{testo}" class="form-control" rows="10"></textarea>
+                        <p class="mt-1 form-text valid" th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}"></p>
                     </div>
                    <div class="input-group mb-3">
-                        <input name="immagine" type="file" multiple class="form-control" aria-label="immagine" aria-describedby="basic-addon3">
-                    </div>
+                       <label for="formImmagine" class="form-label">Immagine</label>
+                       <input type="file" id="formImmagine" class="form-control" name="file" accept="image/*" />
+                       <p class="mt-1 form-text valid" th:if="${fileUploadError}" th:text="${fileUploadError}"></p>
+                   </div>
                     <div class="input-group mb-3">
-                        <input name="data pubblicazione" type="date" th:field="*{dataPubblicazione}" class="form-control" aria-label="data pubblicazione" aria-describedby="basic-addon4">
+                        <label for="formDataPubblicazione">Data di pubblicazione (se diversa da oggi)</label>
+                        <input id="formDataPubblicazione" type="date" th:field="*{dataPubblicazione}" class="form-control">
                     </div>
 
-                    <span class="form-text validation" th:if="${param.error != null}">Campi sbagliati</span>
-
+                    <div th:replace="~{fragments/fragments.html :: fieldGlobalError}"></div>
                     <div class="main-button py-3">
                         <button type="submit">Inserisci</button>
                     </div>
@@ -58,6 +62,5 @@
 <footer th:replace="~{fragments/fragments.html :: footer}"></footer>
 <!-- Boostrap JS Files -->
 <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>

@@ -4,24 +4,14 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(uniqueConstraints=@UniqueConstraint(columnNames= {"titolo", "autore_id"}))
 public class Poesia {
-	
 	//attributi
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,8 +24,9 @@ public class Poesia {
 	@Column(nullable = false)
 	@NotBlank
 	private String titolo;
-	
-	private String foto;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private Immagine foto;
 	
 	@Column(nullable = false)
 	@PastOrPresent
@@ -54,14 +45,12 @@ public class Poesia {
 	public Poesia() {
 	}
 	
-	public Poesia(String testo, String titolo, String foto, LocalDate dataPubblicazione) {
+	public Poesia(String testo, String titolo, Immagine foto, LocalDate dataPubblicazione) {
 		this.testo = testo;
 		this.titolo = titolo;
 		this.foto = foto;
 		this.dataPubblicazione = dataPubblicazione;
 	}
-
-	
 	
 	public Long getId() {
 		return id;
@@ -95,12 +84,12 @@ public class Poesia {
 		this.titolo = titolo;
 	}
 
-	public String getFoto() {
+	public Immagine getFoto() {
 		return foto;
 	}
 
-	public void setFoto(String foto) {
-		this.foto = foto;
+	public void setFoto(Immagine file) {
+		this.foto = file;
 	}
 
 	public LocalDate getDataPubblicazione() {
