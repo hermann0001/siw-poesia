@@ -58,7 +58,7 @@ public class CommentoController {
         if (!bindingResult.hasErrors()) {
             this.commentoService.newCommento(commento, idA, idP, model);
             model.addAttribute("commento", commento);
-            return "poesia";
+            return "redirect:/poesia/"+idP;
         } else {
             return "formNewCommento";
         }
@@ -69,7 +69,7 @@ public class CommentoController {
         Commento commento = this.commentoService.deleteCommento(idC, idP);
         if(commento != null) {
             model.addAttribute("commento", commento);
-            return "poesia";
+            return "redirect:/poesia/"+idP;
         } else {
             return "error.html";
         }

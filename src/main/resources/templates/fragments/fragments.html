@@ -142,14 +142,14 @@
     <div class="col-12">
       <h4>I <em>commenti</em> PIÙ RECENTI</h4>
       <!-- TODO: DA AUTOMATIZZARE PER OGNI COMMENTO (th:each) -->
-      <ul class="list-group list-group-flush mt-2" th:if="${!ultimiCommenti.isEmpty()}">
+      <ul class="list-group list-group-flush mt-2" th:if="${ultimiCommenti!=null && !ultimiCommenti.isEmpty()}">
         <li class="list-group-item" th:each="commento : ${ultimiCommenti}">
           <a th:href="@{'/poesia/' +${commento.poesia.id}}"> Commento</a>
           <p th:text="${commento.text}">Testo commento</p>
         </li>
       </ul>
 
-      <div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:unless="${!ultimiCommenti.isEmpty()}">
+      <div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:unless="${ultimiCommenti!=null && !ultimiCommenti.isEmpty()}">
         <div class="col">
           <h3 class="text-justify">Non ci sono commenti...</h3>
         </div>
@@ -162,7 +162,7 @@
 <!-- cards delle ultime poesie pubblicate-->
 <div class="latest-poesie mt-5" th:fragment="cards-poesie-home">
   <h4>Le ultime <em>poesie</em></h4>
-  <div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:if="${!ultimePoesie.isEmpty()}">
+  <div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:if="${ultimePoesie!= null && !ultimePoesie.isEmpty()}">
     <div class="col" th:each="poesia : ${ultimePoesie}">
       <a th:href="@{'/poesia/' + ${poesia.id}}" >
         <div class="card h-100">
@@ -176,7 +176,7 @@
       </a>
     </div>
   </div>
-  <div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:unless="${!ultimePoesie.isEmpty()}">
+  <div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:unless="${ultimePoesie!= null && !ultimePoesie.isEmpty()}">
     <div class="col">
       <h3 class="text-md-center">Non ci sono poesie...</h3>
     </div>
@@ -187,7 +187,7 @@
 <!-- cards delle poesie del poeta-->
 <div class="latest-poesie mt-5" th:fragment="cards-poesie">
   <h4><em>Poesie: </em></h4>
-  <div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:if="${!poesie.isEmpty()}">
+  <div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:if="${poesie!= null && !poesie.isEmpty()}">
     <div class="col" th:each="poesia : ${poesie}">
       <a th:href="@{'/poesia/' + ${poesia.id}}" >
         <div class="card h-100">
@@ -201,7 +201,7 @@
       </a>
     </div>
   </div>
-  <div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:unless="${!poesie.isEmpty()}">
+  <div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:unless="${poesie!= null && !poesie.isEmpty()}">
     <div class="col">
       <h3 class="text-md-center">Non ci sono poesie...</h3>
     </div>

@@ -23,11 +23,11 @@
     <div class="form">
         <div class="row gx-4 align-items-center">
             <div class="col-md-6 p-3">
-                <a href="/"><img src="/images/logo.png" alt=""/></a>
+                <a href="/static"><img src="/images/logo.png" alt=""/></a>
             </div>
             <div class="col-md-6 p-3 border-left">
                 <h5>Inserisci un nuovo<em>commento</em></h5>
-                <form th:action="@{'/addCommento/'+ ${poesia.id}+ '/' + ${credentials.user.id}}" method="POST" th:object="${commento}" enctype="multipart/form-data">
+                <form th:action="@{'/addCommento/'+ ${poesia.id}+ '/' + ${credentials.autore.id}}" method="POST" th:object="${commento}" enctype="multipart/form-data">
                     <label class="form-label">Testo</label>
                     <div class="input-group mb-3">
                         <textarea name="text" type="text" th:field="*{text}" class="form-control" aria-label="text" aria-describedby="basic-addon2" rows="10"></textarea>
