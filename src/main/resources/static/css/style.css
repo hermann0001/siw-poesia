@@ -132,8 +132,12 @@ body .page-content{
     font-size: 34px;
 }
 
-.page-content .latest-events img{
+.page-content img{
     border-radius: 23px;
+}
+.page-content .internalError{
+    width: 500px;
+    height: 350px;
 }
 
 .page-content .search-bar{
@@ -217,8 +221,9 @@ body .page-content{
     position: relative;
     overflow: hidden;
 }
-
-
+.main-button #home-btn{
+    font-size: 24px;
+}
 .main-button a:hover, button:hover {
     background-color: #fff;
     color: #e9571c;

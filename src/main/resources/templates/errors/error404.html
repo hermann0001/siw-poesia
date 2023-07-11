@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/ico" href="/favicon.ico">
+  <!-- Including Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  <title>Not Found...</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Additional CSS Files -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-content">
+          <div class="row gx-2 d-flex align-items-center">
+            <div class="col-md-6">
+              <p class="text-center fs-2">Non riusciamo a trovare questa pagina da nessuna parte...</p> <br>
+              <p class="text-center fs-2" th:if="${status}" th:text="'Codice Errore: ' + ${status.value()}"></p>
+            </div>
+            <div class="col-md-6 d-flex justify-content-end">
+              <img  src="/images/404.gif" alt="notFound"/>
+            </div>
+          </div>
+          <div class="row my-3">
+            <div class="col-md-12">
+              <div class="main-button d-flex justify-content-center my-4">
+                <a id="home-btn" href="/">Go to Home</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer th:replace="~{fragments/fragments.html:: footer}"></footer>
+  <!-- Bootstrap js -->
+  <script src="/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
