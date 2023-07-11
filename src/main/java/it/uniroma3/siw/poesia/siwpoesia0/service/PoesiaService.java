@@ -6,6 +6,7 @@ import java.util.List;
 
 
 import it.uniroma3.siw.poesia.siwpoesia0.model.Immagine;
+import it.uniroma3.siw.poesia.siwpoesia0.repository.ImmagineRepository;
 import it.uniroma3.siw.poesia.siwpoesia0.repository.PoesiaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -128,5 +129,11 @@ public class PoesiaService {
 	public boolean alreadyExists(Poesia poesia) {
 		return poesia.getAutore()!=null && poesia.getTitolo()!=null && this.poesiaRepository.existsByTitoloAndAutore(poesia.getTitolo(), poesia.getAutore());
 	}
-	
+	@Transactional
+	public Poesia deleteImmagine(Long idP) {
+		Poesia poesia = this.poesiaRepository.findById(idP).orElse(null);
+		this.immagineService. deleteImmagine(poesia.getFoto());
+		poesia.setFoto(null);
+		return this.poesiaRepository.save(poesia);
+	}
 }

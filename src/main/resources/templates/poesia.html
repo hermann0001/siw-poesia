@@ -63,7 +63,7 @@
                                     <p th:text="${commento.data}">Data</p>
                                     <p th:text="${commento.autore.nome} + ' ' +  ${commento.autore.cognome}" ></p>
                                     <span th:if="${credentials!=null && credentials.isPoeta()}">
-                                        <a th:href="@{'/deleteCommento'+'/' + ${commento.id} + '/' + ${poesia.id}}">Elimina Commento</a>  <!--TODO:non elimina i commenti-->
+                                        <a th:href="@{'/deleteCommento'+'/' + ${commento.id} + '/' + ${poesia.id}}">Elimina Commento</a>
                                     </span>
                                     <span th:unless="${credentials!=null && credentials.isPoeta()}">
                                         <div th:if="${commento.autore.equals(userDetails)}">

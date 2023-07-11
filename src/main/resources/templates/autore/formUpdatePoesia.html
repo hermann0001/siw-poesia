@@ -50,6 +50,10 @@
                         <p class="mt-1 form-text valid" th:if="${fileUploadError}" th:text="${fileUploadError}"></p>
                     </div>
 
+                    <div class="main-button py-3 text-center">
+                        <a th:href="@{'/deleteImmagine'+'/' + ${poesia.id}}">Elimina immagine</a>
+                    </div>
+
                     <label class="form-label">Modifica data di pubblicazione</label>
                     <div class="input-group mb-3">
                         <input name="data pubblicazione" type="date" th:field="*{dataPubblicazione}" class="form-control" aria-label="data pubblicazione" aria-describedby="basic-addon4">

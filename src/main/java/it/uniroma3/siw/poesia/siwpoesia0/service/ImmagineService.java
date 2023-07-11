@@ -31,4 +31,8 @@ public class ImmagineService {
         return this.immagineRepository.findAll();
     }
 
+    public void deleteImmagine(Immagine img) {
+       this.immagineRepository.delete(img);
+    }
+
 }
