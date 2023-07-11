@@ -52,8 +52,7 @@ public class GlobalController {
 	@ModelAttribute("credentials")
 	public Credentials getCredentials(){
 		try{
-			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			return credentialsService.getCredentials(userDetails.getUsername());
+			return this.sessionData.getLoggedCredentials();
 		}catch(ClassCastException e){
 			return null;
 		}
