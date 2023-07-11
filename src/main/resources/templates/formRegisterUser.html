@@ -22,50 +22,61 @@
 <div class="container-md px-3">
 	<div class="form">
 		<div class="row gx-4 align-items-center">
-			<div class="col-md-6">
-				<a href="/"><img src="/images/logo.png" alt=""/></a>
-			</div>
-			<div class="col-md-6 p-4 border-left">
-				<h4 class="text-center">Registrati</h4>
-				<form th:action="@{/register}" method="POST">
+			<form th:action="@{/register}" method="POST" enctype="multipart/form-data">
+				<div class="col-md-6">
 					<div class="row">
-						<div class="form-group col-sm-6">
-							<label for="formName">Nome</label>
-							<input type="text" placeholder="Mario" class="form-control" th:field="${autore.nome}" id="formName"/>
-							<span class="mt-2" th:if="${#fields.hasErrors('autore.nome')}" th:errors="${autore.nome}"></span>
+						<div class="col-12">
+							<a href="/"><img src="/images/logo.png" alt=""/></a>
 						</div>
-						<div class="form-group col-sm-6">
-							<label for="formSurname">Cognome</label>
-							<input type="text" placeholder="Rossi" class="form-control" th:field="${autore.cognome}" id="formSurname"/>
-							<span class="mt-1" th:if="${#fields.hasErrors('autore.cognome')}" th:errors="${autore.cognome}"></span>
+						<div class="col-12">
+							<div class="form-group my-4">
+								<label for="formImmagine">Immagine Profilo</label>
+								<input type="file" class="form-control" name="file" id="formImmagine" accept=""/>
+								<p class="mt-1 form-text valid" th:if="${fileUploadError}" th:text="${fileUploadError}"></p>
+							</div>
 						</div>
 					</div>
-					<div class="form-group my-4">
-						<label for="formEmail">Email</label>
-						<input type="email" placeholder="youremail@example.com" class="form-control" th:field="${autore.email}" id="formEmail" />
-						<span class="mt-1" th:if="${#fields.hasErrors('autore.email')}" th:errors="${autore.email}"></span>
-					</div>
+				</div>
+				<div class="col-md-6 p-4 border-left">
+					<h4 class="text-center">Registrati</h4>
+						<div class="row">
+							<div class="form-group col-sm-6">
+								<label for="formName">Nome</label>
+								<input type="text" placeholder="Mario" class="form-control" th:field="${autore.nome}" id="formName"/>
+								<p class="mt-2 form-text valid" th:if="${#fields.hasErrors('autore.nome')}" th:errors="${autore.nome}"></p>
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="formSurname">Cognome</label>
+								<input type="text" placeholder="Rossi" class="form-control" th:field="${autore.cognome}" id="formSurname"/>
+								<p class="mt-1 form-text valid" th:if="${#fields.hasErrors('autore.cognome')}" th:errors="${autore.cognome}"></p>
+							</div>
+						</div>
+						<div class="form-group my-4">
+							<label for="formEmail">Email</label>
+							<input type="email" placeholder="youremail@example.com" class="form-control" th:field="${autore.email}" id="formEmail" />
+							<p class="mt-1 form-text valid" th:if="${#fields.hasErrors('autore.email')}" th:errors="${autore.email}"></p>
+						</div>
 
-					<div class="row">
-						<div class="form-group col-md-6">
-							<label>Username</label>
-							<span><input type="text" placeholder="username" class="form-control" th:field="${credenziali.username}" /></span>
-							<span class="mt-1" th:if="${#fields.hasErrors('credenziali.username')}" th:errors="${credenziali.username}"></span>
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label for="formUsername">Username</label>
+								<input type="text" id="formUsername" placeholder="username" class="form-control" th:field="${credenziali.username}" />
+								<p class="mt-1 form-text valid" th:if="${#fields.hasErrors('credenziali.username')}" th:errors="${credenziali.username}"></p>
+							</div>
+							<div class="form-group col-md-6 mb-3">
+								<label for="formPassword">Password</label>
+								<input type="password" id="formPassword" placeholder="password" class="form-control" th:field="${credenziali.password}" />
+								<p class="mt-1 form-text valid" th:if="${#fields.hasErrors('credenziali.password')}" th:errors="${credenziali.password}"></p>
+							</div>
 						</div>
-						<div class="form-group col-md-6 mb-3">
-							<label>Password</label>
-							<span><input type="password" placeholder="password" class="form-control" th:field="${credenziali.password}" /></span>
-							<span class="mt-1" th:if="${#fields.hasErrors('credenziali.password')}" th:errors="${credenziali.password}"></span>
+						<div class="main-button py-3">
+							<button type="submit">Registrati</button>
 						</div>
-					</div>
-					<div class="main-button py-3">
-						<button type="submit">Registrati</button>
-					</div>
-					<div>
-						<span class="form-text">Hai già un account? <a href="/login">Accedi</a></span>
-					</div>
-				</form>
-			</div>
+						<div>
+							<p class="form-text">Hai già un account? <a href="/login">Accedi</a></p>
+						</div>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

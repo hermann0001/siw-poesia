@@ -7,7 +7,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import it.uniroma3.siw.poesia.siwpoesia0.model.Poesia;
-import it.uniroma3.siw.poesia.siwpoesia0.repository.PoesiaRepository;
+
+import java.time.LocalDate;
 
 @Component
 public class PoesiaValidator implements Validator{
@@ -18,6 +19,8 @@ public class PoesiaValidator implements Validator{
 	@Override
 	public void validate(Object o, Errors errors) {
 		Poesia poesia = (Poesia)o;
+		if(poesia.getDataPubblicazione() == null)
+			poesia.setDataPubblicazione(LocalDate.now());
 		if(this.poesiaService.alreadyExists(poesia)) {
 				errors.reject("poesia.duplicate");
 			}

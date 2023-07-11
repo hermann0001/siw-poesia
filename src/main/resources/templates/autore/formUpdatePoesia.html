@@ -24,8 +24,12 @@
     <div class="form">
         <div class="row gx-4 align-items-center">
             <div class="col-md-6 p-3">
-                <a href="/static"><img src="/images/logo.png" alt=""/></a>
-            </div>
+                <div th:if="${poesia.foto}">
+                    <img src="" th:src="@{'/files/' + ${poesia.foto.id}}" alt="posia_img"/>
+                </div>
+                <div th:unless="${poesia.foto}">
+                    <img src="/images/logo.png" alt="libro"/>
+                </div>            </div>
             <div class="col-md-6 p-3 border-left">
                 <h5>Modifica<em>poesia</em></h5>
                 <form th:action="@{'/autore/updatePoesia/'+${poesia.id}}" method="POST" th:object="${poesia}" enctype="multipart/form-data">
