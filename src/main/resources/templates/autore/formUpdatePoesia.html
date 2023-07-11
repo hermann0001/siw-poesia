@@ -23,26 +23,14 @@
 <div class="container-md p-4">
     <div class="form">
         <div class="row gx-4 align-items-center">
-            <div class="col-md-6 p-3">
-                <div th:if="${poesia.foto}">
-                    <img src="" th:src="@{'/files/' + ${poesia.foto.id}}" alt="posia_img"/>
-                </div>
-                <div th:unless="${poesia.foto}">
-                    <img src="/images/logo.png" alt="libro"/>
-                </div>            </div>
-            <div class="col-md-6 p-3 border-left">
-                <h5>Modifica<em>poesia</em></h5>
-                <form th:action="@{'/autore/updatePoesia/'+${poesia.id}}" method="POST" th:object="${poesia}" enctype="multipart/form-data">
-                    <label class="form-label">Modifica titolo</label>
-                    <div class="input-group mb-3">
-                        <input name="titolo" type="text" th:field="*{titolo}" class="form-control" aria-label="titolo" aria-describedby="basic-addon1">
+            <form th:action="@{'/autore/updatePoesia/'+${poesia.id}}" method="POST" th:object="${poesia}" enctype="multipart/form-data">
+                <div class="col-md-6 p-3">
+                    <div th:if="${poesia.foto}">
+                        <img src="" th:src="@{'/files/' + ${poesia.foto.id}}" alt="posia_img"/>
                     </div>
-                    <label class="form-label">Modifica testo</label>
-                    <div class="input-group mb-3">
-                        <textarea name="testo" type="text" th:field="*{testo}" class="form-control" aria-label="testo" aria-describedby="basic-addon2" rows="10"></textarea>
+                    <div th:unless="${poesia.foto}">
+                        <img src="/images/logo.png" alt="libro"/>
                     </div>
-
-                    <!--per le immagini aspetto che creiamo la classe ecc-->
 
                     <div class="input-group mb-3">
                         <label class="form-label">Modifica immagine</label>
@@ -53,19 +41,32 @@
                     <div class="main-button py-3 text-center">
                         <a th:href="@{'/deleteImmagine'+'/' + ${poesia.id}}">Elimina immagine</a>
                     </div>
+                </div>
+                <div class="col-md-6 p-3 border-left">
+                    <h5>Modifica<em>poesia</em></h5>
+                        <label class="form-label">Modifica titolo</label>
+                        <div class="input-group mb-3">
+                            <input name="titolo" type="text" th:field="*{titolo}" class="form-control" aria-label="titolo" aria-describedby="basic-addon1">
+                        </div>
+                        <label class="form-label">Modifica testo</label>
+                        <div class="input-group mb-3">
+                            <textarea name="testo" type="text" th:field="*{testo}" class="form-control" aria-label="testo" aria-describedby="basic-addon2" rows="10"></textarea>
+                        </div>
 
-                    <label class="form-label">Modifica data di pubblicazione</label>
-                    <div class="input-group mb-3">
-                        <input name="data pubblicazione" type="date" th:field="*{dataPubblicazione}" class="form-control" aria-label="data pubblicazione" aria-describedby="basic-addon4">
-                    </div>
+                        <!--per le immagini aspetto che creiamo la classe ecc-->
 
-                    <span class="form-text validation" th:if="${param.error != null}">Campi sbagliati</span>
+                        <label class="form-label">Modifica data di pubblicazione</label>
+                        <div class="input-group mb-3">
+                            <input name="data pubblicazione" type="date" th:field="*{dataPubblicazione}" class="form-control" aria-label="data pubblicazione" aria-describedby="basic-addon4">
+                        </div>
 
-                    <div class="main-button py-3">
-                        <button type="submit">Conferma</button>
-                    </div>
-                </form>
-            </div>
+                        <span class="form-text validation" th:if="${param.error != null}">Campi sbagliati</span>
+
+                        <div class="main-button py-3">
+                            <button type="submit">Conferma</button>
+                        </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
