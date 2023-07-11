@@ -61,8 +61,9 @@
                                 <h6 th:if="${poesia.getCommenti().isEmpty()}">Ancora non ci sono commenti per questa poesia!</h6>
 
                                 <div class="col" th:each="commento : ${poesia.getCommenti()}">
-                                    <div th:text="${commento.text}">Testo</div>
-                                    <p th:text="${commento.autore}"></p>   <!--TODO: occhio gli sto passando l'oggetto-->
+                                    <p th:text="${commento.text}">Testo</p>
+                                    <p th:text="${commento.data}">Data</p>
+                                    <p th:text="${commento.autore.nome} + ' ' +  ${commento.autore.cognome}" ></p>
                                     <span th:if="${credentials!=null && credentials.isPoeta()}">
                                         <a th:href="@{'/deleteCommento'+'/' + ${commento.id} + '/' + ${poesia.id}}">Elimina Commento</a>  <!--TODO:non elimina i commenti-->
                                     </span>

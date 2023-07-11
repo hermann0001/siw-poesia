@@ -5,6 +5,7 @@ import java.util.Base64;
 import java.util.List;
 
 
+import it.uniroma3.siw.poesia.siwpoesia0.model.Immagine;
 import it.uniroma3.siw.poesia.siwpoesia0.repository.PoesiaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -57,11 +58,12 @@ public class PoesiaService {
 	}
 
 	@Transactional
-	public Poesia updatePoesia(Long id, Poesia newPoesia) {
+	public Poesia updatePoesia(Long id, Poesia newPoesia, MultipartFile newFoto) throws IOException {
 		Poesia oldPoesia=this.poesiaRepository.findById(id).get();
 		oldPoesia.setTitolo(newPoesia.getTitolo());
 		oldPoesia.setTesto(newPoesia.getTesto());
 		oldPoesia.setDataPubblicazione(newPoesia.getDataPubblicazione());
+		oldPoesia.setFoto(this.immagineService.saveImmagine(newFoto));
 		return this.poesiaRepository.save(oldPoesia);
 	}
 

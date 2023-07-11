@@ -18,10 +18,10 @@ public class Immagine {
 
     }
 
-    public Immagine(String name,String type, byte[] data){
+    public Immagine(String nome,String type, byte[] data){
         this.data = data;
         this.tipo = type;
-        this.nome = name;
+        this.nome = nome;
     }
 
     public Long getId() {
@@ -44,8 +44,8 @@ public class Immagine {
         return nome;
     }
 
-    public void setNome(String name) {
-        this.nome = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getTipo() {
