@@ -26,7 +26,7 @@
 				<div class="col-md-6">
 					<div class="row">
 						<div class="col-12">
-							<a href="/"><img src="/images/logo.png" alt=""/></a>
+							<a href="/"><img src="/images/logos/logo.png" alt=""/></a>
 						</div>
 						<div class="col-12">
 							<div class="form-group my-4">
@@ -57,7 +57,7 @@
 							<input type="email" placeholder="youremail@example.com" class="form-control" th:field="*{email}" id="formEmail" />
 							<p class="mt-1 form-text valid" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 						</div>
-						<div th:replace="~{fragments/fragments.html :: fieldGlobalError}"></div>
+<!--						<div th:replace="~{fragments/fragments.html :: fieldGlobalError}"></div>-->
 					</div>
 					<div class="row" th:object="${credenziali}">
 						<div class="form-group col-md-6">
@@ -70,7 +70,9 @@
 							<input type="password" id="formPassword" placeholder="password" class="form-control" th:field="*{password}" />
 							<p class="mt-1 form-text valid" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
 						</div>
-						<div th:replace="~{fragments/fragments.html :: fieldGlobalError}"></div>
+						<div class="mt-1" th:if="${#fields.hasGlobalErrors()}">
+							<p class="form-text valid" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+						</div>
 					</div>
 					<div class="main-button py-3">
 						<button type="submit">Registrati</button>

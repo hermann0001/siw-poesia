@@ -29,7 +29,12 @@
                 <div class="col-md-12">
                     <div class="row align-items-center d-flex justify-content-center profile">
                         <div class="col-lg-5 ratio-1x1">
-                            <img src="https://picsum.photos/200/300" class="rounded-5" alt="pro-pic"> <!-- TODO: sostituire con foto utente -->
+                            <div th:if="${user.foto}" class="img-fluid">
+                                <img src="" th:src="@{'/files/' + ${user.foto.id}}" class="rounded-4" alt="posia_img"/>
+                            </div>
+                            <div th:unless="${user.foto}">
+                                <img src="/images/logos/logo.png" class="rounded-4" alt="nophoto"/>
+                            </div>
                         </div>
                         <div class="col-lg-5">
                             <h5 class="text-uppercase fs-2 text-start" th:text="${user.nome} + ' ' + ${user.cognome}"></h5> <br>

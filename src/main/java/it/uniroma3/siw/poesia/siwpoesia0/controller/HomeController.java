@@ -12,8 +12,7 @@ public class HomeController {
 
 	@Autowired
 	PoesiaService poesiaService;
-	
-	
+
     @GetMapping(value="/contattaci")
     public String contatti(Model model) {
         return "contatti.html";

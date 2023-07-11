@@ -22,14 +22,15 @@
 <!-- Content -->
 <div class="container-md p-4">
     <div class="form">
+        <a class="fs-1" href="/profilo"><i class="fa-solid fa-arrow-left"></i></a>
         <form th:action="@{'/autore/updateProfilo/'+${autore.id}}" method="POST" th:object="${autore}" enctype="multipart/form-data">
             <div class="row gx-4 align-items-center">
                 <div class="col-md-6 p-3">
-                    <div th:if="${autore.foto}">
-                        <img src="" th:src="@{'/files/' + ${autore.foto.id}}" alt="poesia_img"/>
+                    <div class="d-flex justify-content-center" th:if="${autore.foto}">
+                        <img class="img-fluid" src="" th:src="@{'/files/' + ${autore.foto.id}}" alt="poesia_img"/>
                     </div>
                     <div th:unless="${autore.foto}">
-                        <a href="/"><img src="/images/logo.png" alt=""/></a>
+                        <a href="/"><img src="/images/logos/logo.png" alt=""/></a>
                     </div>
                     <div class="row my-3">
                         <div class="col-8 mb-3">
@@ -43,26 +44,30 @@
                     </div>
                 </div>
                 <div class="col-md-6 p-3 border-left">
-                    <h5>Modifica <em>profilo</em></h5>
-                    <label class="form-label">Modifica nome</label>
-                    <div class="input-group mb-3">
-                        <input name="nome" type="text" th:field="*{nome}" class="form-control" aria-label="nome" aria-describedby="basic-addon1">
-                        <p class="mt-1 form-text valid" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
+                    <h4 class="text-center my-4">Modifica <em>profilo</em></h4>
+                    <div class="row">
+                        <div class="form-group col-md-10 mb-3">
+                            <label class="form-label">Modifica nome</label>
+                            <input name="nome" type="text" th:field="*{nome}" class="form-control" aria-label="nome" aria-describedby="basic-addon1">
+                            <p class="mt-1 form-text valid" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
+                        </div>
                     </div>
-                    <label class="form-label">Modifica cognome</label>
-                    <div class="input-group mb-3">
-                        <input name="cognome" type="text" th:field="*{cognome}" class="form-control" aria-label="cognome" aria-describedby="basic-addon2"></input>
-                        <p class="mt-1 form-text valid" th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></p>
+                    <div class="row">
+                        <div class="form-group col-md-10 mb-3">
+                            <label class="form-label">Modifica cognome</label>
+                            <input name="cognome" type="text" th:field="*{cognome}" class="form-control" aria-label="cognome" aria-describedby="basic-addon2"></input>
+                            <p class="mt-1 form-text valid" th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></p>
+                        </div>
                     </div>
-
-                    <label class="form-label">Modifica email</label>
-                    <div class="input-group mb-3">
-                        <input name="email" type="text" th:field="*{email}" class="form-control" aria-label="email" aria-describedby="basic-addon4">
-                        <p class="mt-1 form-text valid" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                    <div class="row">
+                        <div class="form-group col-md-10 my-3">
+                            <label class="form-label">Modifica email</label>
+                            <input name="email" type="text" th:field="*{email}" class="form-control" aria-label="email" aria-describedby="basic-addon4">
+                            <p class="mt-1 form-text valid" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                        </div>
                     </div>
-
                     <div th:replace="~{fragments/fragments.html :: fieldGlobalError}"></div>
-                    <div class="main-button py-3">
+                    <div class="main-button py-3 mt-5">
                         <button type="submit">Conferma</button>
                     </div>
                 </div>

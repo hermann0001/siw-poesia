@@ -55,7 +55,12 @@
 }
 
 .form img{
+    display: block;
     border-radius: 50px;
+    max-height: 500px;
+    max-width: 600px;
+    width: auto;
+    height: auto;
 }
 
 .form h4{

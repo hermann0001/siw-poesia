@@ -4,16 +4,12 @@ package it.uniroma3.siw.poesia.siwpoesia0.controller;
 import it.uniroma3.siw.poesia.siwpoesia0.controller.session.SessionData;
 import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.AutoreValidator;
 import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.ImmagineValidator;
-import it.uniroma3.siw.poesia.siwpoesia0.model.Immagine;
-import it.uniroma3.siw.poesia.siwpoesia0.service.*;
-import it.uniroma3.siw.poesia.siwpoesia0.model.Poesia;
 import it.uniroma3.siw.poesia.siwpoesia0.service.AutoreService;
-import it.uniroma3.siw.poesia.siwpoesia0.service.CommentoService;
+import it.uniroma3.siw.poesia.siwpoesia0.service.CredenzialeService;
+import it.uniroma3.siw.poesia.siwpoesia0.service.PoesiaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,8 +45,7 @@ public class AuthenticationController {
 	private AutoreValidator autoreValidator;
 	@Autowired
 	private ImmagineValidator immagineValidator;
-	@Autowired
-	private ImmagineService immagineService;
+
 
 	@GetMapping(value = "/register")
 	public String ShowRegisterForm(Model model) {
@@ -77,7 +72,6 @@ public class AuthenticationController {
 	@GetMapping(value = "/profilo")
 	public String defaultAfterLogin(Model model) {
 		model.addAttribute("poesie", this.poesiaService.getUltimePoesieDiAutore(sessionData.getLoggedUser()));
-
 		return "profilo";
 	}
 
@@ -123,11 +117,8 @@ public class AuthenticationController {
 							   Model model)  {
 		this.credenzialeValidator.validate(credenziali, credentialsBindingResult);
 		this.autoreValidator.validate(autore, autoreBindingResult);
+		if(!file.isEmpty()) this.immagineValidator.validate(file, fileBindingResult);
 
-		if(!file.isEmpty()){
-			this.immagineValidator.validate(file, fileBindingResult);
-
-		}
 		// se autore, credenziali e foto hanno contenuti validi, memorizza Autore e Credenziale e Immagine nel DB
 		if (!autoreBindingResult.hasErrors() && !credentialsBindingResult.hasErrors() && !fileBindingResult.hasErrors()) {
 			try{
@@ -135,7 +126,7 @@ public class AuthenticationController {
 				credenziali.setAutore(a);
 				credenzialeService.saveCredentials(credenziali);
 				model.addAttribute("autore", a);
-				return "registrationSuccessful";
+				return "redirect:/profilo";
 			}catch(IOException e){
 				model.addAttribute("fileUploadError", "errore imprevisto nell'upload!");
 			}
