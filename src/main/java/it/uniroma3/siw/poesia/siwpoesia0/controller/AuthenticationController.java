@@ -57,7 +57,6 @@ public class AuthenticationController {
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("ultimePoesie", this.poesiaService.getUltimePoesie());
-		model.addAttribute("ultimiCommenti", this.commentoService.getUltimiCommenti());
 
 		/*per ora non ho trovato nulla di particolare da mettere nella home dei poeti*/
 

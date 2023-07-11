@@ -2,6 +2,8 @@ package it.uniroma3.siw.poesia.siwpoesia0.controller;
 
 import it.uniroma3.siw.poesia.siwpoesia0.controller.session.SessionData;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Autore;
+import it.uniroma3.siw.poesia.siwpoesia0.model.Commento;
+import it.uniroma3.siw.poesia.siwpoesia0.service.CommentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,6 +27,9 @@ public class GlobalController {
 	@Autowired
 	private CredenzialeService credentialsService;
 
+	@Autowired
+	private CommentoService commentoService;
+
 	@ModelAttribute("user")
 	public Autore getAutore() {
 
@@ -40,6 +45,9 @@ public class GlobalController {
 	public List<Credentials> getPoetiDerTrullo(){
 		return this.credentialsService.findAllPoetiDerTrullo();
 	}
+
+	@ModelAttribute("ultimiCommenti")
+	public List<Commento> getUltimiCommenti() { return this.commentoService.getUltimiCommenti(); }
 
 	@ModelAttribute("credentials")
 	public Credentials getCredentials(){
