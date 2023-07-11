@@ -124,6 +124,12 @@ public class PoesiaController {
 		return "profilo";
 	}
 
+	@GetMapping("/deleteImmagine/{idPoesia}")
+	public String deleteImmagineFromPoesia(@PathVariable("idPoesia") Long idP, Model model) {
+		System.out.println(this.poesiaService.deleteImmagine(idP));
+		return "redirect:/autore/formUpdatePoesia/" + idP;
+	}
+
 
 	@PostMapping("/searchPoesie")
 	public String searchPoesie(Model model, @RequestParam String titolo) {

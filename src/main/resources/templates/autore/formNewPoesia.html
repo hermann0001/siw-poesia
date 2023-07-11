@@ -27,13 +27,7 @@
                     <div class="col-md-6 p-3">
                         <a href="/"><img src="/images/logo.png" alt=""/></a>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-8">
-                            <label for="formImmagine" class="form-label">Aggiungi Immagine</label>
-                            <input type="file" id="formImmagine" class="form-control" name="file" accept="image/*" />
-                            <p class="mt-1 form-text valid" th:if="${fileUploadError}" th:text="${fileUploadError}"></p>
-                        </div>
-                    </div>
+
                     <div class="col-md-6 p-3 border-left">
                         <form th:action="@{/autore/poesia}" method="POST" th:object="${poesia}" enctype="multipart/form-data">
                             <h5>Inserisci una nuova<em>poesia</em></h5>
@@ -49,6 +43,13 @@
                                     <label class="form-label" for="formTesto">Testo</label>
                                     <textarea id="formTesto" type="text" th:field="*{testo}" class="form-control" rows="10"></textarea>
                                     <p class="mt-1 form-text valid" th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}"></p>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-8">
+                                    <label for="formImmagine" class="form-label">Aggiungi Immagine</label>
+                                    <input type="file" id="formImmagine" class="form-control" name="file" accept="image/*" />
+                                    <p class="mt-1 form-text valid" th:if="${fileUploadError}" th:text="${fileUploadError}"></p>
                                 </div>
                             </div>
                             <div class="row mb-3">

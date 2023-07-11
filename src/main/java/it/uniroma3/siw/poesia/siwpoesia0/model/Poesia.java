@@ -127,7 +127,7 @@ public class Poesia {
 
 	@Override
 	public String toString() {
-		return "Poesia [id=" + id + ", testo=" + testo + ", titolo=" + titolo + ", url_foto=" + foto
+		return "Poesia [id=" + id + ", testo=" + testo + ", titolo=" + titolo + ", foto=" + foto
 				+ ", data_pubblicazione=" + dataPubblicazione + ", autore=" + autore + "]";
 	}
 }
