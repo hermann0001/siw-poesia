@@ -2,6 +2,9 @@ package it.uniroma3.siw.poesia.siwpoesia0.controller;
 
 
 import it.uniroma3.siw.poesia.siwpoesia0.controller.session.SessionData;
+import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.AutoreValidator;
+import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.ImmagineValidator;
+import it.uniroma3.siw.poesia.siwpoesia0.model.Immagine;
 import it.uniroma3.siw.poesia.siwpoesia0.service.AutoreService;
 import it.uniroma3.siw.poesia.siwpoesia0.service.CommentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,10 @@ import it.uniroma3.siw.poesia.siwpoesia0.model.Credentials;
 import it.uniroma3.siw.poesia.siwpoesia0.service.CredenzialeService;
 import it.uniroma3.siw.poesia.siwpoesia0.service.PoesiaService;
 import jakarta.validation.Valid;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
 
 
 @Controller
@@ -37,7 +44,10 @@ public class AuthenticationController {
 	SessionData sessionData;
 	@Autowired
 	private CredenzialeValidator credenzialeValidator;
-
+	@Autowired
+	private AutoreValidator autoreValidator;
+	@Autowired
+	private ImmagineValidator immagineValidator;
 	@Autowired
 	private CommentoService commentoService;
 
@@ -61,13 +71,6 @@ public class AuthenticationController {
 
 		/*per ora non ho trovato nulla di particolare da mettere nella home dei poeti*/
 
-		/*if (authentication instanceof AnonymousAuthenticationToken) {
-			return "index";
-		} else {
-			if (this.sessionData.getLoggedCredentials().getRole().equals(Credentials.POETA_RUOLO)) {
-				return "poeta/indexAdmin";
-			}
-		}*/
 		return "index";
 	}
 
@@ -79,20 +82,25 @@ public class AuthenticationController {
 	}
 
 	@PostMapping(value = {"/register"})
-	public String registerUser(@Valid @ModelAttribute("autore") Autore autore,
-							   BindingResult autoreBindingResult, @Valid @ModelAttribute("credenziali") Credentials credenziali,
-							   BindingResult credentialsBindingResult,
-							   Model model) {
-
+	public String registerUser(@Valid @ModelAttribute("autore") Autore autore, BindingResult autoreBindingResult,
+							   @Valid @ModelAttribute("credenziali") Credentials credenziali, BindingResult credentialsBindingResult,
+							   @Valid @ModelAttribute MultipartFile file, BindingResult fileBindingResult,
+							   Model model)  {
 		this.credenzialeValidator.validate(credenziali, credentialsBindingResult);
-		// se autore e  credenziali hanno entrambi contenuti validi, memorizza Autore e Credenziale nel DB
-		if (!autoreBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
-			autoreService.saveAutore(autore);
-			credenziali.setAutore(autore);
-			credenzialeService.saveCredentials(credenziali);
-			model.addAttribute("autore", autore);
-			return "registrationSuccessful";
+		this.autoreValidator.validate(autore, autoreBindingResult);
+		this.immagineValidator.validate(file, fileBindingResult);
+		// se autore, credenziali e foto hanno contenuti validi, memorizza Autore e Credenziale e Immagine nel DB
+		if (!autoreBindingResult.hasErrors() && !credentialsBindingResult.hasErrors() && !fileBindingResult.hasErrors()) {
+			try{
+				Autore a = this.autoreService.saveAutore(autore, file);
+				credenziali.setAutore(a);
+				credenzialeService.saveCredentials(credenziali);
+				model.addAttribute("autore", a);
+				return "registrationSuccessful";
+			}catch(IOException e){
+				model.addAttribute("fileUploadError", "errore imprevisto nell'upload!");
+			}
 		}
-		return "formRegisterAutore";
+		return "formRegisterUser";
 	}
 }

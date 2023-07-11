@@ -44,28 +44,6 @@ public class AutoreController {
 		return "/autore/autore";
 	}
 	
-	@GetMapping("/admin/formNewAutore")
-	public String formNewAutore(Model model) {
-		model.addAttribute("autore", new Autore());
-		return "/admin/formNewAutore";
-	}
-	
-	@PostMapping("/autore/autore")
-	public String newAutore(@Valid @ModelAttribute("autore") Autore autore, BindingResult bindingResult,
-			MultipartFile image, Model model) {
-		this.autoreValidator.validate(autore, bindingResult);
-		if(!bindingResult.hasErrors()) {
-			this.autoreService.createArtist(autore, image);
-			model.addAttribute("autore", autore);
-			return "autore/autore";
-		}
-		else {
-			return "admin/formNewAutore";
-		}
-	}
-
-
-	
 	@GetMapping("/autori")
 	public String showAutori(Model model) {
 		model.addAttribute("autori", this.autoreService.findAllAutori());

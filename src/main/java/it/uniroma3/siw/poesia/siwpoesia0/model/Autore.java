@@ -23,7 +23,8 @@ public class Autore {
 	@NotNull
 	private String email;
 
-	private String url_foto;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Immagine foto;
 	
 	//associazioni
 	@OneToMany(mappedBy = "autore")
@@ -35,11 +36,11 @@ public class Autore {
 	public Autore() {
 	}
 	
-	public Autore(String nome,String cognome, String email, String url_foto) {
+	public Autore(String nome,String cognome, String email, Immagine foto) {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;
-		this.url_foto = url_foto;
+		this.foto = foto;
 		this.commenti = new LinkedList<>();
 		this.poesie = new LinkedList<>();
 	}
@@ -92,12 +93,12 @@ public class Autore {
 		this.poesie = poesie;
 	}
 
-	public String getUrl_foto() {
-		return url_foto;
+	public Immagine getFoto() {
+		return foto;
 	}
 
-	public void setUrl_foto(String url_foto) {
-		this.url_foto = url_foto;
+	public void setFoto(Immagine foto) {
+		this.foto = foto;
 	}
 	
 	public void aggiungiPoesia(Poesia p) {

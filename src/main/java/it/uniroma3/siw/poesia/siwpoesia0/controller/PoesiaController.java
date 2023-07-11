@@ -29,6 +29,8 @@ import it.uniroma3.siw.poesia.siwpoesia0.service.CredenzialeService;
 import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.PoesiaValidator;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.naming.Binding;
+
 @Controller
 public class PoesiaController {
 	
@@ -102,12 +104,13 @@ public class PoesiaController {
 
 	@PostMapping ("/autore/updatePoesia/{id}")
 	public String updatePoesia(@PathVariable("id") Long id,
-							   @Valid @ModelAttribute("poesia") Poesia poesia, BindingResult bindingResult,
-							   @Valid @ModelAttribute MultipartFile file, Model model, RedirectAttributes redirectAttributes){
+							   @Valid @ModelAttribute("poesia") Poesia poesia, BindingResult poesiaBindingResult,
+							   @Valid @ModelAttribute MultipartFile file, BindingResult fileBindingResult,
+							   Model model, RedirectAttributes redirectAttributes){
 
-		this.poesiaValidator.validate(poesia, bindingResult); //OCCHIO BINDING RESULT NON AVRA' MAI ERRORI SE NON VALIDI LA POESIA!!!
-		this.immagineValidator.validate(file, bindingResult);
-		if(!bindingResult.hasErrors()) {
+		this.poesiaValidator.validate(poesia, poesiaBindingResult); //OCCHIO BINDING RESULT NON AVRA' MAI ERRORI SE NON VALIDI LA POESIA!!!
+		this.immagineValidator.validate(file, fileBindingResult);
+		if(!poesiaBindingResult.hasErrors() && !fileBindingResult.hasErrors()) {
 			try {
 				model.addAttribute("poesia",this.poesiaService.updatePoesia(id, poesia, file));		//bisogna aggiornare il model con la nuova poesia
 			} catch (IOException e) {

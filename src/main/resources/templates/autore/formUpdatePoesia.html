@@ -29,21 +29,21 @@
                         <img src="" th:src="@{'/files/' + ${poesia.foto.id}}" alt="poesia_img"/>
                     </div>
                     <div th:unless="${poesia.foto}">
-                        <img src="/images/logo.png" alt="libro"/>
+                        <a href="/"><img src="/images/logo.png" alt=""/></a>
                     </div>
-
-                    <div class="input-group mb-3">
-                        <label class="form-label">Modifica immagine</label>
-                        <input type="file" class="form-control" name="file" accept="image/*" />
-                        <p class="mt-1 form-text valid" th:if="${fileUploadError}" th:text="${fileUploadError}"></p>
-                    </div>
-
-                    <div class="main-button py-3 text-center">
-                        <a th:href="@{'/deleteImmagine'+'/' + ${poesia.id}}">Elimina immagine</a>
+                    <div class="row my-3">
+                        <div class="col-8 mb-3">
+                            <label for="formImmagine" class="form-label">Modifica Immagine</label>
+                            <input type="file" id="formImmagine" class="form-control" name="file" accept="image/*" />
+                            <p class="mt-1 form-text valid" th:if="${fileUploadError}" th:text="${fileUploadError}"></p>
+                        </div>
+                        <div class="main-button py-3 text-center d-flex justify-content-lg-start">
+                            <a th:href="@{'/deleteImmagine'+'/' + ${poesia.id}}">Elimina immagine</a>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6 p-3 border-left">
-                    <h5>Modifica<em>poesia</em></h5>
+                    <h5>Modifica <em>poesia</em></h5>
                         <label class="form-label">Modifica titolo</label>
                         <div class="input-group mb-3">
                             <input name="titolo" type="text" th:field="*{titolo}" class="form-control" aria-label="titolo" aria-describedby="basic-addon1">

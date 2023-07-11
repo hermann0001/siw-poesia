@@ -226,3 +226,7 @@
     <img src="/images/libro.jpg" alt="libro"/>
   </div>
 </div>
+
+<div class="mt-1" th:if="${#fields.hasGlobalErrors()}" th:fragment="fieldGlobalError">
+  <p class="form-text valid" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+</div>

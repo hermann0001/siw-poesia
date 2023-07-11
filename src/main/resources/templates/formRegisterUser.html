@@ -21,8 +21,8 @@
 <!-- Content -->
 <div class="container-md px-3">
 	<div class="form">
-		<div class="row gx-4 align-items-center">
-			<form th:action="@{/register}" method="POST" enctype="multipart/form-data">
+		<form th:action="@{/register}" method="POST" enctype="multipart/form-data">
+			<div class="row gx-4 align-items-center">
 				<div class="col-md-6">
 					<div class="row">
 						<div class="col-12">
@@ -39,45 +39,48 @@
 				</div>
 				<div class="col-md-6 p-4 border-left">
 					<h4 class="text-center">Registrati</h4>
+					<div th:object="${autore}">
 						<div class="row">
 							<div class="form-group col-sm-6">
 								<label for="formName">Nome</label>
-								<input type="text" placeholder="Mario" class="form-control" th:field="${autore.nome}" id="formName"/>
-								<p class="mt-2 form-text valid" th:if="${#fields.hasErrors('autore.nome')}" th:errors="${autore.nome}"></p>
+								<input type="text" placeholder="Mario" class="form-control" th:field="*{nome}" id="formName"/>
+								<p class="mt-1 form-text valid" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
 							</div>
 							<div class="form-group col-sm-6">
 								<label for="formSurname">Cognome</label>
-								<input type="text" placeholder="Rossi" class="form-control" th:field="${autore.cognome}" id="formSurname"/>
-								<p class="mt-1 form-text valid" th:if="${#fields.hasErrors('autore.cognome')}" th:errors="${autore.cognome}"></p>
+								<input type="text" placeholder="Rossi" class="form-control" th:field="*{cognome}" id="formSurname"/>
+								<p class="mt-1 form-text valid" th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></p>
 							</div>
 						</div>
 						<div class="form-group my-4">
 							<label for="formEmail">Email</label>
-							<input type="email" placeholder="youremail@example.com" class="form-control" th:field="${autore.email}" id="formEmail" />
-							<p class="mt-1 form-text valid" th:if="${#fields.hasErrors('autore.email')}" th:errors="${autore.email}"></p>
+							<input type="email" placeholder="youremail@example.com" class="form-control" th:field="*{email}" id="formEmail" />
+							<p class="mt-1 form-text valid" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 						</div>
-
-						<div class="row">
-							<div class="form-group col-md-6">
-								<label for="formUsername">Username</label>
-								<input type="text" id="formUsername" placeholder="username" class="form-control" th:field="${credenziali.username}" />
-								<p class="mt-1 form-text valid" th:if="${#fields.hasErrors('credenziali.username')}" th:errors="${credenziali.username}"></p>
-							</div>
-							<div class="form-group col-md-6 mb-3">
-								<label for="formPassword">Password</label>
-								<input type="password" id="formPassword" placeholder="password" class="form-control" th:field="${credenziali.password}" />
-								<p class="mt-1 form-text valid" th:if="${#fields.hasErrors('credenziali.password')}" th:errors="${credenziali.password}"></p>
-							</div>
+						<div th:replace="~{fragments/fragments.html :: fieldGlobalError}"></div>
+					</div>
+					<div class="row" th:object="${credenziali}">
+						<div class="form-group col-md-6">
+							<label for="formUsername">Username</label>
+							<input type="text" id="formUsername" placeholder="username" class="form-control" th:field="*{username}" />
+							<p class="mt-1 form-text valid" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
 						</div>
-						<div class="main-button py-3">
-							<button type="submit">Registrati</button>
+						<div class="form-group col-md-6 mb-3">
+							<label for="formPassword">Password</label>
+							<input type="password" id="formPassword" placeholder="password" class="form-control" th:field="*{password}" />
+							<p class="mt-1 form-text valid" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
 						</div>
-						<div>
-							<p class="form-text">Hai già un account? <a href="/login">Accedi</a></p>
-						</div>
+						<div th:replace="~{fragments/fragments.html :: fieldGlobalError}"></div>
+					</div>
+					<div class="main-button py-3">
+						<button type="submit">Registrati</button>
+					</div>
+					<div>
+						<p class="form-text">Hai già un account? <a href="/login">Accedi</a></p>
+					</div>
 				</div>
-			</form>
-		</div>
+			</div>
+		</form>
 	</div>
 </div>
 
