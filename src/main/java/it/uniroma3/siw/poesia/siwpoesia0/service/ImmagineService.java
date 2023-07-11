@@ -35,4 +35,11 @@ public class ImmagineService {
        this.immagineRepository.delete(img);
     }
 
+    public Immagine find(Long id) {
+        return this.immagineRepository.findById(id).get();
+    }
+
+    public Immagine find(String filename){
+        return this.immagineRepository.findByNome(filename).get();
+    }
 }
