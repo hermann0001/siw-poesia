@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/ico" href="/favicon.ico">
+    <!-- Including Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+    <title>Modifica Poesia</title>
+
+    <!-- Bootstrap CSS Files -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <!-- Custom CSS Files -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/form.css">
+    <!-- embedding FontAwesome Kit script -->
+    <script src="https://kit.fontawesome.com/132524fe8d.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<!-- Content -->
+<div class="container-md p-4">
+    <div class="form">
+        <form th:action="@{'/autore/updateProfilo/'+${autore.id}}" method="POST" th:object="${autore}" enctype="multipart/form-data">
+            <div class="row gx-4 align-items-center">
+                <div class="col-md-6 p-3">
+                    <div th:if="${autore.foto}">
+                        <img src="" th:src="@{'/files/' + ${autore.foto.id}}" alt="poesia_img"/>
+                    </div>
+                    <div th:unless="${autore.foto}">
+                        <a href="/"><img src="/images/logo.png" alt=""/></a>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-8 mb-3">
+                            <label for="formImmagine" class="form-label">Modifica Immagine</label>
+                            <input type="file" id="formImmagine" class="form-control" name="file" accept="image/*" />
+                            <p class="mt-1 form-text valid" th:if="${fileUploadError}" th:text="${fileUploadError}"></p>
+                        </div>
+                        <div class="main-button py-3 text-center d-flex justify-content-lg-start">
+                            <a th:href="@{'/deleteImmagineProfilo'+'/' + ${autore.id}}">Elimina immagine</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 p-3 border-left">
+                    <h5>Modifica <em>profilo</em></h5>
+                    <label class="form-label">Modifica nome</label>
+                    <div class="input-group mb-3">
+                        <input name="nome" type="text" th:field="*{nome}" class="form-control" aria-label="nome" aria-describedby="basic-addon1">
+                        <p class="mt-1 form-text valid" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
+                    </div>
+                    <label class="form-label">Modifica cognome</label>
+                    <div class="input-group mb-3">
+                        <input name="cognome" type="text" th:field="*{cognome}" class="form-control" aria-label="cognome" aria-describedby="basic-addon2"></input>
+                        <p class="mt-1 form-text valid" th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></p>
+                    </div>
+
+                    <label class="form-label">Modifica email</label>
+                    <div class="input-group mb-3">
+                        <input name="email" type="text" th:field="*{email}" class="form-control" aria-label="email" aria-describedby="basic-addon4">
+                        <p class="mt-1 form-text valid" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                    </div>
+
+                    <div th:replace="~{fragments/fragments.html :: fieldGlobalError}"></div>
+                    <div class="main-button py-3">
+                        <button type="submit">Conferma</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer th:replace="~{fragments/fragments.html :: footer}"></footer>
+<!-- Boostrap JS Files -->
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
