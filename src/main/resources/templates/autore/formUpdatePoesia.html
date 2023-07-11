@@ -26,7 +26,7 @@
             <form th:action="@{'/autore/updatePoesia/'+${poesia.id}}" method="POST" th:object="${poesia}" enctype="multipart/form-data">
                 <div class="col-md-6 p-3">
                     <div th:if="${poesia.foto}">
-                        <img src="" th:src="@{'/files/' + ${poesia.foto.id}}" alt="posia_img"/>
+                        <img src="" th:src="@{'/files/' + ${poesia.foto.id}}" alt="poesia_img"/>
                     </div>
                     <div th:unless="${poesia.foto}">
                         <img src="/images/logo.png" alt="libro"/>
