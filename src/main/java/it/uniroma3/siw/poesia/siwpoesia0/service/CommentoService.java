@@ -54,7 +54,7 @@ public class CommentoService {
             poesia.getCommenti().remove(commento);
             commento.getAutore().getCommenti().remove(commento);
 
-            this.commentoRepository.save(commento);
+            this.commentoRepository.delete(commento);
             this.poesiaRepository.save(poesia);
             this.autoreRepository.save(commento.getAutore());
         }

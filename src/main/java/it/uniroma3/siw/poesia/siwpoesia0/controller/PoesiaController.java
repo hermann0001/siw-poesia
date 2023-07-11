@@ -87,7 +87,6 @@ public class PoesiaController {
 		return "/autore/formNewPoesia";																								//ritorna l'html e mostra gli errori del binding result
 	}
 
-/* TODO: NENE CONFERMAMI LA CANCELLAZIONE (cioè cancella tu)
 	@GetMapping("/autore/formUpdatePoesia/{id}")
 	public String formUpdatePoesia(@PathVariable("id") Long id, Model model) {
 		Poesia poesia= this.poesiaService.findPoesiaById(id);
@@ -95,18 +94,26 @@ public class PoesiaController {
 			model.addAttribute("poesia",poesia);
 		}
 		else {
-			return "poesiaError.html";
+			return "error";
 		}
-		return "/autore/formUpdatePoesia.html";
+		return "/autore/formUpdatePoesia";
 	}
-*/
+
 
 	@PostMapping ("/autore/updatePoesia/{id}")
 	public String updatePoesia(@PathVariable("id") Long id,
-							   @Valid @ModelAttribute("poesia") Poesia poesia, BindingResult bindingResult, Model model){
+							   @Valid @ModelAttribute("poesia") Poesia poesia, BindingResult bindingResult,
+							   @Valid @ModelAttribute MultipartFile file, Model model, RedirectAttributes redirectAttributes){
+
 		this.poesiaValidator.validate(poesia, bindingResult); //OCCHIO BINDING RESULT NON AVRA' MAI ERRORI SE NON VALIDI LA POESIA!!!
+		this.immagineValidator.validate(file, bindingResult);
 		if(!bindingResult.hasErrors()) {
-			model.addAttribute("poesia",this.poesiaService.updatePoesia(id, poesia));		//bisogna aggiornare il model con la nuova poesia
+			try {
+				model.addAttribute("poesia",this.poesiaService.updatePoesia(id, poesia, file));		//bisogna aggiornare il model con la nuova poesia
+			} catch (IOException e) {
+				redirectAttributes.addFlashAttribute("fileUploadError", "errore imprevisto nell'upload!"); //Genero un attributo passabile tramite redirect per gestire l'errore e mostrarlo in validazione
+				return "redirect:/autore/formNewPoesia";
+			}
 		}
 		return "poesia";
 	}
@@ -117,21 +124,7 @@ public class PoesiaController {
 		return "profilo";
 	}
 
-/*	@PostMapping("/admin/updatePoesiaData/{idPoesia}")
-		public String updatePoesiaData(@PathVariable("idPoesia") Long idPoesia,
-				@Valid @ModelAttribute("poesia") Poesia newPoesia, BindingResult bindingResult,
-				MultipartFile image, Model model) {
-		this.poesiaValidator.validate(newPoesia, bindingResult);
 
-		if(!bindingResult.hasErrors()) {
-			model.addAttribute("poesia", this.poesiaService.update(idPoesia, newPoesia, image));
-			return "/autore/formUpdatePoesia";
-		} else {
-			model.addAttribute("poesia", this.poesiaService.findPoesiaById(idPoesia));
-			}
-		return "/autore/formUpdatePoesiaData.html";															//?????
-	}
-	*/
 	@PostMapping("/searchPoesie")
 	public String searchPoesie(Model model, @RequestParam String titolo) {
 		model.addAttribute("poesie", this.poesiaService.findByTitolo(titolo));

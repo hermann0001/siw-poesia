@@ -41,7 +41,9 @@
                     <!--per le immagini aspetto che creiamo la classe ecc-->
 
                     <div class="input-group mb-3">
-                        <input name="immagine" type="file" multiple class="form-control" aria-label="immagine" aria-describedby="basic-addon3">
+                        <label class="form-label">Modifica immagine</label>
+                        <input type="file" class="form-control" name="file" accept="image/*" />
+                        <p class="mt-1 form-text valid" th:if="${fileUploadError}" th:text="${fileUploadError}"></p>
                     </div>
 
                     <label class="form-label">Modifica data di pubblicazione</label>

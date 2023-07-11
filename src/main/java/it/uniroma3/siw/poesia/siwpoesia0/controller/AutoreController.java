@@ -63,36 +63,8 @@ public class AutoreController {
 			return "admin/formNewAutore";
 		}
 	}
-/*
-	@GetMapping("/autore/formUpdateAutore/{idAutore}")
-	public String formUpdateAutore(@PathVariable("idAutore") Long idAutore, Model model) {
-		Autore autore=this.autoreService.findAutoreById(idAutore);
-		model.addAttribute("autore",autore);
-		return "admin/formUpdateAutore";
-	}*/
-/*
-	TODO: A COSA SERVE QUESTO?
-	@GetMapping("/autore/formUpdateAutoreData/{idAutore}")
-	public String formUpdateArtistData(@PathVariable("idAutore") Long idAutore, Model model) {
-		Autore autore=this.autoreService.findAutoreById(idAutore);
-		model.addAttribute("autore",autore);
-		return "autore/formUpdateAutoreData.html";
-	}*/
 
-	//TODO: BOH?
-	/*@PostMapping("/autore/updateAutoretData/{idAutore}")
-	public String updateArtistData(@PathVariable("idAutore") Long idAutore, 
-			@Valid @ModelAttribute("autore") Autore newAutore, BindingResult bindingResult,
-			MultipartFile image, Model model) {
-		this.autoreValidator.validate(newAutore(newAutore, bindingResult, image, model), bindingResult);
-		if(!bindingResult.hasErrors()) {
-			model.addAttribute("artist", this.autoreService.update(idAutore, newAutore, image));
-			return "autore/formUpdateArtist.html";
-		}
-		else {
-			return "autore/formUpdateArtistData.html";
-		}
-	}*/
+
 	
 	@GetMapping("/autori")
 	public String showAutori(Model model) {
@@ -100,33 +72,5 @@ public class AutoreController {
 		return "/autore/autori";
 	}
 	
-	@GetMapping("/admin/manageAutore")
-	public String manageAutore(Model model) {
-		model.addAttribute("autori", this.autoreService.findAllAutori());
-		return "admin/manageAutore.html";
-	}
-	
-	@GetMapping("/admin/formConfirmDeleteAutore/{idAutore}")
-	public String formConfirmDeleteArtist(@PathVariable ("idAutore") Long idAutore, Model model) {
-		Autore autore=this.autoreService.findAutoreById(idAutore);
-		if(autore==null)
-			return "generic/autoreError.html";
-		model.addAttribute("autore", autore);
-		return "/admin/formConfirmDeleteAutore.html";
-	}
 
-	//TODO: ME PUZZA...
-	@Transactional
-	@GetMapping("/admin/deleteAutore/{idAutore}")
-	public String deleteAutore(@PathVariable ("idAutore") Long idAutore, Model model) {
-		Autore autore=this.autoreService.findAutoreById(idAutore);
-		if(autore==null)
-			return "generic/artistError.html";
-		else {
-			this.poesiaService.removeAutoreAssociationFromAllPoesie(idAutore);
-			this.autoreService.delete(idAutore);
-			model.addAttribute("artists", this.autoreService.findAllAutori());
-			return "admin/manageArtist.html";
-		}
-	}
 }
