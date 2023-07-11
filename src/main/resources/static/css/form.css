@@ -64,8 +64,15 @@
     font-weight: 700;
 }
 
-.form h4 em{
+.form h4 em,
+.form h5 em{
     font-style: normal;
     color: #e9571c;
     text-transform: uppercase;
+}
+
+.form h5{
+    font-size: 34px;
+    color: #fff;
+    font-weight: 600;
 }
