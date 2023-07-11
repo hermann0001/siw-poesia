@@ -5,8 +5,7 @@ import it.uniroma3.siw.poesia.siwpoesia0.controller.session.SessionData;
 import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.AutoreValidator;
 import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.ImmagineValidator;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Immagine;
-import it.uniroma3.siw.poesia.siwpoesia0.service.AutoreService;
-import it.uniroma3.siw.poesia.siwpoesia0.service.CommentoService;
+import it.uniroma3.siw.poesia.siwpoesia0.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,13 +21,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.CredenzialeValidator;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Autore;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Credentials;
-import it.uniroma3.siw.poesia.siwpoesia0.service.CredenzialeService;
-import it.uniroma3.siw.poesia.siwpoesia0.service.PoesiaService;
 import jakarta.validation.Valid;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 
 @Controller
@@ -49,7 +47,7 @@ public class AuthenticationController {
 	@Autowired
 	private ImmagineValidator immagineValidator;
 	@Autowired
-	private CommentoService commentoService;
+	private ImmagineService immagineService;
 
 	@GetMapping(value = "/register")
 	public String ShowRegisterForm(Model model) {
@@ -87,7 +85,11 @@ public class AuthenticationController {
 							   Model model)  {
 		this.credenzialeValidator.validate(credenziali, credentialsBindingResult);
 		this.autoreValidator.validate(autore, autoreBindingResult);
-		this.immagineValidator.validate(file, fileBindingResult);
+
+		if(!file.isEmpty()){
+			this.immagineValidator.validate(file, fileBindingResult);
+
+		}
 		// se autore, credenziali e foto hanno contenuti validi, memorizza Autore e Credenziale e Immagine nel DB
 		if (!autoreBindingResult.hasErrors() && !credentialsBindingResult.hasErrors() && !fileBindingResult.hasErrors()) {
 			try{

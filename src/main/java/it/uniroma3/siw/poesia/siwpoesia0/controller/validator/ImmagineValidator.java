@@ -20,6 +20,7 @@ public class ImmagineValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         MultipartFile image = (MultipartFile) target;
+        if(image.isEmpty()) return;                                  //una foto può essere null
         String imageType = image.getContentType();
         if(imageType != null && !permittedTypes.contains(imageType)){
             errors.reject("foto.InvalidFormat");
