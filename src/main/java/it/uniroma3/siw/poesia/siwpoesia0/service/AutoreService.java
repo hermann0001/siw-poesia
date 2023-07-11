@@ -29,6 +29,9 @@ public class AutoreService {
 	private ImmagineService immagineService;
 
 	@Transactional
+	public Autore find(Long id) { return this.autoreRepository.findById(id).orElse(null); }
+
+	@Transactional
 	public Autore saveAutore(Autore user) {
 		return this.autoreRepository.save(user);
 	}
@@ -51,5 +54,21 @@ public class AutoreService {
 
 	public boolean alreadyExists(Autore autore){
 		return autore.getEmail() != null && this.autoreRepository.existsByEmail(autore.getEmail());
+	}
+
+	@Transactional
+	public void deleteImmagine(Long idA) {
+		Autore autore = this.autoreRepository.findById(idA).orElse(null);
+		this.immagineService.deleteImmagine(autore.getFoto());
+		autore.setFoto(null);
+		this.saveAutore(autore);
+	}
+	@Transactional
+	public Autore updateAutore(Long id, Autore newAutore, MultipartFile newFoto) throws IOException {
+		Autore oldAutore=this.find(id);
+		oldAutore.setNome(newAutore.getNome());
+		oldAutore.setCognome(newAutore.getCognome());
+		oldAutore.setEmail(newAutore.getEmail());
+		return this.saveAutore(oldAutore, newFoto);
 	}
 }

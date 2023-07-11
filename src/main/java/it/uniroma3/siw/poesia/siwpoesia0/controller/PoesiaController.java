@@ -115,7 +115,7 @@ public class PoesiaController {
 				model.addAttribute("poesia",this.poesiaService.updatePoesia(id, poesia, file));		//bisogna aggiornare il model con la nuova poesia
 			} catch (IOException e) {
 				redirectAttributes.addFlashAttribute("fileUploadError", "errore imprevisto nell'upload!"); //Genero un attributo passabile tramite redirect per gestire l'errore e mostrarlo in validazione
-				return "redirect:/autore/formNewPoesia";
+				return "redirect:/autore/formUpdatePoesia";
 			}
 		}
 		return "poesia";

@@ -64,8 +64,7 @@ public class PoesiaService {
 		oldPoesia.setTitolo(newPoesia.getTitolo());
 		oldPoesia.setTesto(newPoesia.getTesto());
 		oldPoesia.setDataPubblicazione(newPoesia.getDataPubblicazione());
-		oldPoesia.setFoto(this.immagineService.saveImmagine(newFoto));
-		return this.poesiaRepository.save(oldPoesia);
+		return this.savePoesia(oldPoesia, newFoto);
 	}
 
 	@Transactional
@@ -134,6 +133,6 @@ public class PoesiaService {
 		Poesia poesia = this.poesiaRepository.findById(idP).orElse(null);
 		this.immagineService. deleteImmagine(poesia.getFoto());
 		poesia.setFoto(null);
-		return this.poesiaRepository.save(poesia);
+		return this.savePoesia(poesia);
 	}
 }

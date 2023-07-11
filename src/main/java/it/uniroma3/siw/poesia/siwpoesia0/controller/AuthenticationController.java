@@ -5,6 +5,7 @@ import it.uniroma3.siw.poesia.siwpoesia0.controller.session.SessionData;
 import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.AutoreValidator;
 import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.ImmagineValidator;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Immagine;
+import it.uniroma3.siw.poesia.siwpoesia0.model.Poesia;
 import it.uniroma3.siw.poesia.siwpoesia0.service.AutoreService;
 import it.uniroma3.siw.poesia.siwpoesia0.service.CommentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.CredenzialeValidator;
@@ -78,6 +80,41 @@ public class AuthenticationController {
 		model.addAttribute("poesie", this.poesiaService.getUltimePoesieDiAutore(sessionData.getLoggedUser()));
 
 		return "profilo";
+	}
+
+	@GetMapping(value="/autore/formUpdateProfilo/{idA}")
+	public String formUpdateProfilo(@PathVariable("idA") Long idA, Model model) {
+		Autore autore = this.autoreService.find(idA);
+		if(idA.equals(sessionData.getLoggedUser().getId()) && autore!= null) {
+			model.addAttribute("autore", autore);
+		} else {
+			return "error";
+		}
+		return "/autore/formUpdateProfilo";
+	}
+
+
+	@PostMapping (value="/autore/updateProfilo/{idA}")
+	public String updateProfilo(@PathVariable("idA") Long id,
+								@Valid @ModelAttribute("autore") Autore autore, BindingResult autoreBindingResult,
+								@Valid @ModelAttribute MultipartFile file, BindingResult fileBindingResult,
+								Model model, RedirectAttributes redirectAttributes) {
+		//this.autoreValidator.validate(autore, autoreBindingResult);
+		//this.immagineValidator.validate(file, fileBindingResult);
+			try {
+				model.addAttribute("autore",this.autoreService.updateAutore(id, autore, file));
+				return "redirect:/profilo";
+			} catch(IOException e) {
+				redirectAttributes.addFlashAttribute("fileUploadError", "errore imprevisto nell'upload!");
+			}
+		return "redirect:/autore/formUpdateProfilo/" + id;
+
+	}
+
+	@GetMapping(value="/deleteImmagineProfilo/{idA}")
+	public String deleteImmagineProfilo(@PathVariable("idA") Long idA, Model model) {
+		this.autoreService.deleteImmagine(idA);
+		return "redirect:/autore/formUpdateProfilo/" + idA;
 	}
 
 	@PostMapping(value = {"/register"})
