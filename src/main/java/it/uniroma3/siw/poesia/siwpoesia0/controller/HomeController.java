@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import it.uniroma3.siw.poesia.siwpoesia0.service.PoesiaService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
@@ -26,5 +28,12 @@ public class HomeController {
     @GetMapping(value="/libro")
     public String libro(Model model){ 
     	return "libro"; 
+    }
+
+    @PostMapping (value="/find")
+    public String cosaCerchi(Model model, @RequestParam String poesiaCercata) {
+        model.addAttribute("poesie", this.poesiaService.findByTitolo(poesiaCercata));
+        return "foundPoesie";
+
     }
 }

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PoesiaRepository extends CrudRepository<Poesia, Long>{
-	
 	public List<Poesia> findByTitolo(String titolo);
 	public boolean existsByTitoloAndAutore(String Titolo, Autore autore);
 	public List<Poesia> findAllByAutoreOrderByDataPubblicazioneDesc(Autore autore);
