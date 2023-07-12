@@ -9,7 +9,6 @@ public class Immagine {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Lob @Basic(fetch=FetchType.LAZY)
     private byte[] data;
     private String nome;
     private String tipo;
