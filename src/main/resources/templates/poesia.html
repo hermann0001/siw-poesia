@@ -52,8 +52,10 @@
                         <div class="row my-5">
                             <div class="col-lg-12">
                                 <!--PER I COMMENTI-->
-                                <div class="row justify-content-start" th:if="${!poesia.commenti.isEmpty()}">
+                                <div th:if="${user!=null}">
                                     <h4 class="fs-4"><em>Commenti:</em></h4>
+                                </div>
+                                <div class="row justify-content-start" th:if="${!poesia.commenti.isEmpty()}">
                                     <div class="col-8 mt-4" th:each="commento : ${poesia.commenti}">
                                         <div class="commento p-4">
                                             <figure>
@@ -76,7 +78,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div th:unless="${!poesia.commenti.isEmpty()}">
+                                <div th:if="${user==null}">
                                     <h3 class="text-justify">Fai login per inserire un commento</h3>
                                     <div class="main-button py-3 text-start">
                                         <a th:href="@{'/login'}">Login</a>
