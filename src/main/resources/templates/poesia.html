@@ -55,7 +55,7 @@
                                 <div th:if="${user!=null}">
                                     <h4 class="fs-4"><em>Commenti:</em></h4>
                                 </div>
-                                <div class="row justify-content-start" th:if="${!poesia.commenti.isEmpty()}">
+                                <div class="row justify-content-start" th:if="${poesia.commenti}">
                                     <div class="col-8 mt-4" th:each="commento : ${poesia.commenti}">
                                         <div class="commento p-4">
                                             <figure>

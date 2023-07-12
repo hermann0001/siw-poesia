@@ -35,16 +35,16 @@ public class AutoreService {
 		if(!file.isEmpty()) user.setFoto(this.immagineService.saveImmagine(file));
 		return this.autoreRepository.save(user);
 	}
-
+	@Transactional
 	public Iterable<Autore> findAllAutori(){
 		return this.autoreRepository.findAll();
 	}
-
+	@Transactional
 	public void delete(Long idAutore) {
 		Autore artist = this.autoreRepository.findById(idAutore).get();
 		this.autoreRepository.delete(artist);
 	}
-
+	@Transactional
 	public boolean alreadyExists(Autore autore){
 		return autore.getEmail() != null && this.autoreRepository.existsByEmail(autore.getEmail());
 	}
