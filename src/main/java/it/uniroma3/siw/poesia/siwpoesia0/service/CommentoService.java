@@ -1,6 +1,7 @@
 package it.uniroma3.siw.poesia.siwpoesia0.service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -48,8 +49,8 @@ public class CommentoService {
         poesia.getCommenti().add(commento);
         autore.getCommenti().add(commento);
 
-        System.out.println(LocalDateTime.now());
         commento.setData(LocalDateTime.now());              //imposta data di pubblicazione al momento della creazione
+        commento.getData().format(DateTimeFormatter.ofPattern("HH:mm"));
 
         return this.commentoRepository.save(commento);
     }

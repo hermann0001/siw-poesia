@@ -63,10 +63,14 @@
                                 <div class="row justify-content-start" th:if="${!poesia.commenti.isEmpty()}">
                                     <div class="col-8 mt-4" th:each="commento : ${poesia.commenti}">
                                         <div class="commento p-4">
-                                            <figure class="text-center">
-                                                <figcaption class="blockquote-footer mt-3" th:text="${commento.autore.nome + ' ' + commento.autore.cognome}">Nome utente</figcaption>
-                                                <p class="lh-sm" th:text="${commento.text}"> testo commento</p>
-                                                <p class="fs-5" th:text="${commento.data}">data</p>
+                                            <figure>
+                                                <div class="d-inline-block">
+                                                    <h5 class="text-start mt-1" th:text="${commento.autore.nome + ' ' + commento.autore.cognome}">Nome utente</h5>
+                                                    <img class="img-fluid" src="" th:if="${commento.autore.foto}" th:src="@{'/files/' + ${commento.autore.foto.id}}" alt="fotoprofilo">
+                                                </div>
+                                                <p class="text-start fs-5 lh-sm my-3" th:text="${commento.text}"> testo commento</p>
+                                                <p class="text-end fs-5" th:text="${commento.data.toLocalDate()}">data</p>
+                                                <p class="text-end fs-6" th:text="${commento.data.toLocalTime().getHour() + ':' + commento.data.toLocalTime().getMinute()}">orario</p>
                                             </figure>
                                         </div>
                                         <div class="justify-content-end" th:if="${credentials != null && credentials.isPoeta()}">
