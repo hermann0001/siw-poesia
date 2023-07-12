@@ -50,16 +50,10 @@ public class PoesiaController {
 
 	@GetMapping("/poesia/{id}")
 	public String getPoesia(@PathVariable("id") Long id, Model model) {
-		System.out.println("******************\n\n\nsto qua1!!!!\n\n\n******************");
-
 		Poesia poesia=this.poesiaService.find(id);
 		model.addAttribute("poesia", poesia);
-		System.out.println("******************\n\n\nsto qua2!!!!\n\n\n******************");
-
 		Autore loggedUser = this.sessionData.getLoggedUser();
 		if(loggedUser != null) model.addAttribute("newCommento", new Commento());			//se loggato posso commentare la poesia
-		System.out.println("******************\n\n\nsto qua3!!!!\n\n\n******************");
-
 		return "poesia";
 	}
 

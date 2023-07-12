@@ -41,6 +41,7 @@ public class CredenzialeService {
 		return this.credenzialeRepository.findById(id).orElse(null).getUsername();   //mi torna null
 	}
 
+	@Transactional
 	public List<Credentials> findAllPoetiDerTrullo() {
 		return this.credenzialeRepository.findAllByRole(Credentials.POETA_RUOLO);
 	}
