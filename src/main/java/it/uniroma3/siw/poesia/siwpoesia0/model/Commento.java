@@ -1,6 +1,7 @@
 package it.uniroma3.siw.poesia.siwpoesia0.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -9,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Commento {
@@ -16,26 +18,14 @@ public class Commento {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-	
-	
-	private static int maxLenghtTitle=20;
-	
 	@NotBlank
 	private String text;
-	
-	private static int maxLenghtText=150;
-	
-	private int miPiace;
-	
 	@ManyToOne
 	private Autore autore;
-	
-	private LocalDate data;
-	
+	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+	private LocalDateTime data;
 	@ManyToOne
 	private Poesia poesia;
-
-	
 	
 	public Autore getAutore() {
 		return autore;
@@ -61,36 +51,12 @@ public class Commento {
 		this.id = id;
 	}
 
-	public static int getMaxLenghtTitle() {
-		return maxLenghtTitle;
-	}
-
-	public static void setMaxLenghtTitle(int maxLenghtTitle) {
-		Commento.maxLenghtTitle = maxLenghtTitle;
-	}
-
 	public String getText() {
 		return text;
 	}
 
 	public void setText(String text) {
 		this.text = text;
-	}
-
-	public static int getMaxLenghtText() {
-		return maxLenghtText;
-	}
-
-	public static void setMaxLenghtText(int maxLenghtText) {
-		Commento.maxLenghtText = maxLenghtText;
-	}
-
-	public int getMiPiace() {
-		return miPiace;
-	}
-
-	public void setMiPiace(int miPiace) {
-		this.miPiace = miPiace;
 	}
 
 	public Autore getUser() {
@@ -101,11 +67,11 @@ public class Commento {
 		this.autore = user;
 	}
 
-	public LocalDate getData() {
+	public LocalDateTime getData() {
 		return data;
 	}
 
-	public void setData(LocalDate data) {
+	public void setData(LocalDateTime data) {
 		this.data = data;
 	}
 
@@ -125,7 +91,4 @@ public class Commento {
 		Commento other = (Commento) obj;
 		return Objects.equals(data, other.data) && Objects.equals(text, other.text);
 	}
-	
-	
-	
 }

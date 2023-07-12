@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -20,7 +21,8 @@ public class Autore {
 	@NotBlank
 	private String cognome;
 	@Column(nullable = false, unique = true)
-	@NotNull
+	@Email
+	@NotBlank
 	private String email;
 
 	@OneToOne(cascade = CascadeType.ALL)

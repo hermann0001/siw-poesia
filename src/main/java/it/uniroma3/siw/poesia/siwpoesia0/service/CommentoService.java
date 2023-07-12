@@ -1,5 +1,6 @@
 package it.uniroma3.siw.poesia.siwpoesia0.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -28,22 +29,30 @@ public class CommentoService {
     AutoreRepository autoreRepository;
 
     @Transactional
-    public void newCommento(Commento commento, Long idA, Long idP, Model model) {
+    public Commento find(Long id) {
+        return this.commentoRepository.findById(id).get();
+    }
+
+    @Transactional
+    public void deleteCommento(Commento commento) {
+        if(commento != null) this.commentoRepository.delete(commento);
+    }
+
+    @Transactional
+    public Commento saveCommento(Commento commento, Long idA, Long idP) {
         Poesia poesia = this.poesiaRepository.findById(idP).get();
         Autore autore = this.autoreRepository.findById(idA).get();
 
+        commento.setAutore(autore);
+        commento.setPoesia(poesia);
+        poesia.getCommenti().add(commento);
+        autore.getCommenti().add(commento);
 
-        if(poesia != null && autore != null) {
+        commento.setData(LocalDateTime.now());              //imposta data di pubblicazione al momento della creazione
 
-            commento.setAutore(autore);
-            commento.setPoesia(poesia);
-            poesia.getCommenti().add(commento);
-            autore.getCommenti().add(commento);
-
-            this.commentoRepository.save(commento);
-            this.poesiaRepository.save(poesia);
-            this.autoreRepository.save(autore);
-        }
+        this.poesiaRepository.save(poesia);
+        this.autoreRepository.save(autore);
+        return this.commentoRepository.save(commento);
     }
     @Transactional
     public Commento deleteCommento(Long idC, Long idP) {
@@ -66,41 +75,9 @@ public class CommentoService {
         return this.commentoRepository.findPrimiQuattroCommenti();
     }
 
-	/*
-	@Autowired
-	private CommentoRepository reviewRepository;
-	
-	public Commento findReviewById(Long id) {
-		return this.reviewRepository.findById(id).orElse(null);
-	}
-	
-	@Transactional
-	public void removePoesiaAssociationFromCommento(Poesia poesia) {
-		List<Commento> reviewToDelete= this.reviewRepository.findAllByPoesia(poesia);
-		for(Commento review:reviewToDelete) {
-			review.setPoesia(null);
-			this.reviewRepository.delete(review);
-		}
-	}
-	
-	@Transactional
-	public void setPoesiaToCommento(Commento review, Poesia poesia) {
-		review.setPoesia(poesia);
-		this.reviewRepository.save(review);
-	}
-	public boolean isTextLengthOverMax(Commento review) {
-		return review.getText()!=null && review.getText().length()>Commento.getMaxLenghtText();
-	}
-
-	public void setUser(Commento commento, Autore user) {
-		commento.setUser(user);
-		this.reviewRepository.save(commento);		
-	}
-
-	public void delete(Long idReview) {
-		Commento commento= this.findReviewById(idReview);
-		this.reviewRepository.delete(commento);
-		
-	}
-*/
+    @Transactional
+    public boolean alreadyExists(Commento commento) {
+        return commento.getPoesia() != null && commento.getAutore() != null
+                && commentoRepository.existsByAutoreAndPoesia(commento.getAutore(), commento.getPoesia());
+    }
 }

@@ -3,14 +3,16 @@ package it.uniroma3.siw.poesia.siwpoesia0.controller;
 import java.io.IOException;
 
 
+import it.uniroma3.siw.poesia.siwpoesia0.controller.session.SessionData;
 import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.ImmagineValidator;
+import it.uniroma3.siw.poesia.siwpoesia0.model.Autore;
+import it.uniroma3.siw.poesia.siwpoesia0.model.Commento;
 import it.uniroma3.siw.poesia.siwpoesia0.service.PoesiaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,20 +24,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.poesia.siwpoesia0.model.Credentials;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Poesia;
-import it.uniroma3.siw.poesia.siwpoesia0.repository.PoesiaRepository;
 import it.uniroma3.siw.poesia.siwpoesia0.service.AutoreService;
 import it.uniroma3.siw.poesia.siwpoesia0.service.CommentoService;
 import it.uniroma3.siw.poesia.siwpoesia0.service.CredenzialeService;
 import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.PoesiaValidator;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.naming.Binding;
-
 @Controller
 public class PoesiaController {
 	
-	@Autowired
-	PoesiaRepository poesiaRepository;
 	@Autowired
 	PoesiaValidator poesiaValidator;
 	@Autowired
@@ -47,17 +44,17 @@ public class PoesiaController {
 	@Autowired
 	CommentoService reviewService;
 	@Autowired
-	GlobalController globalController;
+	SessionData sessionData;
 	@Autowired
 	ImmagineValidator immagineValidator;
 
 	@GetMapping("/poesia/{id}")
 	public String getPoesia(@PathVariable("id") Long id, Model model) {
-		Poesia poesia=this.poesiaService.findPoesiaById(id);
+		Poesia poesia=this.poesiaService.find(id);
 		model.addAttribute("poesia", poesia);
-		if(globalController.getCredentials()!=null) {
-			model.addAttribute("credentials", globalController.getCredentials());
-		}
+
+		Autore loggedUser = this.sessionData.getLoggedUser();
+		if(loggedUser !=null) model.addAttribute("newCommento", new Commento());			//se loggato posso commentare la poesia
 		return "poesia";
 	}
 
@@ -91,13 +88,7 @@ public class PoesiaController {
 
 	@GetMapping("/autore/formUpdatePoesia/{id}")
 	public String formUpdatePoesia(@PathVariable("id") Long id, Model model) {
-		Poesia poesia= this.poesiaService.findPoesiaById(id);
-		if(poesia!=null) {
-			model.addAttribute("poesia",poesia);
-		}
-		else {
-			return "error";
-		}
+		model.addAttribute("poesia", this.poesiaService.find(id));
 		return "/autore/formUpdatePoesia";
 	}
 
@@ -122,18 +113,19 @@ public class PoesiaController {
 	}
 
 	@GetMapping("/autore/deletePoesia/{idPoesia}")
-	public String deletePoesia(@PathVariable("idPoesia") Long idP, Model model) {
+	public String deletePoesia(@PathVariable("idPoesia") Long idP) {
 		this.poesiaService.deletePoesia(idP);
-		return "profilo";
+		return "redirect:/profilo";
 	}
 
 	@GetMapping("/deleteImmagine/{idPoesia}")
-	public String deleteImmagineFromPoesia(@PathVariable("idPoesia") Long idP, Model model) {
+	public String deleteImmagineFromPoesia(@PathVariable("idPoesia") Long idP) {
 		System.out.println(this.poesiaService.deleteImmagine(idP));
 		return "redirect:/autore/formUpdatePoesia/" + idP;
 	}
 
 
+	//TODO: SEARCH
 	@PostMapping("/searchPoesie")
 	public String searchPoesie(Model model, @RequestParam String titolo) {
 		model.addAttribute("poesie", this.poesiaService.findByTitolo(titolo));

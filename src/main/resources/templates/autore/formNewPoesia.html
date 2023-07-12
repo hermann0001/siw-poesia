@@ -23,6 +23,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="form">
+                <a class="fs-1" href="/profilo"><i class="fa-solid fa-arrow-left"></i></a>
                 <form th:action="@{/autore/poesia}" method="POST" th:object="${poesia}" enctype="multipart/form-data">
                     <div class="row gx-4 align-items-center">
                         <div class="col-lg-6 p-3">
@@ -36,32 +37,32 @@
                             </div>
                         </div>
                         <div class="col-lg-6 p-3 border-left">
-                                    <h5>Inserisci una nuova <em>poesia</em></h5>
-                                    <div class="row my-3">
-                                        <div class="col-10">
-                                            <label class="form-label" for="formTitolo">Titolo</label>
-                                            <input id="formTitolo" type="text" th:field="*{titolo}" class="form-control">
-                                            <p class="mt-1 form-text valid" th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}"></p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-12">
-                                            <label class="form-label" for="formTesto">Testo</label>
-                                            <textarea id="formTesto" type="text" th:field="*{testo}" class="form-control" rows="10"></textarea>
-                                            <p class="mt-1 form-text valid" th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}"></p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label for="formDataPubblicazione">Data di pubblicazione (se diversa da oggi)</label>
-                                        <div class="col-4">
-                                            <input id="formDataPubblicazione" type="date" th:field="*{dataPubblicazione}" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div th:replace="~{fragments/fragments.html :: fieldGlobalError}"></div>
-                                    <div class="main-button py-3">
-                                        <button type="submit">Inserisci</button>
-                                    </div>
+                            <h5>Inserisci una nuova <em>poesia</em></h5>
+                            <div class="row my-3">
+                                <div class="col-10">
+                                    <label class="form-label" for="formTitolo">Titolo</label>
+                                    <input id="formTitolo" type="text" th:field="*{titolo}" class="form-control">
+                                    <p class="mt-1 form-text valid" th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}"></p>
+                                </div>
                             </div>
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <label class="form-label" for="formTesto">Testo</label>
+                                    <textarea id="formTesto" type="text" th:field="*{testo}" class="form-control" rows="10"></textarea>
+                                    <p class="mt-1 form-text valid" th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}"></p>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="formDataPubblicazione">Data di pubblicazione (se diversa da oggi)</label>
+                                <div class="col-4">
+                                    <input id="formDataPubblicazione" type="date" th:field="*{dataPubblicazione}" class="form-control">
+                                </div>
+                            </div>
+                            <div th:replace="~{fragments/fragments.html :: fieldGlobalError}"></div>
+                            <div class="main-button py-3">
+                                <button type="submit">Inserisci</button>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

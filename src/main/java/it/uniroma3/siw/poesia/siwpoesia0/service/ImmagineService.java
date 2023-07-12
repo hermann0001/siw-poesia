@@ -32,7 +32,8 @@ public class ImmagineService {
     }
 
     public void deleteImmagine(Immagine img) {
-       this.immagineRepository.delete(img);
+        if(img == null) return;
+        this.immagineRepository.delete(img);
     }
 
     public Immagine find(Long id) {

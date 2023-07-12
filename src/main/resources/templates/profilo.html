@@ -38,8 +38,8 @@
                         </div>
                         <div class="col-lg-5">
                             <h5 class="text-uppercase fs-2 text-start" th:text="${user.nome} + ' ' + ${user.cognome}"></h5> <br>
-                            <h6 class="text-start mt-2" th:text="${user.email}"></h6>
-                            <h6 class="text-start mt-2 username" th:text="${credentials.username}"></h6>
+                            <h6 class="text-start mt-2" th:text="'Email: ' + ${user.email}"></h6>
+                            <h6 class="text-start mt-2 username" th:text="'Username: ' + ${credentials.username}"></h6>
                             <div class="main-button py-3">
                                 <a href="/autore/formNewPoesia">Aggiungi poesia</a>
                             </div>

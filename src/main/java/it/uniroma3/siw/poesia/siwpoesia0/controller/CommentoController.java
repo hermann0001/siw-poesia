@@ -1,5 +1,6 @@
 package it.uniroma3.siw.poesia.siwpoesia0.controller;
 
+import it.uniroma3.siw.poesia.siwpoesia0.controller.session.SessionData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,9 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.AutoreValidator;
 import it.uniroma3.siw.poesia.siwpoesia0.controller.validator.CommentoValidator;
-import it.uniroma3.siw.poesia.siwpoesia0.model.Autore;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Commento;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Poesia;
 import it.uniroma3.siw.poesia.siwpoesia0.service.AutoreService;
@@ -21,59 +20,60 @@ import jakarta.validation.Valid;
 
 @Controller
 public class CommentoController {
-
     @Autowired
     PoesiaService poesiaService;
-
-    @Autowired
-    GlobalController globalController;
-
     @Autowired
     CommentoValidator commentoValidator;
-
-
 	@Autowired
     CommentoService commentoService;
+	@Autowired
+    AutoreService userService;
+    @Autowired
+    SessionData sessionData;
 
-
-	@Autowired AutoreService userService;
-
-	
 	@GetMapping("/autore/formNewCommento/{idPoesia}/{idAutore}")
     public String formNewCommento(@PathVariable("idPoesia") Long idP, @PathVariable("idAutore") Long idA, Model model) {
-        Poesia poesia = this.poesiaService.findPoesiaById(idP);
+        Poesia poesia = this.poesiaService.find(idP);
 
         if(poesia!= null) {
             model.addAttribute("commento", new Commento());
             model.addAttribute("poesia", poesia);
-            model.addAttribute("credentials", globalController.getCredentials());
+            model.addAttribute("credentials", this.sessionData.getLoggedCredentials());
             return "formNewCommento.html";
         } else
            return "error.html";
     }
 
-    @PostMapping("/addCommento/{idPoesia}/{idAutore}")
-    public String newCommento(@Valid @ModelAttribute("commento") Commento commento, @PathVariable("idPoesia") Long idP, @PathVariable("idAutore") Long idA, BindingResult bindingResult, Model model) {
+    //non serviva paassare l'id dell'autore, basta prendere quello loggato!!! Anzi in quel modo tutti potevano creare commenti per altri utenti (terribile)
+    @PostMapping("/addCommento/{idPoesia}")
+    public String newCommento(@Valid @ModelAttribute("newCommento") Commento commento, BindingResult bindingResult,
+                              @PathVariable("idPoesia") Long id, Model model) {
         this.commentoValidator.validate(commento, bindingResult);
         if (!bindingResult.hasErrors()) {
-            this.commentoService.newCommento(commento, idA, idP, model);
-            model.addAttribute("commento", commento);
-            return "redirect:/poesia/"+idP;
-        } else {
-            return "formNewCommento";
+            model.addAttribute("commento", this.commentoService.saveCommento(commento, this.sessionData.getLoggedUser().getId(), id));
+            return "redirect:/poesia/" + id;
         }
+
+        model.addAttribute("poesia", this.poesiaService.find(id));
+        return "poesia";
     }
 
-    @GetMapping(value="/deleteCommento/{idCommento}/{idPoesia}")
-    public String deleteCommentoToPoesia(@PathVariable("idCommento") Long idC, @PathVariable("idPoesia") Long idP, Model model) {
-        Commento commento = this.commentoService.deleteCommento(idC, idP);
-        if(commento != null) {
-            model.addAttribute("commento", commento);
-            return "redirect:/poesia/"+idP;
-        } else {
-            return "error.html";
-        }
+    @GetMapping(value = "/deleteCommento/{id}")
+    public String deleteCommento(@PathVariable("id")Long id){
+        Commento commento = this.commentoService.find(id);
+        Poesia poesia = commento.getPoesia();
+        //Controlliamo se la richiesta URL sia stata correttamente formata dall'autore del commento
+        if(!this.sessionData.getLoggedUser().equals(commento.getUser()))
+            return "/errors/error404";
+        this.commentoService.deleteCommento(commento);
+        return "redirect:/poesia/" + poesia.getId();
     }
 
-
+    @GetMapping(value = "/autore/deleteCommento/{id}")
+    public String autoreDeleteCommento(@PathVariable("id")Long id){
+        Commento commento = this.commentoService.find(id);
+        Poesia poesia = commento.getPoesia();
+        this.commentoService.deleteCommento(commento);
+        return "redirect:/poesia/" + poesia.getId();
+    }
 }

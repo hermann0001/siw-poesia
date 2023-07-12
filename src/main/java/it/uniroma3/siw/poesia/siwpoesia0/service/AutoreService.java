@@ -39,7 +39,7 @@ public class AutoreService {
 	//qui niente ping pong di chiamate (PoesiaService.java :: line 49)
 	@Transactional
 	public Autore saveAutore(Autore user, MultipartFile file) throws IOException {
-		user.setFoto(this.immagineService.saveImmagine(file));
+		if(!file.isEmpty()) user.setFoto(this.immagineService.saveImmagine(file));
 		return this.autoreRepository.save(user);
 	}
 
@@ -69,6 +69,7 @@ public class AutoreService {
 		oldAutore.setNome(newAutore.getNome());
 		oldAutore.setCognome(newAutore.getCognome());
 		oldAutore.setEmail(newAutore.getEmail());
+		this.immagineService.deleteImmagine(oldAutore.getFoto()); //bisogna cancellarla sennò perdiamo il riferimento all'immagine!
 		return this.saveAutore(oldAutore, newFoto);
 	}
 }

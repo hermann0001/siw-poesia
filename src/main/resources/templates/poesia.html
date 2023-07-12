@@ -14,6 +14,7 @@
     <!-- Custom CSS Files -->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/form.css">
     <!-- embedding FontAwesome Kit script -->
     <script src="https://kit.fontawesome.com/132524fe8d.js" crossorigin="anonymous"></script>
 </head>
@@ -55,31 +56,53 @@
                                 <h6 class="mb-3 fs-5 fst-italic" style="white-space: pre-line" th:text="${poesia.testo}">Testo</h6> <!-- quello stile serve per formattare il carattere \n in html-->
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-12">
+                        <div class="row my-5">
+                            <div class="col-lg-12">
                                 <!--PER I COMMENTI-->
-                                <div>  <!--TODO: sistemare visualizzazione commenti -->
-                                    <h4><em style="font-size: 25px">Commenti: </em></h4>
-                                    <h6 th:if="${poesia.getCommenti().isEmpty()}">Ancora non ci sono commenti per questa poesia!</h6>
-
-                                    <div th:each="commento : ${poesia.getCommenti()}">
-                                        <p th:text="${commento.text}">Testo</p>
-                                        <p th:text="${commento.data}">Data</p>
-                                        <p th:text="${commento.autore.nome} + ' ' +  ${commento.autore.cognome}" ></p>
-                                        <span th:if="${credentials!=null && credentials.isPoeta()}">
-                                            <a th:href="@{'/deleteCommento'+'/' + ${commento.id} + '/' + ${poesia.id}}">Elimina Commento</a>
-                                        </span>
-                                        <span th:unless="${credentials!=null && credentials.isPoeta()}">
-                                            <div th:if="${commento.autore.equals(userDetails)}">
-                                                <a th:href="@{'/deleteCommento'+'/' + ${commento.id} + '/' + ${poesia.id}}">Elimina Commento</a>
+                                <h4 class="fs-4"><em>Commenti:</em></h4>
+                                <div class="row justify-content-start" th:if="${!poesia.commenti.isEmpty()}">
+                                    <div class="col-8 mt-4" th:each="commento : ${poesia.commenti}">
+                                        <div class="commento p-4">
+                                            <figure class="text-center">
+                                                <figcaption class="blockquote-footer mt-3" th:text="${commento.autore.nome + ' ' + commento.autore.cognome}">Nome utente</figcaption>
+                                                <p class="lh-sm" th:text="${commento.text}"> testo commento</p>
+                                                <p class="fs-5" th:text="${commento.data}">data</p>
+                                            </figure>
+                                        </div>
+                                        <div class="justify-content-end" th:if="${credentials != null && credentials.isPoeta()}">
+                                            <a th:href="@{'/autore/deleteCommento/' + ${commento.id}}">Cancella</a>                <!-- Qui può confondere ma se un utente loggato è POETA allora si comporta da admin anche se chama /autore/cancellaCommento-->
+                                        </div>
+                                        <div th:unless="${credentials != null && credentials.isPoeta()}">
+                                            <div class="justify-content-end" th:if="${commento.autore.equals(user)}">
+                                                <a th:href="@{'/deleteCommento/' + ${commento.id}}">Cancella</a>          <!-- se l'utente loggato è l'autore del commento lo può cancellare-->
                                             </div>
-                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-start" th:if="${user != null}">
+                                    <div class="col-8 mt-4">
+                                        <div class="commento">
+                                            <div class="form p-4">
+                                                <form th:action="@{'/addCommento/' + ${poesia.id}}" th:object="${newCommento}" method="POST" >
+                                                    <H1 class="mb-0">Scrivi un commento!</H1>
+                                                    <div class="col-12 form group mt-0 p-4">
+                                                        <label for="commentoContent">Testo</label>
+                                                        <textarea class="form-control" id="commentoContent" rows="5" th:field="*{text}"></textarea>
+                                                        <p class="form-text valid mt-1" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></p>
+                                                    </div>
+                                                    <div th:if="${#fields.hasGlobalErrors()}">
+                                                        <p class="form-text valid" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+                                                    </div>
+                                                    <div class="main-button">
+                                                        <button type="submit">Invia!</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <!-- SIDE BAR -->
                     <div th:replace="~{fragments/fragments.html :: sidebar}"></div>

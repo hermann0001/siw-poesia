@@ -78,12 +78,11 @@ public class AuthenticationController {
 	@GetMapping(value="/autore/formUpdateProfilo/{idA}")
 	public String formUpdateProfilo(@PathVariable("idA") Long idA, Model model) {
 		Autore autore = this.autoreService.find(idA);
-		if(idA.equals(sessionData.getLoggedUser().getId()) && autore!= null) {
+		if(idA.equals(sessionData.getLoggedUser().getId()) && autore != null) {
 			model.addAttribute("autore", autore);
-		} else {
-			return "error";
+			return "/autore/formUpdateProfilo";
 		}
-		return "/autore/formUpdateProfilo";
+		return "redirect:/login";
 	}
 
 
@@ -93,19 +92,21 @@ public class AuthenticationController {
 								@Valid @ModelAttribute MultipartFile file, BindingResult fileBindingResult,
 								Model model, RedirectAttributes redirectAttributes) {
 		//this.autoreValidator.validate(autore, autoreBindingResult);
-		//this.immagineValidator.validate(file, fileBindingResult);
+		if(!file.isEmpty()) this.immagineValidator.validate(file, fileBindingResult);
+		System.out.println(fileBindingResult.hasErrors());
+		if(!fileBindingResult.hasErrors()){
 			try {
 				model.addAttribute("autore",this.autoreService.updateAutore(id, autore, file));
 				return "redirect:/profilo";
 			} catch(IOException e) {
 				redirectAttributes.addFlashAttribute("fileUploadError", "errore imprevisto nell'upload!");
 			}
-		return "redirect:/autore/formUpdateProfilo/" + id;
-
+		}
+		return "/autore/formUpdateProfilo";
 	}
 
 	@GetMapping(value="/deleteImmagineProfilo/{idA}")
-	public String deleteImmagineProfilo(@PathVariable("idA") Long idA, Model model) {
+	public String deleteImmagineProfilo(@PathVariable("idA") Long idA) {
 		this.autoreService.deleteImmagine(idA);
 		return "redirect:/autore/formUpdateProfilo/" + idA;
 	}

@@ -135,9 +135,15 @@ body .page-content{
 .page-content img{
     border-radius: 23px;
 }
-.page-content .internalError{
-    width: 500px;
-    height: 350px;
+
+.page-content .commento{
+    border-radius: 23px;
+    background-color: #151619;
+}
+
+.page-content .commento .blockquote-footer{
+    color: #e9571c;
+    font-size: 20px;
 }
 
 .page-content .search-bar{

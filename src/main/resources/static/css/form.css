@@ -6,6 +6,9 @@
     min-height: 420px;
 }
 
+.commento .form{
+    min-height: 0;
+}
 .form h1{
     font-size: 40px;
     color: #e9571c;
@@ -55,12 +58,12 @@
 }
 
 .form img{
-    display: block;
     border-radius: 50px;
-    max-height: 500px;
-    max-width: 600px;
+    max-height: 700px;
+/*    max-width: 600px;
     width: auto;
     height: auto;
+    display: block;*/
 }
 
 .form h4{

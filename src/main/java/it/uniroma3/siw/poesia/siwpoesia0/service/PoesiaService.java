@@ -1,17 +1,12 @@
 package it.uniroma3.siw.poesia.siwpoesia0.service;
 
 import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 
 
-import it.uniroma3.siw.poesia.siwpoesia0.model.Immagine;
-import it.uniroma3.siw.poesia.siwpoesia0.repository.ImmagineRepository;
 import it.uniroma3.siw.poesia.siwpoesia0.repository.PoesiaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -40,7 +35,7 @@ public class PoesiaService {
 	 */
 	@Transactional
 	public Poesia savePoesia(Poesia poesia, MultipartFile file) throws IOException{
-		this.aggiungiImmaginePoesia(poesia, file);
+		if(!file.isEmpty()) this.aggiungiImmaginePoesia(poesia, file);						//aggiungi l'immagine solo se la foto non è null
 		return this.poesiaRepository.save(poesia);
 	}
 
@@ -50,7 +45,7 @@ public class PoesiaService {
 		poesia.setFoto(this.immagineService.saveImmagine(file));
 	}
 
-	public Poesia findPoesiaById(Long id) {
+	public Poesia find(Long id) {
 		return this.poesiaRepository.findById(id).orElse(null);
 	}
 
@@ -78,23 +73,6 @@ public class PoesiaService {
 		}
 		poesiaRepository.delete(poesia);
 	}
-	
-	@Transactional 
-	public void removeAutoreAssociationFromAllPoesie(Long idaAutore) {
-		Autore autore= this.autoreRepository.findById(idaAutore).get();
-		List<Poesia> poesie=this.poesiaRepository.findAllByAutoreOrderByDataPubblicazioneDesc(autore);
-		for(Poesia poesia :poesie) {
-			poesia.setAutore(null);;
-			this.poesiaRepository.save(poesia);
-		}
-	}
-
-	public void removeCommentoAssociationFromPoesia(Commento commento) {
-		Poesia poesia= this.poesiaRepository.findAllByCommentiIsContaining(commento).get(0);
-		poesia.getCommenti().remove(commento);
-		this.poesiaRepository.save(poesia);	
-	}
-
 	
 /*	@Transactional
 	public Poesia update(Long idPoesia, Poesia newPoesia, MultipartFile image) {
