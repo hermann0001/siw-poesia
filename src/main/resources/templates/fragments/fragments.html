@@ -165,9 +165,13 @@
   <div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:if="${ultimePoesie!= null && !ultimePoesie.isEmpty()}">
     <div class="col" th:each="poesia : ${ultimePoesie}">
       <a th:href="@{'/poesia/' + ${poesia.id}}" >
-        <div class="card h-100">
-          <!-- TODO:IMMAGINI -->
-          <img th:src="@{'https://picsum.photos/200/200'}" class="card-img-top" alt="poesia-img">
+        <div class="card">
+          <div th:if="${poesia.foto}">
+            <img src="" th:src="@{'/files/' + ${poesia.foto.id}}" class="card-img-top" alt="posia_img"/>
+          </div>
+          <div th:unless="${poesia.foto}">
+            <img src="/images/libro.jpg" class="card-img-top" alt="libro"/>
+          </div>
           <div class="card-body">
             <h5 class="card-title" th:text="${poesia.titolo}">Card title</h5>
             <p class="card-text text-truncate" th:text="${poesia.testo}">This is a short card.</p>
@@ -189,8 +193,8 @@
   <h4><em>Poesie: </em></h4>
   <div class="row row-cols-1 row-cols-md-3 g-4 mt-3" th:if="${poesie!= null && !poesie.isEmpty()}">
     <div class="col" th:each="poesia : ${poesie}">
-      <a th:href="@{'/poesia/' + ${poesia.id}}" >
-        <div class="card h-100">
+      <a th:href="@{'/poesia/' + ${poesia.id}}">
+        <div class="card">
           <div th:if="${poesia.foto}">
             <img src="" th:src="@{'/files/' + ${poesia.foto.id}}" class="card-img-top" alt="posia_img"/>
           </div>

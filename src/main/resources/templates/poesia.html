@@ -34,13 +34,13 @@
                             <div class="col-6 ratio-1x1">
                                 <div th:replace="~{fragments/fragments.html :: foto-poesia}"></div>
                                 <div th:if="${credentials != null}">
-                                    <div th:if="${credentials.isPoeta() || poesia.autore.id==credentials.autore.id}">
-                                        <div class="main-button py-3 text-center">
+                                    <div class="d-inline-block mt-3" th:if="${credentials.isPoeta() || poesia.autore.id==credentials.autore.id}">
+                                        <span class="main-button py-3 text-center m-3">
                                             <a th:href="@{'/autore/formUpdatePoesia'+'/' + ${poesia.id}}">Modifica</a>
-                                        </div>
-                                        <div class="main-button py-3 text-center">
+                                        </span>
+                                        <span class="main-button py-3 text-center m-3">
                                             <a th:href="@{'/autore/deletePoesia'+'/' + ${poesia.id}}">Elimina</a>
-                                        </div>
+                                        </span>
 					                </div>
                                 </div>
                             </div>
@@ -59,9 +59,9 @@
                                     <div class="col-8 mt-4" th:each="commento : ${poesia.commenti}">
                                         <div class="commento p-4">
                                             <figure>
-                                                <div class="d-inline-block">
-                                                    <h5 class="text-start mt-1" th:text="${commento.autore.nome + ' ' + commento.autore.cognome}">Nome utente</h5>
-                                                    <img class="img-fluid" src="" th:if="${commento.autore.foto}" th:src="@{'/files/' + ${commento.autore.foto.id}}" alt="fotoprofilo">
+                                                <div>
+                                                    <img class="d-inline-block img-fluid" src="" th:if="${commento.autore.foto}" th:src="@{'/files/' + ${commento.autore.foto.id}}" alt="fotoprofilo">
+                                                    <h5 class="d-inline-block text-start mt-1" th:text="${commento.autore.nome + ' ' + commento.autore.cognome}">Nome utente</h5>
                                                 </div>
                                                 <p class="text-start fs-5 lh-sm my-3" th:text="${commento.text}"> testo commento</p>
                                                 <p class="text-end fs-5" th:text="${commento.data.toLocalDate()}">data</p>
