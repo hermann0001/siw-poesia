@@ -119,21 +119,6 @@
         <li class="list-group-item" th:each="poeta : ${poetidertrullo}">
           <a th:href="@{'/autori/' + ${poeta.id}}" th:text="${poeta.username}">Er Bestia</a>
         </li>
-        <!--<li class="list-group-item">
-          <a href="/autore/quercia">Er Quercia</a>
-        </li>
-        <li class="list-group-item">
-          <a href="/autore/marta">Marta der Terzo Lotto</a>
-        </li>
-        <li class="list-group-item">
-          <a href="/autore/sara">Sara G.</a>
-        </li>
-        <li class="list-group-item">
-          <a href="/autore/farco">Er Farco</a>
-        </li>
-        <li class="list-group-item">
-          <a href="/autore/inumi">Inumi Laconico</a>
-        </li>-->
       </ul>
     </div>
   </div>
@@ -141,11 +126,12 @@
   <div class="row my-4">
     <div class="col-12">
       <h4>I <em>commenti</em> PIÙ RECENTI</h4>
-      <!-- TODO: DA AUTOMATIZZARE PER OGNI COMMENTO (th:each) -->
       <ul class="list-group list-group-flush mt-2" th:if="${ultimiCommenti!=null && !ultimiCommenti.isEmpty()}">
         <li class="list-group-item" th:each="commento : ${ultimiCommenti}">
-          <a th:href="@{'/poesia/' +${commento.poesia.id}}"> Commento</a>
-          <p th:text="${commento.text}">Testo commento</p>
+          <a th:href="@{'/poesia/' +${commento.poesia.id}}">
+            <p th:text="${commento.text}">Testo commento</p>
+            <p th:text="${commento.autore.nome} + ' ' + ${commento.autore.cognome}"></p>
+          </a>
         </li>
       </ul>
 
