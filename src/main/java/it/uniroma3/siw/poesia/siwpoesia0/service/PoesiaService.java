@@ -98,7 +98,7 @@ public class PoesiaService {
 
 	@Transactional
 	public List<Poesia> getUltimePoesie() {
-		return this.poesiaRepository.findPrimeQuattroPoesie();
+		return this.poesiaRepository.findLatestPoesie();
 	}
 
 	@Transactional

@@ -43,12 +43,4 @@ public class AutoreController {
 		model.addAttribute("poesie", this.poesiaService.getUltimePoesieDiAutore(autore));
 		return "/autore/autore";
 	}
-	
-	@GetMapping("/autori")
-	public String showAutori(Model model) {
-		model.addAttribute("autori", this.autoreService.findAllAutori());
-		return "/autore/autori";
-	}
-	
-
 }

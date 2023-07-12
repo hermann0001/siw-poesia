@@ -128,7 +128,7 @@ public class PoesiaController {
 	@PostMapping("/searchPoesie")
 	public String searchPoesie(Model model, @RequestParam String titolo) {
 		model.addAttribute("poesie", this.poesiaService.findByTitolo(titolo));
-		return "poesie.html";
+		return "poesie";
 	}
 	
 }

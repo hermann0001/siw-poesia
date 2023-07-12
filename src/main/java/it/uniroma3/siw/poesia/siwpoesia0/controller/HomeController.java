@@ -17,7 +17,7 @@ public class HomeController {
 
     @GetMapping(value="/contattaci")
     public String contatti(Model model) {
-        return "contatti.html";
+        return "contatti";
     }
 
     @GetMapping(value="/chi-siamo")

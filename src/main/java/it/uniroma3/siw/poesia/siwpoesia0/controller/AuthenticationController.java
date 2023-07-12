@@ -47,17 +47,13 @@ public class AuthenticationController {
 	private ImmagineValidator immagineValidator;
 
 	@GetMapping(value = "/login")
-	public String ShowLoginForm(Model model) {
+	public String ShowLoginForm() {
 		return "formLogin";
 	}
 
 	@GetMapping(value = "/")
 	public String index(Model model) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("ultimePoesie", this.poesiaService.getUltimePoesie());
-
-		/*per ora non ho trovato nulla di particolare da mettere nella home dei poeti*/
-
 		return "index";
 	}
 

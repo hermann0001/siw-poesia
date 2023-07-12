@@ -22,7 +22,7 @@ public interface PoesiaRepository extends CrudRepository<Poesia, Long>{
 	public List<Poesia> findAllByCommentiIsContaining(Commento commento);
 	
 	
-	@Query(value="select * from poesia order by data_pubblicazione DESC limit 4", nativeQuery=true)
-	public List<Poesia> findPrimeQuattroPoesie();
+	@Query(value="select * from poesia order by data_pubblicazione DESC limit 6", nativeQuery=true)
+	public List<Poesia> findLatestPoesie();
 
 }
