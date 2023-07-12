@@ -39,7 +39,7 @@ public class Poesia {
 	
 	//private List<Tag> tags;
 	
-	@OneToMany(mappedBy = "poesia")
+	@OneToMany(mappedBy = "poesia" , cascade = CascadeType.ALL)
 	private List<Commento> commenti;
 	
 	public Poesia() {

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CommentoRepository extends CrudRepository<Commento, Long>{
-	public boolean existsByPoesiaAndText(Poesia poesia, String text);
 	public List<Commento> findAllByPoesia(Poesia poesia);
 	public Boolean  existsByAutoreAndPoesia(Autore credentials,Poesia poesia);
 

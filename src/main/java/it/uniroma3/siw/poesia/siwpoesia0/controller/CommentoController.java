@@ -50,10 +50,9 @@ public class CommentoController {
                               @PathVariable("idPoesia") Long id, Model model) {
         this.commentoValidator.validate(commento, bindingResult);
         if (!bindingResult.hasErrors()) {
-            model.addAttribute("commento", this.commentoService.saveCommento(commento, this.sessionData.getLoggedUser().getId(), id));
+            this.commentoService.saveCommento(commento, this.sessionData.getLoggedUser().getId(), id);
             return "redirect:/poesia/" + id;
         }
-
         model.addAttribute("poesia", this.poesiaService.find(id));
         return "poesia";
     }

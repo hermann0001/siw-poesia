@@ -46,14 +46,6 @@ public class AuthenticationController {
 	@Autowired
 	private ImmagineValidator immagineValidator;
 
-
-	@GetMapping(value = "/register")
-	public String ShowRegisterForm(Model model) {
-		model.addAttribute("autore", new Autore());
-		model.addAttribute("credenziali", new Credentials());
-		return "formRegisterUser";
-	}
-
 	@GetMapping(value = "/login")
 	public String ShowLoginForm(Model model) {
 		return "formLogin";
@@ -109,6 +101,13 @@ public class AuthenticationController {
 	public String deleteImmagineProfilo(@PathVariable("idA") Long idA) {
 		this.autoreService.deleteImmagine(idA);
 		return "redirect:/autore/formUpdateProfilo/" + idA;
+	}
+
+	@GetMapping(value = "/register")
+	public String ShowRegisterForm(Model model) {
+		model.addAttribute("autore", new Autore());
+		model.addAttribute("credenziali", new Credentials());
+		return "formRegisterUser";
 	}
 
 	@PostMapping(value = {"/register"})

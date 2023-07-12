@@ -23,10 +23,10 @@ public class CommentoService {
     CommentoRepository commentoRepository;
 
     @Autowired
-    PoesiaRepository poesiaRepository;
+    PoesiaService poesiaService;
 
     @Autowired
-    AutoreRepository autoreRepository;
+    AutoreService autoreService;
 
     @Transactional
     public Commento find(Long id) {
@@ -40,32 +40,31 @@ public class CommentoService {
 
     @Transactional
     public Commento saveCommento(Commento commento, Long idA, Long idP) {
-        Poesia poesia = this.poesiaRepository.findById(idP).get();
-        Autore autore = this.autoreRepository.findById(idA).get();
+        Poesia poesia = this.poesiaService.find(idP);
+        Autore autore = this.autoreService.find(idA);
 
         commento.setAutore(autore);
         commento.setPoesia(poesia);
         poesia.getCommenti().add(commento);
         autore.getCommenti().add(commento);
 
+        System.out.println(LocalDateTime.now());
         commento.setData(LocalDateTime.now());              //imposta data di pubblicazione al momento della creazione
 
-        this.poesiaRepository.save(poesia);
-        this.autoreRepository.save(autore);
         return this.commentoRepository.save(commento);
     }
     @Transactional
     public Commento deleteCommento(Long idC, Long idP) {
         Commento commento = this.commentoRepository.findById(idC).orElse(null);
-        Poesia poesia = this.poesiaRepository.findById(idP).orElse(null);
+        Poesia poesia = this.poesiaService.find(idP);
 
         if(commento != null && poesia!=null) {
             poesia.getCommenti().remove(commento);
             commento.getAutore().getCommenti().remove(commento);
 
             this.commentoRepository.delete(commento);
-            this.poesiaRepository.save(poesia);
-            this.autoreRepository.save(commento.getAutore());
+            this.poesiaService.savePoesia(poesia);
+            this.autoreService.saveAutore(commento.getAutore());
         }
         return commento;
     }

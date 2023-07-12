@@ -54,7 +54,7 @@ public class PoesiaController {
 		model.addAttribute("poesia", poesia);
 
 		Autore loggedUser = this.sessionData.getLoggedUser();
-		if(loggedUser !=null) model.addAttribute("newCommento", new Commento());			//se loggato posso commentare la poesia
+		if(loggedUser != null) model.addAttribute("newCommento", new Commento());			//se loggato posso commentare la poesia
 		return "poesia";
 	}
 

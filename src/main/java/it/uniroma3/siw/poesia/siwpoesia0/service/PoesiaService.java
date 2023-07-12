@@ -27,7 +27,9 @@ public class PoesiaService {
 	ImmagineService immagineService;
 
 	@Transactional
-	public Poesia savePoesia(Poesia poesia) {return this.poesiaRepository.save(poesia);}
+	public Poesia savePoesia(Poesia poesia) {
+		return this.poesiaRepository.save(poesia);
+	}
 
 	/*
 	Faccio l'overload della funzione savePoesia!
