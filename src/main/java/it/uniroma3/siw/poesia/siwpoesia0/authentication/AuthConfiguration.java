@@ -56,7 +56,7 @@ import javax.sql.DataSource;
                 // chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
                 .requestMatchers(HttpMethod.GET,"/","/index","/register","/css/**", "/images/**", "favicon.ico", "/bootstrap/**", "/fragments/**", "/error", "/files/**").permitAll()
                 //chiunque(autenticato o no) può accedere alle pagine della navbar
-                .requestMatchers(HttpMethod.GET,"/libro", "/chi-siamo", "/street-poetry", "/contattaci", "/login").permitAll()
+                .requestMatchers(HttpMethod.GET,"/libro", "/chi-siamo", "/street-poetry", "/contattaci", "/login", "/find").permitAll()
                 //chiunque (autenticato o no) può accedere alle pagine degli autori
                 .requestMatchers(HttpMethod.GET, "/autori", "/autori/**").permitAll()
                 //chiunque (autenticato o no) può leggere le poesie

@@ -108,7 +108,7 @@ public class PoesiaController {
 				return "redirect:/autore/formUpdatePoesia";
 			}
 		}
-		return "poesia";
+		return "redirect:/poesia/" + poesia.getId();
 	}
 
 	@GetMapping("/autore/deletePoesia/{idPoesia}")
