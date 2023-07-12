@@ -3,7 +3,6 @@ package it.uniroma3.siw.poesia.siwpoesia0.service;
 import java.util.List;
 import java.util.Optional;
 
-import it.uniroma3.siw.poesia.siwpoesia0.model.Autore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,7 +30,8 @@ public class CredenzialeService {
 		credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
 		return this.credenzialeRepository.save(credentials);
 	}
-	
+
+	@Transactional
 	public boolean alreadyExists(Credentials credentials) {
 		return credentials!=null && this.credenzialeRepository.existsByUsername(credentials.getUsername());
 	}
@@ -45,6 +45,7 @@ public class CredenzialeService {
 		return this.credenzialeRepository.findAllByRole(Credentials.POETA_RUOLO);
 	}
 
+	@Transactional
 	public Credentials findCredentials(Long id) {
 		return this.credenzialeRepository.findById(id).orElse(null);
 	}

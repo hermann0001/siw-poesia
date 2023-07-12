@@ -4,8 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 
-import it.uniroma3.siw.poesia.siwpoesia0.repository.AutoreRepository;
-import it.uniroma3.siw.poesia.siwpoesia0.repository.PoesiaRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,6 @@ import it.uniroma3.siw.poesia.siwpoesia0.model.Commento;
 import it.uniroma3.siw.poesia.siwpoesia0.model.Poesia;
 import it.uniroma3.siw.poesia.siwpoesia0.repository.CommentoRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.ui.Model;
 
 @Service
 public class CommentoService {
