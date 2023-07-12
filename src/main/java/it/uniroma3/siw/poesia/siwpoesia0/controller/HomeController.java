@@ -32,7 +32,7 @@ public class HomeController {
 
     @PostMapping (value="/find")
     public String cosaCerchi(Model model, @RequestParam String poesiaCercata) {
-        model.addAttribute("poesie", this.poesiaService.findByTitolo(poesiaCercata));
+        model.addAttribute("poesie", this.poesiaService.cercaPoesia(poesiaCercata));
         return "foundPoesie";
 
     }

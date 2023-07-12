@@ -56,6 +56,7 @@ public class PoesiaService {
 		return this.poesiaRepository.findByTitolo(titolo);
 	}
 
+
 	@Transactional
 	public Poesia updatePoesia(Long id, Poesia newPoesia, MultipartFile newFoto) throws IOException {
 		Poesia oldPoesia=this.poesiaRepository.findById(id).get();
@@ -115,5 +116,10 @@ public class PoesiaService {
 		this.immagineService. deleteImmagine(poesia.getFoto());
 		poesia.setFoto(null);
 		return this.savePoesia(poesia);
+	}
+
+	@Transactional
+	public List<Poesia> cercaPoesia(String poesiaCercata) {
+		return this.poesiaRepository.cercaPoesia(poesiaCercata);
 	}
 }
