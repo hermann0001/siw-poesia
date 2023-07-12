@@ -67,19 +67,20 @@
                                                 <p class="text-end fs-5" th:text="${commento.data.toLocalDate()}">data</p>
                                                 <p class="text-end fs-6" th:text="${commento.data.toLocalTime().getHour() + ':' + commento.data.toLocalTime().getMinute()}">orario</p>
                                             </figure>
-                                        </div>
-                                        <div class="justify-content-end" th:if="${credentials != null && credentials.isPoeta()}">
-                                            <a th:href="@{'/autore/deleteCommento/' + ${commento.id}}">Cancella</a>                <!-- Qui può confondere ma se un utente loggato è POETA allora si comporta da admin anche se chama /autore/cancellaCommento-->
-                                        </div>
-                                        <div th:unless="${credentials != null && credentials.isPoeta()}">
-                                            <div class="justify-content-end" th:if="${commento.autore.equals(user)}">
-                                                <a th:href="@{'/deleteCommento/' + ${commento.id}}">Cancella</a>          <!-- se l'utente loggato è l'autore del commento lo può cancellare-->
+                                            <div class="justify-content-end mt-3" th:if="${credentials != null && credentials.isPoeta()}">
+                                                <div class="btn btn-outline-danger rounded-5" th:if="${commento.autore.equals(user)}">
+                                                    <a class="text-danger" th:href="@{'/autore/deleteCommento/' + ${commento.id}}">Cancella</a>
+                                                </div>                                        </div>
+                                            <div class="justify-content-end mt-3" th:unless="${credentials != null && credentials.isPoeta()}">
+                                                <div class="btn btn-outline-danger rounded-5" th:if="${commento.autore.equals(user)}">
+                                                    <a class="text-danger" th:href="@{'/deleteCommento/' + ${commento.id}}">Cancella</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div th:if="${user==null}">
-                                    <h3 class="text-justify">Fai login per inserire un commento</h3>
+                                <div class="mt-5" th:if="${user==null}">
+                                    <h3 class="text-justify">Accedi per scrivere un commento</h3>
                                     <div class="main-button py-3 text-start">
                                         <a th:href="@{'/login'}">Login</a>
                                     </div>

@@ -194,6 +194,14 @@ body .page-content{
     border-radius: 30px;
 }
 
+.btn-outline-danger a:hover{
+    color: #fff !important;
+}
+.btn-outline-danger a{
+    color: #dc3545 !important;
+    font-size: 20px;
+}
+
 
 .card {
     border: none;
