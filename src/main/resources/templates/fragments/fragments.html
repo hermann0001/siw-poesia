@@ -105,8 +105,8 @@
   <!-- SEARCH BAR -->
   <div class="row my-4">
     <div class="col-md-12 d-flex justify-content-center search-bar">
-      <form id="search" action="#">
-        <input type="text" placeholder="Cosa cerchi?" id="searchText" class="form-control">
+      <form th:action="@{/find}" method="post" id="search" >
+        <input type="text" placeholder="Cosa cerchi?" th:value="${poesiaCercata}" name="poesiaCercata" id="searchText" class="form-control">
         <i class="fa-solid fa-magnifying-glass"></i>
       </form>
     </div>

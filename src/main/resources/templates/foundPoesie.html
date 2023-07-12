@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/ico" href="/favicon.ico">
+    <!-- Including Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+    <title>Poesie</title>
+
+    <!-- Bootstrap CSS Files -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <!-- Custom CSS Files -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <!-- embedding FontAwesome Kit script -->
+    <script src="https://kit.fontawesome.com/132524fe8d.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<!-- HEADER / NAV BAR -->
+<header class="header-area" th:replace="~{fragments/fragments.html :: header-anonymous}"></header>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <h4><em>Poesie Trovate</em></h4>
+                        <!-- cards delle poesie-->
+                        <div th:replace="~{fragments/fragments.html :: cards-poesie}"></div>
+                    </div>
+                    <!-- SIDE BAR -->
+                    <div th:replace="~{fragments/fragments.html :: sidebar}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

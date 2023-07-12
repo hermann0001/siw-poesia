@@ -62,7 +62,7 @@ import javax.sql.DataSource;
                 //chiunque (autenticato o no) può leggere le poesie
                 .requestMatchers(HttpMethod.GET, "/poesia", "/poesia/**").permitAll()
         		// chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register
-                .requestMatchers(HttpMethod.POST,"/register", "/login").permitAll()
+                .requestMatchers(HttpMethod.POST,"/register", "/login", "/find").permitAll()
                 .requestMatchers(HttpMethod.GET,"/poeta/**").hasAnyAuthority(POETA_RUOLO)
                 .requestMatchers(HttpMethod.POST,"/poeta/**").hasAnyAuthority(POETA_RUOLO)
         		
