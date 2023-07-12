@@ -31,18 +31,6 @@ public class CommentoController {
     @Autowired
     SessionData sessionData;
 
-	@GetMapping("/autore/formNewCommento/{idPoesia}/{idAutore}")
-    public String formNewCommento(@PathVariable("idPoesia") Long idP, @PathVariable("idAutore") Long idA, Model model) {
-        Poesia poesia = this.poesiaService.find(idP);
-
-        if(poesia!= null) {
-            model.addAttribute("commento", new Commento());
-            model.addAttribute("poesia", poesia);
-            model.addAttribute("credentials", this.sessionData.getLoggedCredentials());
-            return "formNewCommento.html";
-        } else
-           return "error.html";
-    }
 
     //non serviva paassare l'id dell'autore, basta prendere quello loggato!!! Anzi in quel modo tutti potevano creare commenti per altri utenti (terribile)
     @PostMapping("/addCommento/{idPoesia}")
