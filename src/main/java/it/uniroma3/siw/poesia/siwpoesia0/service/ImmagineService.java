@@ -22,24 +22,21 @@ public class ImmagineService {
 
         return this.immagineRepository.save(image);
     }
-
-    public Immagine getImage(Long id){
-        return this.immagineRepository.findById(id).get();
-    }
-
     public Iterable<Immagine> getAllImages(){
         return this.immagineRepository.findAll();
     }
 
+    @Transactional
     public void deleteImmagine(Immagine img) {
         if(img == null) return;
         this.immagineRepository.delete(img);
     }
 
+    @Transactional
     public Immagine find(Long id) {
         return this.immagineRepository.findById(id).get();
     }
-
+    @Transactional
     public Immagine find(String filename){
         return this.immagineRepository.findByNome(filename).get();
     }

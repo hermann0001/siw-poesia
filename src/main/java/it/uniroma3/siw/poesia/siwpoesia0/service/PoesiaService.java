@@ -47,6 +47,7 @@ public class PoesiaService {
 		poesia.setFoto(this.immagineService.saveImmagine(file));
 	}
 
+	@Transactional
 	public Poesia find(Long id) {
 		return this.poesiaRepository.findById(id).orElse(null);
 	}
@@ -104,7 +105,7 @@ public class PoesiaService {
 		return this.poesiaRepository.findAllByAutoreOrderByDataPubblicazioneDesc(autore);
 	}
 
-
+	@Transactional
 	public boolean alreadyExists(Poesia poesia) {
 		return poesia.getAutore()!=null && poesia.getTitolo()!=null && this.poesiaRepository.existsByTitoloAndAutore(poesia.getTitolo(), poesia.getAutore());
 	}

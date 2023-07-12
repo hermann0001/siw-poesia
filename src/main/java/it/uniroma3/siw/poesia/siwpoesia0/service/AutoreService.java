@@ -3,23 +3,16 @@ package it.uniroma3.siw.poesia.siwpoesia0.service;
 
 
 import java.io.IOException;
-import java.util.Base64;
-import java.util.List;
 
 import it.uniroma3.siw.poesia.siwpoesia0.repository.AutoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.poesia.siwpoesia0.model.Autore;
-import it.uniroma3.siw.poesia.siwpoesia0.model.Commento;
-import it.uniroma3.siw.poesia.siwpoesia0.model.Credentials;
-import it.uniroma3.siw.poesia.siwpoesia0.model.Poesia;
-import it.uniroma3.siw.poesia.siwpoesia0.repository.CommentoRepository;
+
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 
 @Service
 public class AutoreService {

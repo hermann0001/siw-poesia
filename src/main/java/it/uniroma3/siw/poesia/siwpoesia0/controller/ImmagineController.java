@@ -16,7 +16,7 @@ public class ImmagineController {
 
     @GetMapping(value = "/files/{id}")
     public ResponseEntity<byte[]> getFile(@PathVariable("id") Long id){
-        Immagine image = this.immagineService.getImage(id);
+        Immagine image = this.immagineService.find(id);
 
         /*Costruisci una pagina html che abbia come contenuto un file immagine */
         return ResponseEntity.ok()
