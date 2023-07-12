@@ -50,4 +50,9 @@ public class CredenzialeService {
 	public Credentials findCredentials(Long id) {
 		return this.credenzialeRepository.findById(id).orElse(null);
 	}
+
+	@Transactional
+	public String findUsernameFromAutore(Long idAutore) {
+		return this.credenzialeRepository.findUsernameFromAutore(idAutore);
+	}
 }

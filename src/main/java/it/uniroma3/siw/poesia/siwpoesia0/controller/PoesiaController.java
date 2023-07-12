@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.poesia.siwpoesia0.model.Credentials;
@@ -52,6 +51,7 @@ public class PoesiaController {
 	public String getPoesia(@PathVariable("id") Long id, Model model) {
 		Poesia poesia=this.poesiaService.find(id);
 		model.addAttribute("poesia", poesia);
+		model.addAttribute("username", this.credenzialeService.findUsernameFromAutore(poesia.getAutore().getId()));
 		Autore loggedUser = this.sessionData.getLoggedUser();
 		if(loggedUser != null) model.addAttribute("newCommento", new Commento());			//se loggato posso commentare la poesia
 		return "poesia";
@@ -123,12 +123,5 @@ public class PoesiaController {
 		return "redirect:/autore/formUpdatePoesia/" + idP;
 	}
 
-
-	//TODO: SEARCH
-	@PostMapping("/searchPoesie")
-	public String searchPoesie(Model model, @RequestParam String titolo) {
-		model.addAttribute("poesie", this.poesiaService.findByTitolo(titolo));
-		return "poesie.html";
-	}
 	
 }
