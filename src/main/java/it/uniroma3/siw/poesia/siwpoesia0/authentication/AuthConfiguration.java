@@ -56,12 +56,12 @@ import javax.sql.DataSource;
                 // chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
                 .requestMatchers(HttpMethod.GET,"/","/index","/register","/css/**", "/images/**", "favicon.ico", "/bootstrap/**", "/fragments/**", "/error", "/files/**").permitAll()
                 //chiunque(autenticato o no) può accedere alle pagine della navbar
-                .requestMatchers(HttpMethod.GET,"/libro", "/chi-siamo", "/street-poetry", "/contattaci", "/login", "/find").permitAll()
+                .requestMatchers(HttpMethod.GET,"/libro", "/chi-siamo", "/street-poetry", "/contattaci", "/login").permitAll()
                 //chiunque (autenticato o no) può accedere alle pagine degli autori
                 .requestMatchers(HttpMethod.GET, "/autori", "/autori/**").permitAll()
                 //chiunque (autenticato o no) può leggere le poesie
                 .requestMatchers(HttpMethod.GET, "/poesia", "/poesia/**").permitAll()
-        		// chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register
+        		// chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login, register e cerca poesia
                 .requestMatchers(HttpMethod.POST,"/register", "/login", "/find").permitAll()
                 .requestMatchers(HttpMethod.GET,"/poeta/**").hasAnyAuthority(POETA_RUOLO)
                 .requestMatchers(HttpMethod.POST,"/poeta/**").hasAnyAuthority(POETA_RUOLO)
