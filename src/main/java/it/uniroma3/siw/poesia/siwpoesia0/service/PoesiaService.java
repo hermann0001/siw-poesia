@@ -120,6 +120,6 @@ public class PoesiaService {
 
 	@Transactional
 	public List<Poesia> cercaPoesia(String poesiaCercata) {
-		return this.poesiaRepository.cercaPoesia(poesiaCercata);
+		return this.poesiaRepository.findByTitoloContainingIgnoreCase(poesiaCercata);
 	}
 }

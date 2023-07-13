@@ -16,17 +16,17 @@ public class HomeController {
 	PoesiaService poesiaService;
 
     @GetMapping(value="/contattaci")
-    public String contatti(Model model) {
+    public String contatti() {
         return "contatti";
     }
 
     @GetMapping(value="/chi-siamo")
-    public String chiSiamo(Model model) {
+    public String chiSiamo() {
         return "poeti";
     }
 
     @GetMapping(value="/libro")
-    public String libro(Model model){ 
+    public String libro(){
     	return "libro"; 
     }
 
@@ -34,6 +34,5 @@ public class HomeController {
     public String cosaCerchi(Model model, @RequestParam String poesiaCercata) {
         model.addAttribute("poesie", this.poesiaService.cercaPoesia(poesiaCercata));
         return "foundPoesie";
-
     }
 }

@@ -14,9 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PoesiaRepository extends CrudRepository<Poesia, Long>{
 	public List<Poesia> findByTitolo(String titolo);
-
-	@Query(value="select * from poesia where titolo like %:titolo%", nativeQuery=true)
-	public List<Poesia> cercaPoesia(@Param("titolo") String titolo);
+	public List<Poesia> findByTitoloContainingIgnoreCase(String titolo);
 	public boolean existsByTitoloAndAutore(String Titolo, Autore autore);
 	public List<Poesia> findAllByAutoreOrderByDataPubblicazioneDesc(Autore autore);
 	public List<Poesia> findAllByCommentiIsContaining(Commento commento);

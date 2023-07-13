@@ -63,40 +63,34 @@ public class AuthenticationController {
 		return "profilo";
 	}
 
-	@GetMapping(value="/autore/formUpdateProfilo/{idA}")
-	public String formUpdateProfilo(@PathVariable("idA") Long idA, Model model) {
-		Autore autore = this.autoreService.find(idA);
-		if(idA.equals(sessionData.getLoggedUser().getId()) && autore != null) {
-			model.addAttribute("autore", autore);
-			return "/autore/formUpdateProfilo";
-		}
-		return "redirect:/login";
+	@GetMapping(value="/autore/formUpdateProfilo")
+	public String formUpdateProfilo() {
+		return "/autore/formUpdateProfilo";
 	}
 
 
-	@PostMapping (value="/autore/updateProfilo/{idA}")
-	public String updateProfilo(@PathVariable("idA") Long id,
-								@Valid @ModelAttribute("autore") Autore autore, BindingResult autoreBindingResult,
+	//Ho tolto gli id perché un utente può modificare solo il suo profilo, ma noi il riferimento a utente ce l'abbiamo sempre da GlobalController
+	@PostMapping (value="/autore/updateProfilo")
+	public String updateProfilo(@Valid @ModelAttribute("user") Autore user, BindingResult autoreBindingResult,
 								@Valid @ModelAttribute MultipartFile file, BindingResult fileBindingResult,
-								Model model, RedirectAttributes redirectAttributes) {
+								Model model) {
 		//this.autoreValidator.validate(autore, autoreBindingResult);
 		if(!file.isEmpty()) this.immagineValidator.validate(file, fileBindingResult);
-		System.out.println(fileBindingResult.hasErrors());
 		if(!fileBindingResult.hasErrors()){
 			try {
-				model.addAttribute("autore",this.autoreService.updateAutore(id, autore, file));
+				this.autoreService.saveAutore(user, file);
 				return "redirect:/profilo";
 			} catch(IOException e) {
-				redirectAttributes.addFlashAttribute("fileUploadError", "errore imprevisto nell'upload!");
+				model.addAttribute("fileUploadError", "errore imprevisto nell'upload!");
 			}
 		}
 		return "/autore/formUpdateProfilo";
 	}
 
-	@GetMapping(value="/deleteImmagineProfilo/{idA}")
-	public String deleteImmagineProfilo(@PathVariable("idA") Long idA) {
-		this.autoreService.deleteImmagine(idA);
-		return "redirect:/autore/formUpdateProfilo/" + idA;
+	@GetMapping(value="/autore/deleteImmagineProfilo")
+	public String deleteImmagineProfilo() {
+		this.autoreService.deleteImmagine(this.sessionData.getLoggedUser());
+		return "redirect:/autore/formUpdateProfilo";
 	}
 
 	@GetMapping(value = "/register")

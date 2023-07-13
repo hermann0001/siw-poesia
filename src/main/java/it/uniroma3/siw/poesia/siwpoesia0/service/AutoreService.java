@@ -50,13 +50,13 @@ public class AutoreService {
 	}
 
 	@Transactional
-	public void deleteImmagine(Long idA) {
-		Autore autore = this.autoreRepository.findById(idA).orElse(null);
-		this.immagineService.deleteImmagine(autore.getFoto());
-		autore.setFoto(null);
-		this.saveAutore(autore);
+	public void deleteImmagine(Autore loggedUser) {
+		this.immagineService.deleteImmagine(loggedUser.getFoto());
+		loggedUser.setFoto(null);
+		this.saveAutore(loggedUser);
 	}
-	@Transactional
+
+/*	@Transactional
 	public Autore updateAutore(Long id, Autore newAutore, MultipartFile newFoto) throws IOException {
 		Autore oldAutore=this.find(id);
 		oldAutore.setNome(newAutore.getNome());
@@ -64,5 +64,5 @@ public class AutoreService {
 		oldAutore.setEmail(newAutore.getEmail());
 		this.immagineService.deleteImmagine(oldAutore.getFoto()); //bisogna cancellarla sennò perdiamo il riferimento all'immagine!
 		return this.saveAutore(oldAutore, newFoto);
-	}
+	}*/
 }
