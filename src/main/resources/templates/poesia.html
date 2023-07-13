@@ -36,10 +36,11 @@
                                 <div th:if="${credentials != null}">
                                     <div class="d-inline-block mt-3" th:if="${credentials.isPoeta() || poesia.autore.id==credentials.autore.id}">
                                         <span class="main-button py-3 text-center m-3">
-                                            <a th:href="@{'/autore/formUpdatePoesia'+'/' + ${poesia.id}}">Modifica</a>
+                                            <a th:if="${poesia.autore.id == credentials.autore.id}" th:href="@{'/autore/formUpdatePoesia/' + ${poesia.id}}">Modifica</a>
+                                            <a th:unless="${poesia.autore.id == credentials.autore.id}" th:if="${credentials.isPoeta()}" th:href="@{'/poeta/formUpdatePoesia/' + ${poesia.id}}">Modifica</a>
                                         </span>
                                         <span class="main-button py-3 text-center m-3">
-                                            <a th:href="@{'/autore/deletePoesia'+'/' + ${poesia.id}}">Elimina</a>
+                                            <a th:href="@{'/autore/deletePoesia/' + ${poesia.id}}">Elimina</a>
                                         </span>
 					                </div>
                                 </div>

@@ -87,13 +87,24 @@ public class PoesiaController {
 
 	@GetMapping("/autore/formUpdatePoesia/{id}")
 	public String formUpdatePoesia(@PathVariable("id") Long id, Model model) {
+		Poesia poesia = this.poesiaService.find(id);
+		Credentials loggedCredentials = this.sessionData.getLoggedCredentials();
+		if(loggedCredentials.isPoeta() || poesia.getAutore().equals(loggedCredentials.getAutore())) {
+			model.addAttribute("poesia", poesia);
+			return "/autore/formUpdatePoesia";
+		}
+		return "redirect:/login";
+	}
+
+	@GetMapping("/poeta/formUpdatePoesia/{id}")
+	public String poetaFormUpdatePoesia(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("poesia", this.poesiaService.find(id));
 		return "/autore/formUpdatePoesia";
 	}
 
 
 	@PostMapping ("/autore/updatePoesia/{id}")
-	public String updatePoesia(@PathVariable("id") Long id,
+	public String autoreUpdatePoesia(@PathVariable("id") Long id,
 							   @Valid @ModelAttribute("poesia") Poesia poesia, BindingResult poesiaBindingResult,
 							   @Valid @ModelAttribute MultipartFile file, BindingResult fileBindingResult,
 							   Model model, RedirectAttributes redirectAttributes){
@@ -106,6 +117,25 @@ public class PoesiaController {
 			} catch (IOException e) {
 				redirectAttributes.addFlashAttribute("fileUploadError", "errore imprevisto nell'upload!"); //Genero un attributo passabile tramite redirect per gestire l'errore e mostrarlo in validazione
 				return "redirect:/autore/formUpdatePoesia";
+			}
+		}
+		return "redirect:/poesia/" + poesia.getId();
+	}
+
+	@PostMapping ("/poeta/updatePoesia/{id}")
+	public String poetaUpdatePoesia(@PathVariable("id") Long id,
+							   @Valid @ModelAttribute("poesia") Poesia poesia, BindingResult poesiaBindingResult,
+							   @Valid @ModelAttribute MultipartFile file, BindingResult fileBindingResult,
+							   Model model, RedirectAttributes redirectAttributes){
+
+		this.poesiaValidator.validate(poesia, poesiaBindingResult); //OCCHIO BINDING RESULT NON AVRA' MAI ERRORI SE NON VALIDI LA POESIA!!!
+		this.immagineValidator.validate(file, fileBindingResult);
+		if(!poesiaBindingResult.hasErrors() && !fileBindingResult.hasErrors()) {
+			try {
+				model.addAttribute("poesia",this.poesiaService.updatePoesia(id, poesia, file));		//bisogna aggiornare il model con la nuova poesia
+			} catch (IOException e) {
+				redirectAttributes.addFlashAttribute("fileUploadError", "errore imprevisto nell'upload!"); //Genero un attributo passabile tramite redirect per gestire l'errore e mostrarlo in validazione
+				return "redirect:/poeta/formUpdatePoesia";
 			}
 		}
 		return "redirect:/poesia/" + poesia.getId();
