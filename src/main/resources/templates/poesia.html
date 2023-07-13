@@ -46,8 +46,9 @@
                             </div>
                             <div class="col-6">
                                 <h4 class="text-md-center text-capitalize mb-3"><em th:text="${poesia.titolo}">TITOLO</em></h4>
-                                <h6 class="mb-3 fs-4 fst-italic " style="white-space: pre-line" th:text="${poesia.testo}">Testo</h6> <!-- quello stile serve per formattare il carattere \n in html-->
+                                <h6 class="mb-3 fs-4 fst-italic" style="white-space: pre-line; font-weight: 400;" th:text="${poesia.testo}">Testo</h6> <!-- quello stile serve per formattare il carattere \n in html-->
                                 <h6><em th:text="${username}">Username</em></h6>
+                                <p class="fst-italic fs-6" th:text="'Data di pubblicazione: ' + ${poesia.dataPubblicazione.getDayOfMonth()} + '/' + ${poesia.dataPubblicazione.getMonthValue()} + '/' + ${poesia.dataPubblicazione.getYear()}"></p>
                             </div>
                         </div>
                         <div class="row my-5">
@@ -61,11 +62,11 @@
                                         <div class="commento p-4">
                                             <figure>
                                                 <div>
-                                                    <img class="d-inline-block img-fluid" src="" th:if="${commento.autore.foto}" th:src="@{'/files/' + ${commento.autore.foto.id}}" alt="fotoprofilo">
+                                                    <img class="d-inline-block img-fluid mx-2" src="" th:if="${commento.autore.foto}" th:src="@{'/files/' + ${commento.autore.foto.id}}" alt="fotoprofilo">
                                                     <h5 class="d-inline-block text-start mt-1" th:text="${commento.autore.nome + ' ' + commento.autore.cognome}">Nome utente</h5>
                                                 </div>
                                                 <p class="text-start fs-5 lh-sm my-3" th:text="${commento.text}"> testo commento</p>
-                                                <p class="text-end fs-5" th:text="${commento.data.toLocalDate()}">data</p>
+                                                <p class="text-end fs-5" th:text="${commento.data.getDayOfMonth()} + '/' + ${commento.data.getMonthValue()} + '/' + ${commento.data.getYear()}">data</p>
                                                 <p class="text-end fs-6" th:text="${commento.data.toLocalTime().getHour() + ':' + commento.data.toLocalTime().getMinute()}">orario</p>
                                             </figure>
                                             <div class="justify-content-end mt-3" th:if="${credentials != null && credentials.isPoeta()}">
